@@ -1,0 +1,73 @@
+.root {
+    --blue: #335fff;
+    --grey: rgb(18 18 21 / 92%);
+    --boxGradiant: linear-gradient(90deg, var(--grey), var(--blue), 100%);
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-info {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    width: 80%;
+    background-color: rgb(18 18 21 / 92%);
+    box-shadow: black 0px 0px 2px;
+    border-color: transparent;
+    border-radius: 15px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transform: scale(1);
+    transition: transform 0.6s ease;
+}
+
+.home-info h1 {
+    padding: 20px;
+    font-weight: bold;
+}
+
+
+.home-info h2 {
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.discover-button {
+    background-color: #335fff;
+    border-color: transparent;
+    box-shadow: black 0px 0px 10px;
+    border-radius: 8px;
+    padding: 25px 25px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #f7f7f8;
+
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.discover-button:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 1080px) {
+    .home-info {
+        width: 85%;
+    }
+
+    .home-image {
+        scale: 0.7;
+    }
+}
