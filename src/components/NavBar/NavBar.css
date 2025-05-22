@@ -5,16 +5,17 @@
     align-items: center;
     text-shadow: 0 0 5px black;
     padding: 10px;
+    position: sticky;
 }
 
-.navbar-home, .navbar-discover, .navbar-services {
+.navbar-home, .navbar-discover, .navbar-services, .navbar-search {
     text-decoration: none;
     color: white;
     padding: 15px 25px;
     font-size: 20px;
 }
 
-.navbar-home:hover, .navbar-discover:hover, .navbar-services:hover {
+.navbar-home:hover, .navbar-discover:hover, .navbar-services:hover, .navbar-search:hover {
     background-color: #335fff;
     border-radius: 8px;
     box-shadow: black 0px 0px 10px;

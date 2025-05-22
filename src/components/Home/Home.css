@@ -1,21 +1,22 @@
-.root {
+:root {
     --blue: #335fff;
     --grey: rgb(18 18 21 / 92%);
-    --boxGradiant: linear-gradient(90deg, var(--grey), var(--blue), 100%);
 }
 
 .home-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
 }
 
 .home-info {
     padding-top: 10px;
-    padding-bottom: 20px;
-    margin-top: 20px;
+    padding-bottom: 40px;
+    margin-top: 40px;
     width: 80%;
-    background-color: rgb(18 18 21 / 92%);
+    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
     box-shadow: black 0px 0px 2px;
     border-color: transparent;
     border-radius: 15px;
@@ -31,6 +32,7 @@
 
 .home-info h1 {
     padding: 20px;
+    padding-bottom: 10px;
     font-weight: bold;
 }
 
@@ -58,16 +60,23 @@
 }
 
 .discover-button:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
     transition: transform 0.3s ease;
 }
 
 @media (max-width: 1080px) {
     .home-info {
+        margin-top: 30px;
         width: 85%;
     }
 
     .home-image {
         scale: 0.7;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-image {
+        scale: 0.5;
     }
 }
