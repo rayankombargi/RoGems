@@ -7,7 +7,8 @@ import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import ExperiencePage from '../ExperiencePage/ExperiencePage';
 import Category from '../Category/Category';
-import SpecialCategory from '../Category/SpecialCategory';
+import DailyCategory from '../Category/DailyCategory';
+import WeeklyCategory from '../Category/WeeklyCategory';
 
 function Discover() {
 
@@ -87,9 +88,8 @@ function Discover() {
                             {(() => {
                                 const category = categories.find(category => category.name === "Experiences Of The Day");
                                 return category ? (
-                                    <SpecialCategory 
+                                    <DailyCategory 
                                         key={category.name}
-                                        genre={category.name}
                                         onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                     />
                                 ) : null;
@@ -97,9 +97,8 @@ function Discover() {
                             {(() => {
                                 const category = categories.find(category => category.name === "Featured This Week");
                                 return category ? (
-                                    <SpecialCategory 
+                                    <WeeklyCategory 
                                         key={category.name}
-                                        genre={category.name}
                                         onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                     />
                                 ) : null;

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-function SpecialCategory({ genre, onSelectExperience }) {
+function DailyCategory({ onSelectExperience }) {
 
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
@@ -13,6 +13,7 @@ function SpecialCategory({ genre, onSelectExperience }) {
     const fetchExperiences = async () => {
         try {
             const response = await axios.get('/api/experiences/fetch_daily_experiences/');
+            setExperiences(response.data);
         } catch(error) {
             console.error('Error fetching experiences:', error);
         }
@@ -38,7 +39,7 @@ function SpecialCategory({ genre, onSelectExperience }) {
 
     return (
 <div className='Category'>
-            <h1> {genre} </h1>
+            <h1> Experiences Of The Day </h1>
             <div className='category-list'>
                 <button onClick={handlePreviousPage} className='previous-button' > Prev </button>
                 {experiences.length > 0 ? (
@@ -68,4 +69,4 @@ function SpecialCategory({ genre, onSelectExperience }) {
     )
 }
 
-export default SpecialCategory;
+export default DailyCategory;
