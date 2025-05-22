@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.6723a7d7.css",
-    "main.js": "/static/js/main.c9ba663d.js",
+    "main.js": "/static/js/main.23430661.js",
     "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
     "static/media/robloxMenu.png": "/static/media/robloxMenu.0d191bbfdc0815b4a956.png",
     "index.html": "/index.html",
     "main.6723a7d7.css.map": "/static/css/main.6723a7d7.css.map",
-    "main.c9ba663d.js.map": "/static/js/main.c9ba663d.js.map",
+    "main.23430661.js.map": "/static/js/main.23430661.js.map",
     "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6723a7d7.css",
-    "static/js/main.c9ba663d.js"
+    "static/js/main.23430661.js"
   ]
 }

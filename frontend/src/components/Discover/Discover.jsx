@@ -7,6 +7,7 @@ import axios from 'axios';
 import NavBar from '../NavBar/NavBar';
 import ExperiencePage from '../ExperiencePage/ExperiencePage';
 import Category from '../Category/Category';
+import SpecialCategory from '../Category/SpecialCategory';
 
 function Discover() {
 
@@ -83,7 +84,27 @@ function Discover() {
                             transition={{ duration: 0.8 }}
                             className='discover-content'
                         >
-                            {categories.filter((category) => category.name != "Experiences Of The Day" && category.name != "Featured This Week").map((category) => {
+                            {(() => {
+                                const category = categories.find(category => category.name === "Experiences Of The Day");
+                                return category ? (
+                                    <SpecialCategory 
+                                        key={category.name}
+                                        genre={category.name}
+                                        onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                    />
+                                ) : null;
+                            })()}
+                            {(() => {
+                                const category = categories.find(category => category.name === "Featured This Week");
+                                return category ? (
+                                    <SpecialCategory 
+                                        key={category.name}
+                                        genre={category.name}
+                                        onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                    />
+                                ) : null;
+                            })()}
+                            {categories.filter((category) => category.name !== "Experiences Of The Day" && category.name !== "Featured This Week").map((category) => {
                                 return (
                                     <Category 
                                     experiences={experiences} 
