@@ -30,7 +30,7 @@
     cursor: pointer;
     color: #f7f7f8;
 
-    margin-left: 15px;
+    margin-left: 10px;
     margin-right: 5px;
     transition: 0.2s;
 }
@@ -53,42 +53,6 @@
     width: 100%;
 }
 
-.experience-item {
-    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
-    padding-right: 5px;
-    padding-left: 5px;
-    height: 300px;;
-    width: 200px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 8px;
-    box-shadow: black 0px 0px 2px;
-    color: white;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    scale: 1;
-    transition: 0.2s;
-}
-
-.experience-item:hover {
-    scale: 1.05;
-    transition: 0.2s;
-}
-
-.experience-icon {
-    width: 200px;
-    height: 200px;
-    border-radius: 8px;
-    margin-top: 5px;
-}
-.experience-name {
-    font-size: 20px;
-    margin-top: 3px;
-}
-
 .next-button {
     justify-self: right;
     background-color: black;
@@ -99,7 +63,7 @@
     cursor: pointer;
     color: #f7f7f8;
 
-    margin-right: 15px;
+    margin-right: 10px;
     margin-left: 5px;
     transition: 0.2s;
 }

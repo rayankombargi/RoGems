@@ -1,21 +1,54 @@
 import './Category.css';
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import ExperienceItem from '../ExperienceItem/ExperienceItem';
+import { useEffect, useState } from 'react';
 
 function Category({experiences, genre, onSelectExperience}) {
 
+    const [filteredExperiences, setFilteredExperiences] = useState([]);
+    useEffect(() => {
+        setFilteredExperiences(experiences.filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre))
+    })
+    
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
     }
 
-    const [experiencesPerPage, setExperiencesPerPage] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(Math.ceil(experiences.length / experiencesPerPage));
+    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
     useEffect(() => {
-        const total = Math.ceil(experiences.length / experiencesPerPage);
-        setTotalPages(total);
+                const updateExperiencesPerPage = () => {
+            if (window.innerWidth < 700) {
+                setExperiencesPerPage(2);
+            } else if (window.innerWidth < 800) {
+                setExperiencesPerPage(3);
+            } else if (window.innerWidth < 1000) {
+                setExperiencesPerPage(4);
+            } else if (window.innerWidth < 1200) {
+                setExperiencesPerPage(5);
+            } else if (window.innerWidth < 1300) {
+                setExperiencesPerPage(6);
+            } else {
+                setExperiencesPerPage(7);
+            }
+        }
+        updateExperiencesPerPage();
+        window.addEventListener('resize', updateExperiencesPerPage);
+        return () => {
+            window.removeEventListener('resize', updateExperiencesPerPage);
+        }
     }, []);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    // useEffect(() => {
+    //     if (currentPage > totalPages) {
+    //         setCurrentPage(totalPages);
+    //     }
+    // }, []);
+
+    const [totalPages, setTotalPages] = useState(Math.ceil(filteredExperiences.length / experiencesPerPage));
+    useEffect(() => {
+        const total = Math.ceil(filteredExperiences.length / experiencesPerPage);
+        setTotalPages(total);
+    }, []);
 
     const handlePreviousPage = () => {
         currentPage === 1 ? setCurrentPage(1) : setCurrentPage(currentPage - 1);
@@ -28,7 +61,7 @@ function Category({experiences, genre, onSelectExperience}) {
         currentPage === totalPages ? setCurrentPage(totalPages) : setCurrentPage(currentPage + 1);
     }
     const handleCheckNextPage = () => {
-        return currentPage === totalPages;
+        return filteredExperiences.length <= experiencesPerPage || currentPage === totalPages;
     }
 
     return (
@@ -38,19 +71,14 @@ function Category({experiences, genre, onSelectExperience}) {
                 <button onClick={handlePreviousPage} className='previous-button' disabled={handleCheckPreviousPage()}> Prev </button>
                 {experiences.length > 0 ? (
                     <div className='experience-list'>
-                        {experiences
-                        .filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre)
+                        {filteredExperiences
                         .slice(currentPage * experiencesPerPage - experiencesPerPage, currentPage * experiencesPerPage)
                         .map((exp, index) => (
-                                <motion.div 
-                                    initial={{ opacity: 0, scale: 0.7 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 1, scale: 0 }}                                
-                                    key={index} onClick={() => handleSelectExperience(exp.rootPlaceId)} className='experience-item'
-                                >
-                                    <img src={exp.icon} className='experience-icon' />
-                                    <h2 className='experience-name'>{exp.name}</h2>
-                                </motion.div>
+                                <ExperienceItem
+                                    key={index}
+                                    experience={exp}
+                                    onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                />
                             ))}
                     </div>
                 ) : (

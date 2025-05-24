@@ -1,0 +1,36 @@
+
+.ExperienceItem {
+    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
+    padding-right: 5px;
+    padding-left: 5px;
+    height: 225px;;
+    width: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 8px;
+    box-shadow: black 0px 0px 2px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    scale: 1;
+    transition: 0.2s;
+}
+
+.ExperienceItem:hover {
+    scale: 1.05;
+    transition: 0.2s;
+}
+
+.experience-icon {
+    width: 150px;
+    aspect-ratio: 1/1;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.experience-name {
+    font-size: 15px;
+    margin-top: 3px;
+}

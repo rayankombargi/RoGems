@@ -1,6 +1,6 @@
 import './Category.css';
+import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import axios from 'axios';
 
 function WeeklyCategory({ onSelectExperience }) {
@@ -22,7 +22,31 @@ function WeeklyCategory({ onSelectExperience }) {
         fetchExperiences();
     }, [])
 
-    const [experiencesPerPage, setExperiencesPerPage] = useState(5);
+    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
+
+    useEffect(() => {
+        const updateExperiencesPerPage = () => {
+            if (window.innerWidth < 700) {
+                setExperiencesPerPage(2);
+            } else if (window.innerWidth < 800) {
+                setExperiencesPerPage(3);
+            } else if (window.innerWidth < 1000) {
+                setExperiencesPerPage(4);
+            } else if (window.innerWidth < 1200) {
+                setExperiencesPerPage(5);
+            } else if (window.innerWidth < 1300) {
+                setExperiencesPerPage(6);
+            } else {
+                setExperiencesPerPage(7);
+            }
+        }
+        updateExperiencesPerPage();
+        window.addEventListener('resize', updateExperiencesPerPage);
+        return () => {
+            window.removeEventListener('resize', updateExperiencesPerPage);
+        }
+    }, []);
+
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(Math.ceil(experiences.length / experiencesPerPage));
     useEffect(() => {
@@ -36,6 +60,9 @@ function WeeklyCategory({ onSelectExperience }) {
     const handleNextPage = () => {
         currentPage === totalPages ? setCurrentPage(totalPages) : setCurrentPage(currentPage + 1);
     }
+    const handleCheckNextPage = () => {
+        return experiences.length <= experiencesPerPage || currentPage === totalPages;
+    }
 
     return (
 <div className='Category'>
@@ -47,15 +74,11 @@ function WeeklyCategory({ onSelectExperience }) {
                         {experiences
                         .slice(currentPage * experiencesPerPage - experiencesPerPage, currentPage * experiencesPerPage)
                         .map((exp, index) => (
-                                <motion.div 
-                                    initial={{ opacity: 0, scale: 0.7 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 1, scale: 0 }}                                
-                                    key={index} onClick={() => handleSelectExperience(exp.rootPlaceId)} className='experience-item'
-                                >
-                                    <img src={exp.icon} className='experience-icon' />
-                                    <h2 className='experience-name'>{exp.name}</h2>
-                                </motion.div>
+                                <ExperienceItem 
+                                    key={exp.rootPlaceId} 
+                                    experience={exp} 
+                                    onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                />
                             ))}
                     </div>
                 ) : (
@@ -63,7 +86,7 @@ function WeeklyCategory({ onSelectExperience }) {
                         <h2 > No experiences found </h2>
                     </div>
                 )}
-                <button onClick={handleNextPage} className='next-button' > Next </button>
+                <button onClick={handleNextPage} className='next-button' disabled={handleCheckNextPage}> Next </button>
             </div>
         </div>
     )
