@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Experience, Category,  DailyExperience, WeeklyExperience
-from .serializers import ExperienceSerializer, CategorySerializer, DailyExperienceSerializer, WeeklyExperienceSerializer
+from .models import Experience, Category, SubCategory, DailyExperience, WeeklyExperience
+from .serializers import ExperienceSerializer, CategorySerializer, SubCategorySerializer, DailyExperienceSerializer, WeeklyExperienceSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import re
@@ -62,6 +62,14 @@ def add_experience(request):
 def get_categories(request):
     categories = Category.objects.all()
     serializer = CategorySerializer(categories, many=True)
+    return Response(serializer.data)
+
+# Subcategory Table
+
+@api_view(['GET'])
+def get_subcategories(request):
+    subcategories = SubCategory.objects.all()
+    serializer = SubCategorySerializer(subcategories, many=True)
     return Response(serializer.data)
 
 # Daily Experience Table

@@ -26,6 +26,13 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
+class SubCategory(models.Model):
+    name = models.CharField(max_length=255, default="All")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
 
 class DailyExperience(models.Model):
     experience = models.ForeignKey(Experience, on_delete=models.CASCADE)

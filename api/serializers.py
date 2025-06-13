@@ -1,4 +1,4 @@
-from .models import Experience, Category, DailyExperience, WeeklyExperience
+from .models import Experience, Category, SubCategory, DailyExperience, WeeklyExperience
 from rest_framework.serializers import ModelSerializer
 
 class ExperienceSerializer(ModelSerializer):
@@ -9,6 +9,11 @@ class ExperienceSerializer(ModelSerializer):
 class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
+        fields = '__all__'
+
+class SubCategorySerializer(ModelSerializer):
+    class Meta:
+        model = SubCategory
         fields = '__all__'
 
 class DailyExperienceSerializer(ModelSerializer):

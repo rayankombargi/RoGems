@@ -7,7 +7,7 @@ function Category({experiences, genre, onSelectExperience}) {
     const [filteredExperiences, setFilteredExperiences] = useState([]);
     useEffect(() => {
         setFilteredExperiences(experiences.filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre))
-    })
+    }, []);
     
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
@@ -38,11 +38,6 @@ function Category({experiences, genre, onSelectExperience}) {
     }, []);
 
     const [currentPage, setCurrentPage] = useState(1);
-    // useEffect(() => {
-    //     if (currentPage > totalPages) {
-    //         setCurrentPage(totalPages);
-    //     }
-    // }, []);
 
     const [totalPages, setTotalPages] = useState(Math.ceil(filteredExperiences.length / experiencesPerPage));
     useEffect(() => {
@@ -69,7 +64,7 @@ function Category({experiences, genre, onSelectExperience}) {
             <h1> {genre} </h1>
             <div className='category-list'>
                 <button onClick={handlePreviousPage} className='previous-button' disabled={handleCheckPreviousPage()}> Prev </button>
-                {experiences.length > 0 ? (
+                {filteredExperiences.length > 0 ? (
                     <div className='experience-list'>
                         {filteredExperiences
                         .slice(currentPage * experiencesPerPage - experiencesPerPage, currentPage * experiencesPerPage)
