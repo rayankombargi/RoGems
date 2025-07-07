@@ -1,0 +1,134 @@
+.panel-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
+    width: 90%;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+}
+
+.settings-username-input, .settings-password-input {
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.show-password-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.show-password-checkbox {
+    cursor: pointer;
+}
+.show-password-label {
+    color: white;
+    font: 20px;
+}
+
+.settings-update-button {
+    background: var(--blue);
+    color: white;
+    font: 20px;
+    height: 50px;
+    width: 90px;
+    box-shadow: black;
+    border-radius: 8px;
+    margin-top: 40px;
+    border-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+
+.settings-update-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--grey);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 450px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: black;
+}
+
+.modal-content h2, .modal-content p {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.confirm-password-input {
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.modal-buttons button {
+    background: var(--blue);
+    color: white;
+    font: 20px;
+    height: 50px;
+    width: 90px;
+    box-shadow: black;
+    border-radius: 8px;
+    border-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 10px;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+
+.modal-buttons button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}

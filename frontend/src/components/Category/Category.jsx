@@ -2,10 +2,11 @@ import './Category.css';
 import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useEffect, useState } from 'react';
 
-function Category({experiences, genre, onSelectExperience}) {
+function Category({experiences, fetchExperiences, genre, onSelectExperience}) {
 
     const [filteredExperiences, setFilteredExperiences] = useState([]);
     useEffect(() => {
+        fetchExperiences();
         setFilteredExperiences(experiences.filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre))
     }, []);
     

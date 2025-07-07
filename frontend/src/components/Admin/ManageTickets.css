@@ -1,0 +1,197 @@
+.manage-tickets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.exp-count {
+    font-size: 20px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.no-tickets {
+    font-size: 20px;
+    color: white;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.tickets-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tickets-filters select {
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    color: black;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.tickets-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.tickets-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 400px;
+    max-height: 400px;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ticket-instance {
+    background: var(--grey);
+    box-shadow:  black;
+    padding: 10px;
+    width: 90%;
+    margin-top: 10px;
+    border-radius: 8px;
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.ticket-exp-name {
+    flex: 1;
+    text-align: left;
+}
+
+.ticket-requester {
+    flex: 1;
+    text-align: center;
+}
+
+.ticket-instance a {
+    color: white;
+    text-decoration: none;
+}
+
+.ticket-accept-button {
+    background-color: rgb(61, 198, 143);
+    margin-left: 5px;
+}
+
+.ticket-decline-button {
+    background-color: red;
+}
+
+.ticket-accept-button, .ticket-decline-button {
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    height: 45px;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+.ticket-accept-button:hover, .ticket-decline-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.nav-pages {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.nav-pages button {
+    font-size: 15px;
+    height: 40px;
+    width: 80px;
+    background-color: var(--blue);
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    cursor: pointer;
+    margin-right: 10px;
+    color: white;
+}
+.nav-pages label {
+    font-size: 15px;
+    margin-right: 10px;
+    color: white;
+}
+
+@media (max-width: 900px) {
+
+    .ticket-instance {
+        width: 80%;
+    }
+    .ticket-instance div {
+        font-size: 10px;
+        margin-right: 5px;
+    }
+
+    .ticket-accept-button {
+        height: 30px;
+        margin-left: 10px;
+        font-size: 15px;
+    }
+    .ticket-decline-button {
+        height: 30px;
+        font-size: 15px;
+    }
+    .nav-pages {
+        scale: 0.8;
+    }
+}
+@media (max-width: 768px) {
+
+    .ticket-instance {
+        width: 80%;
+    }
+    .ticket-instance div {
+        font-size: 8px;
+        margin-right: 5px;
+    }
+    .ticket-accept-button {
+        height: 30px;
+        font-size: 10px;
+        margin-left: 10px;
+    }
+    .ticket-decline-button {
+        height: 30px;
+        font-size: 10px;
+    }
+    .nav-pages {
+        scale: 0.8;
+    }
+}

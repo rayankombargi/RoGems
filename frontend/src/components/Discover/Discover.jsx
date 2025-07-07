@@ -13,6 +13,9 @@ import WeeklyCategory from '../Category/WeeklyCategory';
 function Discover() {
 
     const [experiences, setExperiences] = useState([]);
+    const [dailyExperiences, setDailyExperiences] = useState([]);
+    const [weeklyExperiences, setWeeklyExperiences] = useState([]);
+
     const fetchExperiences = async () => {
         try {
             const response = await axios.get('/api/experiences/fetch_experiences/');
@@ -21,8 +24,29 @@ function Discover() {
             console.error('Error fetching experiences:', error);
         }
     }
+
+    const fetchDailyExperiences = async () => {
+        try {
+            const response = await axios.get('/api/experiences/fetch_daily_experiences/');
+            setDailyExperiences(response.data);
+        } catch(error) {
+            console.error('Error fetching daily experiences:', error);
+        }
+    }
+
+    const fetchWeeklyExperiences = async () => {
+        try {
+            const response = await axios.get('/api/experiences/fetch_weekly_experiences/');
+            setWeeklyExperiences(response.data);
+        } catch(error) {
+            console.error('Error fetching weekly experiences:', error);
+        }
+    }
+
     useEffect(() => {
         fetchExperiences();
+        fetchDailyExperiences();
+        fetchWeeklyExperiences();
     }, [])
 
     const [categories, setCategories] = useState([]);
@@ -87,30 +111,53 @@ function Discover() {
                         >
                             {(() => {
                                 const category = categories.find(category => category.name === "Experiences Of The Day");
-                                return category ? (
-                                    <DailyCategory 
-                                        key={category.name}
-                                        onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
-                                    />
-                                ) : null;
+                                if (category && dailyExperiences.length > 0) {
+                                    return (
+                                        <DailyCategory 
+                                            experiences={experiences.filter(exp => dailyExperiences.some(dailyExp => dailyExp.experience === exp.id))}
+                                            fetchExperiences={fetchDailyExperiences}
+                                            onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                        />
+                                    );
+                                }
+                                return null;
                             })()}
                             {(() => {
                                 const category = categories.find(category => category.name === "Featured This Week");
-                                return category ? (
-                                    <WeeklyCategory 
-                                        key={category.name}
-                                        onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
-                                    />
-                                ) : null;
+                                if (category && weeklyExperiences.length > 0) {
+                                    return (
+                                        <WeeklyCategory 
+                                            experiences={experiences.filter(exp => weeklyExperiences.some(weeklyExp => weeklyExp.experience === exp.id))}
+                                            fetchExperiences={fetchWeeklyExperiences}
+                                            onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                        />
+                                    )
+                                }
+                                return null;
                             })()}
-                            {categories.filter((category) => category.name !== "Experiences Of The Day" && category.name !== "Featured This Week").map((category) => {
-                                return (
-                                    <Category 
-                                    experiences={experiences} 
-                                    genre={category.name}
-                                    onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}/>
-                                )
-                            })}
+                            {
+                                categories
+                                    .filter((category) => category.name !== "Experiences Of The Day" && category.name !== "Featured This Week")
+                                    .map((category) => {
+                                        const filteredExperiences = experiences.filter((experience) => 
+                                            experience.genre === category.name
+                                            || experience.genre_l1 === category.name
+                                            || experience.genre_l2 === category.name
+                                        );
+                                        if (filteredExperiences.length === 0) {
+                                            return null;
+                                        }
+                                        return (
+                                            <Category 
+                                                key={category.name}
+                                                experiences={experiences} 
+                                                fetchExperiences={fetchExperiences}
+                                                genre={category.name}
+                                                onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                            />
+                                        )
+                                    }
+                            )}
                         </motion.div> 
                     </>
                 )}

@@ -14,6 +14,7 @@ class Experience(models.Model):
     genre_l2 = models.CharField(max_length=255, null=True, blank=True)
     maxPlayers = models.IntegerField(default=0)
     created = models.DateTimeField(default=timezone.now)
+    added = models.DateTimeField(null=True, default=timezone.now)
 
     icon = models.URLField()
 
@@ -45,3 +46,15 @@ class WeeklyExperience(models.Model):
 
     def _str_(self):
         return self.experience.name
+    
+class ExperienceRequest(models.Model):
+    experience_url = models.URLField(unique=True, null=False, blank=False, default="")
+    username = models.CharField(max_length=255, blank=True, default="Anonymous")
+    created_at = models.DateTimeField(null=True, default=timezone.now)
+
+class Admin(models.Model):
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.username

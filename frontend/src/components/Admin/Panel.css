@@ -1,0 +1,126 @@
+.panel-page h1 {
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.panel-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-content {
+    padding-bottom: 40px;
+    margin-top: 10px;
+    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
+    box-shadow: black 0px 0px 2px;
+    border-color: transparent;
+    border-radius: 15px;
+    width: 90%;
+    color: white;   
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.panel-content-header {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.panel-content-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-settings-button {
+    background-color: var(--blue);
+    border-color: transparent;
+    box-shadow: black 0px 0px 10px;
+    border-radius: 8px;
+    height: 50px;
+    width: 85px;    
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 25px;
+    text-decoration: none;
+    color: #f7f7f8;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+.logout-button {
+    background-color: red;
+    border-color: transparent;
+    box-shadow: black 0px 0px 10px;
+    border-radius: 8px;
+    height: 50px;
+    width: 85px;    
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 15px;
+    text-decoration: none;
+    color: #f7f7f8;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+.logout-button:hover, .panel-settings-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.panel-action-button {
+    background-color: var(--grey);
+}
+
+.selected-panel-action-button {
+    background-color: var(--blue);
+}
+
+.panel-action-button , .selected-panel-action-button {
+    border-color: transparent;
+    box-shadow: black 0px 0px 10px;
+    border-radius: 8px;
+    height: 70px;
+    width: 125px;  
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 40px;
+    margin-right: 15px;
+    text-decoration: none;
+    color: white;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+
+.panel-action-button:hover, .selected-panel-action-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .panel-content {
+        padding: 20px;
+    }
+    .panel-content-header {
+        display:flexbox;
+        scale: 0.8;
+
+    }
+
+    .panel-action-button, .selected-panel-action-button {
+        display:flexbox;
+        scale: 0.8;
+        margin-right: 0;
+        margin-top: 10px;
+    } 
+}

@@ -3,21 +3,12 @@ import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function DailyCategory({ onSelectExperience }) {
+function DailyCategory({ experiences, fetchExperiences, onSelectExperience }) {
 
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
     }
 
-    const [experiences, setExperiences] = useState([]);
-    const fetchExperiences = async () => {
-        try {
-            const response = await axios.get('/api/experiences/fetch_daily_experiences/');
-            setExperiences(response.data);
-        } catch(error) {
-            console.error('Error fetching experiences:', error);
-        }
-    }
     useEffect(() => {
         fetchExperiences();
     }, [])

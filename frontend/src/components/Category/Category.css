@@ -1,7 +1,8 @@
 
 .Category {
     background: var(--grey);
-    width: 100%;
+    width: 90%;
+    border-radius: 15px;
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
@@ -26,7 +27,7 @@
     border-color: transparent;
     box-shadow: black 0px 0px 10px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     color: #f7f7f8;
 
@@ -59,7 +60,7 @@
     border-color: transparent;
     box-shadow: black 0px 0px 10px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     color: #f7f7f8;
 
@@ -71,4 +72,11 @@
 .previous-button:hover, .next-button:hover {
     background-color: var(--blue);
     transition: 0.2s;
+}
+
+
+@media (max-width: 900px) {
+    .Category {
+        width: 100%;
+    }
 }

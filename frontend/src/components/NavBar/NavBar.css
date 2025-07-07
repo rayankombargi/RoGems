@@ -8,17 +8,25 @@
     position: sticky;
 }
 
-.navbar-home, .navbar-discover, .navbar-services, .navbar-search {
+.navbar-link {
     text-decoration: none;
     color: white;
     padding: 15px 25px;
     font-size: 20px;
 }
 
-.navbar-home:hover, .navbar-discover:hover, .navbar-services:hover, .navbar-search:hover {
+.navbar-link:hover {
     background-color: #335fff;
     border-radius: 8px;
     box-shadow: black 0px 0px 10px;
     padding-top: 7px;
     padding-bottom: 7px;
+}
+
+@media (max-width: 768px) {
+    .navbar-link {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+    
 }

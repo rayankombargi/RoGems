@@ -1,0 +1,143 @@
+.manage-experience {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.manage-experience-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.no-experiences {
+    font-size: 20px;
+    color: white;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.experiences-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.experiences-filters select {
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    color: black;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.experiences-filters input {
+    font-size: 15px;
+    height: 30px;
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    color: black;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.experiences-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    margin-top: 10px;
+    min-height: 400px;
+    max-height: 400px;
+}
+
+.experience-instance {
+    background: var(--grey);
+    color: white;
+    width: 95%;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: black;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.exp-name {
+    flex: 1;
+    text-align: left;
+}
+
+.exp-added {
+    flex: 1;
+    text-align: center;
+}
+
+.exp-update-button {
+    background-color: rgb(61, 198, 143);
+    margin-left: 5px;
+}
+
+.exp-delete-button {
+    background-color: red;
+}
+
+.exp-update-button, .exp-delete-button {
+    border-radius: 8px;
+    box-shadow: black;
+    border-color: transparent;
+    font-size: 20px;
+    height: 45px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+
+.exp-update-button:hover, .exp-delete-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+
+    .experience-instance {
+        width: 85%;
+    }
+    .experience-instance div {
+        font-size: 10px;
+        margin-right: 5px;
+    }
+    .exp-update-button{
+        height: 30px;
+        font-size: 15px;
+        margin-left: 10px;
+    }
+    .exp-delete-button {
+        height: 30px;
+        font-size: 15px;
+    }
+    .nav-pages {
+        scale: 0.8;
+    }
+}

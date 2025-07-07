@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from 'react-router-dom';
 import axios from 'axios';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function Services() {
     const [experience_url, setExperienceUrl] = useState('');
@@ -11,7 +11,6 @@ function Services() {
         setExperienceUrl(event.target.value);
     }
 
-    // Function to call backend API function that takes argument experience_url if not empty
     const handleInsertExperience = async () => {
         try {
             if (experience_url){
@@ -45,19 +44,47 @@ function Services() {
                     icon : icon,
                 });
                 if (response.status === 201) {
-                    console.log("Experience inserted successfully");
-                    setExperienceUrl('');
+                    alert("Experience inserted successfully");
                 } else {
                     console.error("Error inserting experience:", response.statusText);
+                    alert("Error inserting experience");
                 }
             } else {
-                console.error("Experience URL is empty");
+                alert("Experience URL is empty");
             }
         } catch (error) {
             console.error("Error inserting experience:", error);
         }
+        setExperienceUrl('');
     }
 
+    const [experienceURLRequest, setExperienceURLRequest] = useState('');
+
+    const handleExperienceURLRequestChange = (event) => {
+        setExperienceURLRequest(event.target.value);
+    }
+
+    const [Username, setUsername] = useState('Anonymous');
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
+    }
+    const handleInsertExperienceRequest = async () => {
+        try {
+            const response = await axios.post('/api/requests/insert_experience_request/', {
+                experience_url: experienceURLRequest,
+                username: Username,
+            })
+            if (response.status === 404) {
+                console.error("Error inserting experience request:", response.statusText);
+                alert("Error inserting experience request");
+            } else {
+                alert("Experience request inserted successfully\n" + Username + "\n" + experienceURLRequest);
+            }
+        } catch (error) {
+            alert("Error inserting experience request");
+        }
+        setExperienceURLRequest('');
+    }
     return (
         <div className="services">
             <NavBar />
@@ -77,6 +104,16 @@ function Services() {
                 className="services-content"
             >
                 <div className="services-list">
+                    <div className='request-experience'>
+                        <h2>Request Experience</h2>
+                        <div className='request-ui'>
+                            <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
+                            <div className="experience-input-ui">
+                                <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
+                                <button onClick={handleInsertExperienceRequest} className='insert-button'>Insert</button>
+                            </div>                        
+                        </div>
+                    </div>
                     <div className="insert-experience">
                         <h2>Insert Experience</h2>
                         <div className="experience-input-ui">

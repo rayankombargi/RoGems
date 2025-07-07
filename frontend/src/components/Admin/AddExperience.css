@@ -1,0 +1,46 @@
+.add-experience {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.add-exp-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    width: 90%;
+    padding: 20px;
+    color: white;
+}
+
+.add-exp-form-input {
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--grey);
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.add-exp-form-button {
+    background: var(--blue);
+    color: white;
+    font: 20px;
+    height: 50px;
+    width: 90px;
+    box-shadow: black;
+    border-radius: 8px;
+    margin-top: 10px;
+    border-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transform: scale(1.0);
+    transition: transform 0.3s ease;
+}
+
+.add-exp-form-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
