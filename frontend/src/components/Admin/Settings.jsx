@@ -92,8 +92,8 @@ function Settings({admin, getAdmin}) {
             </div>
             <AnimatePresence>
                 {isConfirming && (
-                    <div className='modal-overlay'>
-                        <div className='modal-content'>
+                    <div className='settings-modal-overlay'>
+                        <div className='settings-modal-content'>
                             <h2>Confirmation</h2>
                             <p>Enter your current password to confirm changes.</p>
                             <input type='password' className='confirm-password-input' 
@@ -107,10 +107,10 @@ function Settings({admin, getAdmin}) {
                                 }}/>
                                 <label className='show-password-label'>Show Password</label>
                             </div>
-                            <div className='modal-buttons'>
-                                <button className='modal-confirm-button' onClick={() => checkPassword()}
+                            <div className='settings-modal-buttons'>
+                                <button className='settings-modal-confirm-button' onClick={() => checkPassword()}
                                 > Confirm </button>
-                                <button className='modal-cancel-button' onClick={() => {
+                                <button className='settings-modal-cancel-button' onClick={() => {
                                     setIsConfirming(false);
                                     setCurrPass('');
                                     setNewPass('');

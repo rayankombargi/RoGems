@@ -9,8 +9,6 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-height: auto;
-    overflow-y: auto;
 }
 
 .search-parameters {
@@ -20,7 +18,10 @@ h1 {
     justify-content: center;
     margin: 10px;
     background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
-    width: 100%;
+    width: 90%;
+    border-radius: 15px;
+    box-shadow: black;
+    border-color: transparent;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -42,17 +43,57 @@ h1 {
     margin: 10px;
 }
 
-.genre-filter, .subgenre-filter, .max-players-filter, .year-filter {
+.genre-filter, .subgenre-filter, .max-players-filter, .year-filter, .exps-per-page, .sort-filter {
+    margin-right: 10px;
+    font-size: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.genre-filter-select, .subgenre-filter-select, .max-players-filter-select, .year-filter-select, .exps-per-page-select, .sort-filter-select {
     width: 100px;
     height: 25px;
     border-radius: 5px;
     border: 1px solid var(--grey);
     background-color: white;
+    margin-top: 5px;
+}
+
+.filter-output {
+    font-size: 16px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: var(--grey);
+    border-radius: 15px;
+    border-color: transparent;
+
+    width: 90%;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .search-results {
+    padding-top: 10px;
+    margin-top: 5px;
+    height: 500px;
+    max-height: 500px;
+    overflow-y: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .search-parameters {
+        width: 100%;
+    }
+    .filter-output {
+        width: 100%;
+    }
 }
