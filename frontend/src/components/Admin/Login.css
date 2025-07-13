@@ -16,6 +16,12 @@
     padding-bottom: 20px;
 }
 
+.login-form p {
+    color: white;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
 .login-input-username, .login-input-password {
     width: 400px;
     padding: 10px;

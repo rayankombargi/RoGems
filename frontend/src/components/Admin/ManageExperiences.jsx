@@ -102,9 +102,11 @@ function ManageExperiences({experiences, fetchExperiences}) {
                     <div className='exp-count'>Experience Count: {experiences.length}</div> 
                     <div className='experiences-filters'>
                         <select className='experiences-per-page-select' 
-                        onChange={(e) => {
-                            setExperiencesPerPage(parseInt(e.target.value));
-                        }}>
+                            onChange={(e) => {
+                                setExperiencesPerPage(parseInt(e.target.value));
+                            }}
+                            value={experiencesPerPage}
+                        >
                             <option value={5}>5</option>
                             <option value={10}>10</option>
                             <option value={15}>15</option>

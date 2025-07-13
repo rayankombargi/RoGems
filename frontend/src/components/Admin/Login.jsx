@@ -47,6 +47,7 @@ function Login({getAdmin}) {
             <div className='login-container'>
                 <h1>Admin Login</h1>
                 <div className='login-form'>
+                    <p>Are you an admin? Log in now to access the panel!</p>
                     <input type='text' placeholder='Username' onChange={updateUsername} value={username} className='login-input-username'/>
                     <input type='password' placeholder='Password' onChange={updatePassword} value={password} className='login-input-password'/>
                     <label className='password-toggle'>

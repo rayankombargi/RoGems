@@ -2,21 +2,41 @@ import './Category.css';
 import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useEffect, useState } from 'react';
 
-function Category({experiences, fetchExperiences, genre, onSelectExperience}) {
+function Category({experiences, genre, onSelectExperience}) {
 
     const [filteredExperiences, setFilteredExperiences] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
+    const [totalPages, setTotalPages] = useState(1);
+
     useEffect(() => {
-        fetchExperiences();
-        setFilteredExperiences(experiences.filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre))
-    }, []);
+        if (currentPage < 1) {
+            setCurrentPage(1);
+        }
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
+
+    useEffect(() => {
+        let exps = [...experiences];
+        exps = exps.filter(exp => exp.genre === genre || exp.genre_l1 === genre || exp.genre_l2 === genre);
+
+        // Calculate total pages based on filtered experiences before slicing
+        setTotalPages(Math.ceil(exps.length / experiencesPerPage));
+
+        const firstIndex = (currentPage - 1) * experiencesPerPage;
+        const lastIndex = firstIndex + experiencesPerPage;
+        setFilteredExperiences(exps.slice(firstIndex, lastIndex));
+
+    }, [experiences, genre, currentPage, experiencesPerPage]);
     
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
     }
 
-    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
     useEffect(() => {
-                const updateExperiencesPerPage = () => {
+        const updateExperiencesPerPage = () => {
             if (window.innerWidth < 700) {
                 setExperiencesPerPage(2);
             } else if (window.innerWidth < 800) {
@@ -38,37 +58,20 @@ function Category({experiences, fetchExperiences, genre, onSelectExperience}) {
         }
     }, []);
 
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const [totalPages, setTotalPages] = useState(Math.ceil(filteredExperiences.length / experiencesPerPage));
-    useEffect(() => {
-        const total = Math.ceil(filteredExperiences.length / experiencesPerPage);
-        setTotalPages(total);
-    }, []);
-
-    const handlePreviousPage = () => {
-        currentPage === 1 ? setCurrentPage(1) : setCurrentPage(currentPage - 1);
-    }
-    const handleCheckPreviousPage = () => {
-        return currentPage === 1;
-    }
-
-    const handleNextPage = () => {
-        currentPage === totalPages ? setCurrentPage(totalPages) : setCurrentPage(currentPage + 1);
-    }
-    const handleCheckNextPage = () => {
-        return filteredExperiences.length <= experiencesPerPage || currentPage === totalPages;
-    }
-
     return (
         <div className='Category'>
             <h1> {genre} </h1>
             <div className='category-list'>
-                <button onClick={handlePreviousPage} className='previous-button' disabled={handleCheckPreviousPage()}> Prev </button>
+                <button 
+                    onClick={() => setCurrentPage(currentPage-1)} 
+                    className='previous-button'
+                    disabled={currentPage <= 1}
+                >
+                    Prev
+                </button>
                 {filteredExperiences.length > 0 ? (
                     <div className='experience-list'>
                         {filteredExperiences
-                        .slice(currentPage * experiencesPerPage - experiencesPerPage, currentPage * experiencesPerPage)
                         .map((exp, index) => (
                                 <ExperienceItem
                                     key={index}
@@ -82,7 +85,13 @@ function Category({experiences, fetchExperiences, genre, onSelectExperience}) {
                         <h2 > No experiences found </h2>
                     </div>
                 )}
-                <button onClick={handleNextPage} className='next-button' disabled={handleCheckNextPage()}> Next </button>
+                <button 
+                    onClick={() => setCurrentPage(currentPage+1)} 
+                    className='next-button'
+                    disabled={currentPage >= totalPages}
+                >
+                    Next
+                </button>
             </div>
         </div>
     )

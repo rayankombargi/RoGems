@@ -3,17 +3,32 @@ import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function DailyCategory({ experiences, fetchExperiences, onSelectExperience }) {
+function DailyCategory({ experiences, onSelectExperience }) {
 
-    const handleSelectExperience = (experience_id) => {
-        onSelectExperience(experience_id);
-    }
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
+    const [filteredExperiences, setFilteredExperiences] = useState([]);
 
     useEffect(() => {
-        fetchExperiences();
-    }, [])
+        if (currentPage < 1) {
+            setCurrentPage(1);
+        }
+        if (currentPage > totalPages && totalPages > 0) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
 
-    const [experiencesPerPage, setExperiencesPerPage] = useState(6);
+    useEffect(() => {
+        let exps = [...experiences];
+        setTotalPages(Math.ceil(experiences.length / experiencesPerPage));
+        let firstIndex = (currentPage - 1) * experiencesPerPage;
+        let lastIndex = firstIndex + experiencesPerPage;
+
+        setFilteredExperiences(exps.slice(firstIndex, lastIndex));
+
+    }, [experiences, currentPage, experiencesPerPage]);
 
     useEffect(() => {
         const updateExperiencesPerPage = () => {
@@ -38,32 +53,18 @@ function DailyCategory({ experiences, fetchExperiences, onSelectExperience }) {
         }
     }, []);
     
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(Math.ceil(experiences.length / experiencesPerPage));
-    useEffect(() => {
-        const total = Math.ceil(experiences.length / experiencesPerPage);
-        setTotalPages(total);
-    })
-
-    const handlePreviousPage = () => {
-        currentPage === 1 ? setCurrentPage(1) : setCurrentPage(currentPage - 1);
-    }
-    const handleNextPage = () => {
-        currentPage === totalPages ? setCurrentPage(totalPages) : setCurrentPage(currentPage + 1);
-    }
-    const handleCheckNextPage = () => {
-        return experiences.length <= experiencesPerPage || currentPage === totalPages;
+    const handleSelectExperience = (experience_id) => {
+        onSelectExperience(experience_id);
     }
 
     return (
 <div className='Category'>
             <h1> Experiences Of The Day </h1>
             <div className='category-list'>
-                <button onClick={handlePreviousPage} className='previous-button' > Prev </button>
-                {experiences.length > 0 ? (
+                <button onClick={() => setCurrentPage(currentPage-1)} className='previous-button' disabled={currentPage <= 1}> Prev </button>
+                {filteredExperiences.length > 0 ? (
                     <div className='experience-list'>
-                        {experiences
-                        .slice(currentPage * experiencesPerPage - experiencesPerPage, currentPage * experiencesPerPage)
+                        {filteredExperiences
                         .map((exp, index) => (
                             <ExperienceItem 
                                 key={exp.rootPlaceId} 
@@ -77,7 +78,7 @@ function DailyCategory({ experiences, fetchExperiences, onSelectExperience }) {
                         <h2 > No experiences found </h2>
                     </div>
                 )}
-                <button onClick={handleNextPage} className='next-button' disabled={handleCheckNextPage}> Next </button>
+                <button onClick={() => setCurrentPage(currentPage+1)} className='next-button' disabled={currentPage >= totalPages}> Next </button>
             </div>
         </div>
     )

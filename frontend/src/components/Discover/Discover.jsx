@@ -115,7 +115,6 @@ function Discover() {
                                     return (
                                         <DailyCategory 
                                             experiences={experiences.filter(exp => dailyExperiences.some(dailyExp => dailyExp.experience === exp.id))}
-                                            fetchExperiences={fetchDailyExperiences}
                                             onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                         />
                                     );
@@ -128,7 +127,6 @@ function Discover() {
                                     return (
                                         <WeeklyCategory 
                                             experiences={experiences.filter(exp => weeklyExperiences.some(weeklyExp => weeklyExp.experience === exp.id))}
-                                            fetchExperiences={fetchWeeklyExperiences}
                                             onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                         />
                                     )
@@ -151,7 +149,6 @@ function Discover() {
                                             <Category 
                                                 key={category.name}
                                                 experiences={experiences} 
-                                                fetchExperiences={fetchExperiences}
                                                 genre={category.name}
                                                 onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                             />
