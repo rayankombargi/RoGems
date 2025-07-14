@@ -6,10 +6,7 @@ from rest_framework.decorators import api_view
 import re
 import requests
 
-# from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-# from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password, check_password
 from django.middleware.csrf import get_token
 import json
@@ -221,10 +218,9 @@ def delete_admin(request, pk):
     except Admin.DoesNotExist:
         return Response({"message":"Admin not found"}, status=404)
 
-# Login and Logout
+# Authentication
 
 @api_view(['POST'])
-@csrf_exempt
 def login_admin(request):
     data = json.loads(request.body)
     username = data.get('username')
@@ -234,6 +230,7 @@ def login_admin(request):
         admin = Admin.objects.get(username=username)
         if check_password(password, admin.password):
             request.session['admin_id'] = admin.id
+            request.session.set_expiry(3600)  # Set session to expire in 1 hour
             return JsonResponse({"message": "Login successful", 'username': admin.username}, status=200)
         else:
             return JsonResponse({"message": "Invalid credentials"}, status=401)
@@ -241,13 +238,11 @@ def login_admin(request):
         return JsonResponse({"message": "Admin not found"}, status=404)
 
 @api_view(['GET'])
-@csrf_exempt
 def logout_admin(request):
     request.session.flush()
     return JsonResponse({"message": "Logout successful"}, status=200)
 
 @api_view(['POST'])
-@csrf_exempt
 def verify_admin_password(request, pk):
     data = json.loads(request.body)
     currPass = data.get('currPass')
@@ -259,8 +254,13 @@ def verify_admin_password(request, pk):
     except Admin.DoesNotExist:
         return JsonResponse({"message": "Admin not found"}, status=404)
 
+@api_view(['GET'])
+def home_view(request):
+    if not request.admin:
+        return JsonResponse({'error': 'Not authenticated'}, status=401)
+    return JsonResponse({'message': f'Welcome home, {request.admin.username}!'})
 
 @api_view(['GET'])
 def get_csrf_token(request):
-    csrf_token = get_token(request)
-    return JsonResponse({'csrfToken': csrf_token}, status=200)
+    token = get_token(request)
+    return JsonResponse({'csrfToken': token})

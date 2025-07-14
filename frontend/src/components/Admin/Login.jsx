@@ -18,26 +18,17 @@ function Login({getAdmin}) {
     }
 
     const login = async (e) => {
-        // await get_CRSF();
         e.preventDefault();
         try {
+            await axios.get('/api/auth/get_csrf_token/');
             await axios.post('/api/auth/login/', {
                 username,
                 password
-            })
+            });
             getAdmin();
         } catch (error) {
             console.error("Login failed:", error);
             alert("Login failed. Please check your username and password.");
-        }
-    }
-
-    const get_CRSF = async () => {
-        try {
-            const response = await axios.get('https://127.0.0.1:8000/api/auth/get_csrf_token/');
-            axios.defaults.headers.common['X-CSRFToken'] = response.data.csrfToken;
-        } catch (error) {
-            console.error("Failed to get CSRF token:", error);
         }
     }
 

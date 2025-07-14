@@ -7,6 +7,7 @@ import Panel from './Panel';
 
 function Admin() {
     const [currentAdmin, setCurrentAdmin] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const getAdmin = async () => {
         try {
             const response = await axios.get('/api/admins/get_current_admin/');
@@ -17,7 +18,21 @@ function Admin() {
     };
     useEffect(() => {
         getAdmin();
-    },[]);
+        if (currentAdmin) {
+            if (!isAuthenticated) {
+                setIsAuthenticated(true);
+            }
+        } else {
+            if (isAuthenticated) {
+                alert("Your session has expired. Please log in again.");
+                setIsAuthenticated(false);
+                window.location.reload();
+            } else {
+                setIsAuthenticated(false);
+            }
+        }
+    },[currentAdmin, isAuthenticated]);
+    
     return (
         <div>
             {!currentAdmin ? (
