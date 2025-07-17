@@ -2,6 +2,7 @@ import './ManageExperiences.css';
 import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import axios from 'axios';
+import NotBar from '../NotBar/NotBar';
 
 function ManageExperiences({experiences, fetchExperiences}) {
     const [sortBy, setSortBy] = useState('latest');
@@ -10,6 +11,8 @@ function ManageExperiences({experiences, fetchExperiences}) {
     const [experiencesPerPage, setExperiencesPerPage] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
+    const [notification, setNotification] = useState(false);
+    const [NotDetails, setNotDetails] = useState({});
 
     useEffect(() => {
         fetchExperiences();
@@ -65,11 +68,13 @@ function ManageExperiences({experiences, fetchExperiences}) {
                 })
 
                 if (response.status === 200) {
-                    alert("Experience updated successfully");
+                    setNotDetails({message: "Experience updated successfully", status: "success"});
+                    setNotification(true);
                     fetchExperiences();
                 } else {
                     console.error("Error updating experience:", response.statusText);
-                    alert("Error updating experience");
+                    setNotDetails({message: "Error updating experience", status: "error"});
+                    setNotification(true);
                 }
             }
         } catch(error) {
@@ -81,20 +86,24 @@ function ManageExperiences({experiences, fetchExperiences}) {
         try {
             const response = await axios.delete(`/api/experiences/delete/${id}/`);
             if (response.status === 204) {
-                alert("Experience deleted successfully");
+                setNotDetails({message: "Experience deleted successfully", status: "success"});
+                setNotification(true);
                 fetchExperiences();
             } else {
                 console.error("Failed to delete experience:", response.statusText);
-                alert("Failed to delete experience");
+                setNotDetails({message: "Failed to delete experience", status: "error"});
+                setNotification(true);
             }
         } catch(error) {
             console.error("Error deleting experience:", error);
-            alert("Error deleting experience");
+            setNotDetails({message: "Error deleting experience", status: "error"});
+            setNotification(true);
         }
     }
 
     return (
         <div className='manage-experience'>
+            {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             {experiences.length === 0 ? (
                 <div className='no-experiences'>No experiences found</div>
             ) : (

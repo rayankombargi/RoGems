@@ -5,12 +5,15 @@ h1 {
 }
 
 .search-container {
+    overflow-y: auto;
+    max-height: calc(100vh-60px);
+}
+.search-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
 .search-parameters {
     display: flex;
     flex-direction: column;

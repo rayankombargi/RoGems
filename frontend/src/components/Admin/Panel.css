@@ -4,10 +4,15 @@
 }
 
 .panel-page {
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+}
+
+.panel-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .panel-content {

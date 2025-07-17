@@ -1,9 +1,12 @@
 import './AddExperience.css';
+import NotBar from '../NotBar/NotBar';
 import {useState, useEffect } from 'react';
 import axios from 'axios';
 
 function AddExperience({experiences, fetchExperiences}) {
     const [selectedURL, setSelectedURL] = useState('');
+    const [notification, setNotification] = useState(false);
+    const [notDetails, setNotDetails] = useState({});
 
     const addExperience = async () => {
         try {
@@ -26,18 +29,22 @@ function AddExperience({experiences, fetchExperiences}) {
                 });
 
                 if (response.status === 201) {
-                    alert("Experience inserted successfully");
+                    setNotDetails({ message: "Successfully added new experience", status: "success" });
+                    setNotification(true);
                 } else {
                     console.error("Error inserting experience:", response.statusText);
-                    alert("Error inserting experience");
+                    setNotDetails({ message: "Error inserting experience", status: "error" });
+                    setNotification(true);
                 }
             } else {
                 console.error("Experience URL is empty");
-                alert("Experience URL is empty");
+                setNotDetails({ message: "Experience URL is empty", status: "error" });
+                setNotification(true);
             }
         } catch(error) {
             console.error("Error inserting experience:", error);
-            alert("Error inserting experience");
+            setNotDetails({ message: "Error inserting experience", status: "error" });
+            setNotification(true);
         }
         setSelectedURL('');
     }
@@ -48,6 +55,7 @@ function AddExperience({experiences, fetchExperiences}) {
 
     return (
         <div className='add-experience'>
+            {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <div className='exp-count'>Experience Count: {experiences.length}</div>
             <div className='add-exp-form'>
                 <input type='url' className='add-exp-form-input' placeholder='insert experience url' onChange={(e) => setSelectedURL(e.target.value)} value={selectedURL}/>

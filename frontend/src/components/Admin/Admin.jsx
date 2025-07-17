@@ -4,10 +4,15 @@ import axios from 'axios';
 
 import Login from './Login';
 import Panel from './Panel';
+import NotBar  from '../NotBar/NotBar';
 
 function Admin() {
     const [currentAdmin, setCurrentAdmin] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [sessionTime, setSessionTime] = useState(20);
+    const [notification, setNotification] = useState(false);
+    const [notDetails, setNotDetails] = useState({});
+
     const getAdmin = async () => {
         try {
             const response = await axios.get('/api/admins/get_current_admin/');
@@ -24,7 +29,8 @@ function Admin() {
             }
         } else {
             if (isAuthenticated) {
-                alert("Your session has expired. Please log in again.");
+                setNotDetails({ message: "Your session has expired. Please log in again.", status: "error" });
+                setNotification(true);
                 setIsAuthenticated(false);
                 window.location.reload();
             } else {
@@ -35,8 +41,9 @@ function Admin() {
     
     return (
         <div>
+            {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             {!currentAdmin ? (
-                <Login getAdmin={getAdmin}/>
+                <Login getAdmin={getAdmin} isAuthenticated={isAuthenticated} sessionTime={sessionTime} setSessionTime={setSessionTime}/>
             ) : (
                 <Panel currentAdmin={currentAdmin} getAdmin={getAdmin}/>
             )}

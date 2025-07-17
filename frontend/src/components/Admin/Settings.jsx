@@ -2,6 +2,7 @@ import './Settings.css'
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import NotBar from '../NotBar/NotBar';
 
 function Settings({admin, getAdmin}) {
     const [currentAdmin, setCurrentAdmin] = useState(admin);
@@ -9,6 +10,8 @@ function Settings({admin, getAdmin}) {
     const [newPass, setNewPass] = useState('');
     const [currPass, setCurrPass] = useState('');
     const [isConfirming, setIsConfirming] = useState(false);
+    const [notification, setNotification] = useState(false);
+    const [notDetails, setNotDetails] = useState({});
 
     const updateAdmin = async () => {
         try {
@@ -18,12 +21,14 @@ function Settings({admin, getAdmin}) {
             })
             if (response === 200) {
                 console.log("Admin updated successfully");
-                alert("Admin settings updated successfully");
+                setNotDetails({ message: "Admin settings updated successfully", status: "success" });
+                setNotification(true);
                 getAdmin();
             }
         } catch (error) {
             console.error("Error updating admin:", error);
-            alert("Failed to update admin settings. Please try again.");
+            setNotDetails({ message: "Failed to update admin settings", status: "error" });
+            setNotification(true);
         }
 
         if (isConfirming) {
@@ -42,22 +47,26 @@ function Settings({admin, getAdmin}) {
                 });
                 
                 if (response.status === 200) {
-                    alert("Admin settings updated successfully");
+                    setNotDetails({ message: "Admin settings updated successfully", status: "success" });
+                    setNotification(true);
                     updateAdmin();
 
                     setCurrPass('');
                     setIsConfirming(false);
                 } else {
-                    alert("Current password is incorrect. Please try again.");
+                    setNotDetails({ message: "Current password is incorrect", status: "error" });
+                    setNotification(true);
                     return;
                 }
             } else {
-                alert("Please enter your current password to confirm changes.");
+                setNotDetails({ message: "Please enter your current password to confirm changes", status: "error"});
+                setNotification(true);
                 return;
             }
         } catch(error) {
             console.error("Error confirming admin update:", error);
-            alert("Failed to confirm admin update. Please try again.");
+            setNotDetails({ message: "Failed to confirm admin update", status: "error" });
+            setNotification(true);
         }
     }
 
@@ -71,6 +80,7 @@ function Settings({admin, getAdmin}) {
             transition={{ duration: 0.8 }}   
             className='panel-settings'
         >
+            {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <h1>Settings</h1>
             <div className='settings-content'>
                 <input type='text' className='settings-username-input' 

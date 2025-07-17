@@ -3,10 +3,13 @@ import './ManageTickets.css';
 import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import axios from 'axios';
+import NotBar from '../NotBar/NotBar';
 
 function ManageTickets({experiences, fetchExperiences}) {
 
     const [tickets, setTickets] = useState([]);
+    const [notification, setNotification] = useState(false);
+    const [NotDetails, setNotDetails] = useState([]);
 
     const fetchtickets = async () => {
         try {
@@ -42,12 +45,14 @@ function ManageTickets({experiences, fetchExperiences}) {
                 })
 
                 if (response.status === 201) {
-                    alert("Experience inserted successfully");
+                    setNotDetails({message: "Experience inserted successfully", status: "success"})
+                    setNotification(true);
                     deleteTicket(id);
                     fetchtickets();
                 } else {
                     console.error("Error inserting experience:", response.statusText);
-                    alert("Error inserting experience");
+                    setNotDetails({message: "Error inserting experience", status: "error"})
+                    setNotification(true);
                 }
             } else {
                 console.error("Experience URL is empty");
@@ -61,7 +66,8 @@ function ManageTickets({experiences, fetchExperiences}) {
         try {
             const response = await axios.delete(`/api/requests/delete_experience_request/${id}/`);
             if (response.status === 204) {
-                alert("Ticket deleted successfully");
+                setNotDetails({message: "Ticket deleted successfully", status: "success"})
+                setNotification(true);
                 fetchtickets();
             } else {
                 console.error("Failed to delete ticket:", response.statusText);
@@ -109,6 +115,7 @@ function ManageTickets({experiences, fetchExperiences}) {
 
     return (
         <div className='manage-tickets'>
+            {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <div className='exp-count'>Experience Count: {experiences.length}</div>
             {tickets.length === 0 ? (
                 <h1 className='no-tickets'>No tickets available</h1>

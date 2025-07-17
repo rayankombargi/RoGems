@@ -130,137 +130,153 @@ function Search() {
     return (
         <div className='Search'>
             <NavBar />
-            <motion.div
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 1, scale: 0 }}
-                transition={{ duration: 0.8 }}
-                className='search-container'
-            >
-                <h1> Search Experiences </h1>
-                <div className='search-parameters'>
-                    <div className='search-filters'>
-                        <div className='genre-filter'>
-                            <label className='genre-filter-label'>Genre</label>
-                            <select className='genre-filter-select' value={genre} onChange={(e) => setGenre(e.target.value)}>
-                                <option className='genre-filter-option' value='All'>All</option>
-                                {categories.filter((category) => category.name !== 'Experiences Of The Day' && category.name !== 'Featured This Week')
-                                    .map((category) => {
-                                        return (
-                                            <option className='genre-filter-option' value={category.name}>{category.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-
-                        <div className='subgenre-filter'>
-                            <label className='subgenre-filter-label'>Sub-Genre</label>
-                            <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
-                                <option className='subgenre-filter-option' value='All'>All</option>
-                                {subcategories.filter((subcategory) => categories.some(category => category.id === subcategory.category))
-                                    .map((subcategory) => {
-                                        return (
-                                            <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                        <div className='max-players-filter'>
-                            <label className='max-players-filter-label'>Max Players</label>
-                            <select className='max-players-filter-select' value={maxPlayers} onChange={(e) => setMaxPlayers(e.target.value)}>
-                                <option className='maxPlayers-filter-option' value='All'>All</option>
-                                {Array.from(new Set(experiences.map((experience) => experience.maxPlayers)))
-                                    .sort((a,b) => b - a)
-                                    .map((count) => {
-                                        return (
-                                            <option className='maxPlayers-filter-option' value={count}>{count}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                        <div className='year-filter'>
-                            <label className='year-filter-label'>Year</label>
-                            <select className='year-filter-select' value={(year)} onChange={(e) => setYear(e.target.value)}>
-                                <option className='year-filter-option' value='All'>All</option>
-                                {Array.from(new Set(experiences.map((experience) => new Date(experience.created).getFullYear())))
-                                    .sort((a, b) => b - a)
-                                    .map((year) => {
-                                        return (
-                                            <option className='year-filter-option' value={year}>{year}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <input type='text' placeholder='Search for experiences...' className='search-input' onChange={(e) => setSearchQuery(e.target.value)} />
-                    <div className='search-filters'>
-                        <div className='exps-per-page'>
-                            <label className='exps-per-page-label'>Count</label>
-                            <select className='exps-per-page-select' value={experiencesPerPage} onChange={(e) => setExperiencesPerPage(e.target.value)}>
-                                <option className='exps-per-page-option' value={4}>4</option>
-                                <option className='exps-per-page-option' value={10}>10</option>
-                                <option className='exps-per-page-option' value={25}>25</option>
-                                <option className='exps-per-page-option' value={50}>50</option>
-                            </select>
-                        </div>
-                        <div className='sort-filter'>
-                            <label className='sort-filter-label'>Sort by</label>
-                            <select className='sort-filter-select' value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                                <option className='sort-filter-option' value='Ascending Added'>Ascending Added</option>
-                                <option className='sort-filter-option' value='Descending Added'>Descending Added</option>
-                                <option className='sort-filter-option' value='Oldest Release'>Oldest Release</option>
-                                <option className='sort-filter-option' value='Latest Release'>Latest Release</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div className='filter-output'>
-                    {
-                        filteredExperiences.length > 0 ? (
-                            <div>
-                                <div className='search-results'>
-                                    {
-                                        paginatedExperiences.map((experience) => {
+            <div className='search-container'>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 1, scale: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <h1> Search Experiences </h1>
+                </motion.div>
+                <div className='search-content'>
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 1, scale: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className='search-parameters'
+                    >
+                        <div className='search-filters'>
+                            <div className='genre-filter'>
+                                <label className='genre-filter-label'>Genre</label>
+                                <select className='genre-filter-select' value={genre} onChange={(e) => setGenre(e.target.value)}>
+                                    <option className='genre-filter-option' value='All'>All</option>
+                                    {categories.filter((category) => category.name !== 'Experiences Of The Day' && category.name !== 'Featured This Week')
+                                        .map((category) => {
                                             return (
-                                                <ExperienceItem 
-                                                key={experience.id} 
-                                                experience={experience} 
-                                                onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}/>
+                                                <option className='genre-filter-option' value={category.name}>{category.name}</option>
                                             )
                                         })
                                     }
-                                </div>
-                                <div className='nav-pages'>
-                                    <button className='first-page-button' 
-                                        onClick={() => setCurrentPage(1)}
-                                        disabled={currentPage === 1 ? true : false}
-                                    >First</button>
-                                    <button className='previous-page-button' 
-                                        onClick={currentPage === 1 ? () => setCurrentPage(1) : () => setCurrentPage(currentPage - 1)}
-                                        disabled={currentPage === 1 ? true : false}
-                                    >Previous</button>
-                                    <label className='current-page-label'>Page {currentPage} of {totalPages}</label>
-                                    <button className='next-page-button' 
-                                        onClick={currentPage === totalPages ? () => setCurrentPage(totalPages) : () => setCurrentPage(currentPage + 1)}
-                                        disabled={currentPage === totalPages ? true : false}
-                                    >Next</button>
-                                    <button className='last-page-button' 
-                                        onClick={() => setCurrentPage(totalPages)}
-                                        disabled={currentPage === totalPages ? true : false}
-                                    >Last</button>
-                                </div>
+                                </select>
                             </div>
-                        ) : (
-                            <p>No experiences found</p>
-                        )
-                    }
 
+                            <div className='subgenre-filter'>
+                                <label className='subgenre-filter-label'>Sub-Genre</label>
+                                <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
+                                    <option className='subgenre-filter-option' value='All'>All</option>
+                                    {subcategories.filter((subcategory) => categories.some(category => category.id === subcategory.category))
+                                        .map((subcategory) => {
+                                            return (
+                                                <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <div className='max-players-filter'>
+                                <label className='max-players-filter-label'>Max Players</label>
+                                <select className='max-players-filter-select' value={maxPlayers} onChange={(e) => setMaxPlayers(e.target.value)}>
+                                    <option className='maxPlayers-filter-option' value='All'>All</option>
+                                    {Array.from(new Set(experiences.map((experience) => experience.maxPlayers)))
+                                        .sort((a,b) => b - a)
+                                        .map((count) => {
+                                            return (
+                                                <option className='maxPlayers-filter-option' value={count}>{count}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <div className='year-filter'>
+                                <label className='year-filter-label'>Year</label>
+                                <select className='year-filter-select' value={(year)} onChange={(e) => setYear(e.target.value)}>
+                                    <option className='year-filter-option' value='All'>All</option>
+                                    {Array.from(new Set(experiences.map((experience) => new Date(experience.created).getFullYear())))
+                                        .sort((a, b) => b - a)
+                                        .map((year) => {
+                                            return (
+                                                <option className='year-filter-option' value={year}>{year}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <input type='text' placeholder='Search for experiences...' className='search-input' onChange={(e) => setSearchQuery(e.target.value)} />
+                        <div className='search-filters'>
+                            <div className='exps-per-page'>
+                                <label className='exps-per-page-label'>Count</label>
+                                <select className='exps-per-page-select' value={experiencesPerPage} onChange={(e) => setExperiencesPerPage(e.target.value)}>
+                                    <option className='exps-per-page-option' value={4}>4</option>
+                                    <option className='exps-per-page-option' value={10}>10</option>
+                                    <option className='exps-per-page-option' value={25}>25</option>
+                                    <option className='exps-per-page-option' value={50}>50</option>
+                                </select>
+                            </div>
+                            <div className='sort-filter'>
+                                <label className='sort-filter-label'>Sort by</label>
+                                <select className='sort-filter-select' value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                    <option className='sort-filter-option' value='Ascending Added'>Ascending Added</option>
+                                    <option className='sort-filter-option' value='Descending Added'>Descending Added</option>
+                                    <option className='sort-filter-option' value='Oldest Release'>Oldest Release</option>
+                                    <option className='sort-filter-option' value='Latest Release'>Latest Release</option>
+                                </select>
+                            </div>
+                        </div>
+                    </motion.div>
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 1, scale: 0 }}
+                        transition={{ duration: 0.8 }}
+                    
+                        className='filter-output'
+                    >
+                        {
+                            filteredExperiences.length > 0 ? (
+                                <div>
+                                    <div className='search-results'>
+                                        {
+                                            paginatedExperiences.map((experience) => {
+                                                return (
+                                                    <ExperienceItem 
+                                                    key={experience.id} 
+                                                    experience={experience} 
+                                                    onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}/>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div className='nav-pages'>
+                                        <button className='first-page-button' 
+                                            onClick={() => setCurrentPage(1)}
+                                            disabled={currentPage === 1 ? true : false}
+                                        >First</button>
+                                        <button className='previous-page-button' 
+                                            onClick={currentPage === 1 ? () => setCurrentPage(1) : () => setCurrentPage(currentPage - 1)}
+                                            disabled={currentPage === 1 ? true : false}
+                                        >Previous</button>
+                                        <label className='current-page-label'>Page {currentPage} of {totalPages}</label>
+                                        <button className='next-page-button' 
+                                            onClick={currentPage === totalPages ? () => setCurrentPage(totalPages) : () => setCurrentPage(currentPage + 1)}
+                                            disabled={currentPage === totalPages ? true : false}
+                                        >Next</button>
+                                        <button className='last-page-button' 
+                                            onClick={() => setCurrentPage(totalPages)}
+                                            disabled={currentPage === totalPages ? true : false}
+                                        >Last</button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>No experiences found</p>
+                            )
+                        }
+
+                    </motion.div>
                 </div>
-            </motion.div>
+            </div>
             <AnimatePresence>
                 { showExperiencePage && selectedExperience && 
                     <ExperiencePage
