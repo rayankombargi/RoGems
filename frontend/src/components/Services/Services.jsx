@@ -4,7 +4,7 @@ import NotBar from '../NotBar/NotBar';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from 'react-router-dom';
 import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 function Services() {
 
@@ -22,16 +22,23 @@ function Services() {
     }
     const handleInsertExperienceRequest = async () => {
         try {
-            const response = await axios.post('/api/requests/insert_experience_request/', {
-                experience_url: experienceURLRequest,
-                username: Username,
-            })
-            if (response.status === 404) {
-                console.error("Error inserting experience request:", response.statusText);
-                setNotDetails({ message: "Error inserting experience request", status: "error" });
-                setNotification(true);
+            const totalRequests = requests.length;
+            if (totalRequests <= maxRequests) {
+                const response = await axios.post('/api/requests/insert_experience_request/', {
+                    experience_url: experienceURLRequest,
+                    username: Username,
+                })
+                if (response.status === 404) {
+                    console.error("Error inserting experience request:", response.statusText);
+                    setNotDetails({ message: "Error inserting experience request", status: "error" });
+                    setNotification(true);
+                } else {
+                    setNotDetails({ message: "Experience request inserted successfully", status: "success" });
+                    setNotification(true);
+                    await getExperienceRequests();
+                }
             } else {
-                setNotDetails({ message: "Experience request inserted successfully", status: "success" });
+                setNotDetails({ message: "Requests are currently full. Please try again later or next week.", status: "error" });
                 setNotification(true);
             }
         } catch (error) {
@@ -40,6 +47,27 @@ function Services() {
         }
         setExperienceURLRequest('');
     }
+
+    const [requests, setRequests] = useState([]);
+    const [maxRequests, setMaxRequests] = useState(50); // Set the maximum number of requests allowed
+    const getExperienceRequests = async () => {
+        try {
+            const response = await axios.get('/api/requests/fetch_experience_requests/');
+            if (response.status === 200) {
+                console.log("Requests fetched successfully")
+                setRequests(response.data);
+            } else {
+                console.error("Failed to fetch experiences:", response.statusText);
+            }
+        } catch(error) {
+            console.error("Error fetching experiences:", error);
+        }
+    }
+
+    useEffect(() => {
+        getExperienceRequests();
+    }, []);
+
     return (
         <div className="services">
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
@@ -67,7 +95,7 @@ function Services() {
                             <p>They will be individually reviewed and added to the platform.</p>
                             <p>It is optional to write your Roblox username in the first input.</p>
                             <p>Experiences containing innapropriate themes are prohibited, they will be rejected.</p>
-                            <p>Also, make sure to not input links of those that are already on the platform.</p>
+                            <p>Also, make sure to not input links of those that are already on this website.</p>
                             <p>Thank you for your support!</p>
                             <div className='request-ui'>
                                 <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>

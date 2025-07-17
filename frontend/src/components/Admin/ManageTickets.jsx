@@ -49,6 +49,7 @@ function ManageTickets({experiences, fetchExperiences}) {
                     setNotification(true);
                     deleteTicket(id);
                     fetchtickets();
+                    fetchExperiences();
                 } else {
                     console.error("Error inserting experience:", response.statusText);
                     setNotDetails({message: "Error inserting experience", status: "error"})
@@ -69,6 +70,7 @@ function ManageTickets({experiences, fetchExperiences}) {
                 setNotDetails({message: "Ticket deleted successfully", status: "success"})
                 setNotification(true);
                 fetchtickets();
+                fetchExperiences();
             } else {
                 console.error("Failed to delete ticket:", response.statusText);
             }
@@ -85,7 +87,6 @@ function ManageTickets({experiences, fetchExperiences}) {
 
 
     useEffect(() => {
-        fetchExperiences();
         fetchtickets();
     }, []);
 
@@ -116,11 +117,14 @@ function ManageTickets({experiences, fetchExperiences}) {
     return (
         <div className='manage-tickets'>
             {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
-            <div className='exp-count'>Experience Count: {experiences.length}</div>
             {tickets.length === 0 ? (
                 <h1 className='no-tickets'>No tickets available</h1>
             ) : (
-                <>
+                <div className='manage-tickets-panel'>
+                    <div className='see-tickets'>
+                        <div className='ticket-count'>Request Count: {tickets.length}</div>
+                        <button className='refresh-button' onClick={() => {fetchExperiences(); fetchtickets();}}>Refresh</button>
+                    </div>
                     <div className='tickets-filters'>
                         <select className='tickets-per-page-select'
                             onChange={(e) => {
@@ -174,7 +178,7 @@ function ManageTickets({experiences, fetchExperiences}) {
                             >Last</button>
                         </div>
                     </div>
-                </>
+                </div>
 
             )}
         </div>

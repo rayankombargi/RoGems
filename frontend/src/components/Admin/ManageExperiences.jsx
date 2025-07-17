@@ -15,10 +15,6 @@ function ManageExperiences({experiences, fetchExperiences}) {
     const [NotDetails, setNotDetails] = useState({});
 
     useEffect(() => {
-        fetchExperiences();
-    });
-
-    useEffect(() => {
         setTotalPages(Math.ceil(experiences.length / experiencesPerPage));   
     }, [experiences, experiencesPerPage]);
 
@@ -108,7 +104,10 @@ function ManageExperiences({experiences, fetchExperiences}) {
                 <div className='no-experiences'>No experiences found</div>
             ) : (
                 <div className='manage-experience-panel'>
-                    <div className='exp-count'>Experience Count: {experiences.length}</div> 
+                    <div className='see-experiences'>
+                        <div className='exp-count'>Experience Count: {experiences.length}</div> 
+                        <button className='refresh-button' onClick={() => {fetchExperiences();}}>Refresh</button>
+                    </div>
                     <div className='experiences-filters'>
                         <select className='experiences-per-page-select' 
                             onChange={(e) => {

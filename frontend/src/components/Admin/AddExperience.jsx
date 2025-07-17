@@ -31,6 +31,7 @@ function AddExperience({experiences, fetchExperiences}) {
                 if (response.status === 201) {
                     setNotDetails({ message: "Successfully added new experience", status: "success" });
                     setNotification(true);
+                    fetchExperiences();
                 } else {
                     console.error("Error inserting experience:", response.statusText);
                     setNotDetails({ message: "Error inserting experience", status: "error" });
@@ -48,10 +49,6 @@ function AddExperience({experiences, fetchExperiences}) {
         }
         setSelectedURL('');
     }
-
-    useEffect(() => {
-        fetchExperiences();
-    }, []);
 
     return (
         <div className='add-experience'>

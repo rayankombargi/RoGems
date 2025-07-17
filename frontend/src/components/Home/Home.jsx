@@ -22,7 +22,7 @@ function Home() {
                 className='home-content'
             >
                 <div className='home-info'>
-                    <h1> Welcome to the Experience Finder! </h1>
+                    <h1> Welcome to RoGems! </h1>
                     <img src={require('../Images/robloxMenu.png')} alt='Roblox Menu' className='home-image' />
                     <h2> Explore hidden experiences on the Roblox platform from amazing developers!</h2>
                     <button onClick={toDiscover} className='discover-button'>

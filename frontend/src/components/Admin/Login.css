@@ -70,3 +70,9 @@
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
+@media (max-width: 768px) {
+    .login-form {
+        width: 100%;
+    }
+}

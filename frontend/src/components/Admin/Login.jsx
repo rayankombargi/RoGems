@@ -30,7 +30,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
                     password
                 });
             } else {
-                setNotDetails({ message: "Session expired. Please log in again", status: "error" });
+                setNotDetails({ message: "Session expired. Please refresh the page and log in again", status: "error" });
                 setNotification(true);
                 return;
             }
@@ -48,6 +48,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
             const timeout = setTimeout(() => {
                 setSessionTime(sessionTime - 1);
             }, 1000);
+            console.log(`Session time remaining: ${sessionTime} seconds`);
             
             return () => clearTimeout(timeout);
         }
