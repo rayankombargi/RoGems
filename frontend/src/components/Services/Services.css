@@ -74,3 +74,9 @@ p {
     transform: scale(1.1);
     transform: transform 0.3s ease;
 }
+
+@media (max-width: 800px) {
+    .experience-input, .username-input {
+        width: 90%;
+    }
+}

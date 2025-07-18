@@ -38,14 +38,16 @@ function Category({experiences, genre, onSelectExperience}) {
     useEffect(() => {
         const updateExperiencesPerPage = () => {
             if (window.innerWidth < 700) {
-                setExperiencesPerPage(2);
+                setExperiencesPerPage(1);
             } else if (window.innerWidth < 800) {
+                setExperiencesPerPage(2);
+            } else if (window.innerWidth < 900) {
                 setExperiencesPerPage(3);
             } else if (window.innerWidth < 1000) {
                 setExperiencesPerPage(4);
-            } else if (window.innerWidth < 1200) {
-                setExperiencesPerPage(5);
             } else if (window.innerWidth < 1300) {
+                setExperiencesPerPage(5);
+            } else if (window.innerWidth < 1400) {
                 setExperiencesPerPage(6);
             } else {
                 setExperiencesPerPage(7);

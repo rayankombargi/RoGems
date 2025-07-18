@@ -209,7 +209,6 @@ function Search() {
                             <div className='exps-per-page'>
                                 <label className='exps-per-page-label'>Count</label>
                                 <select className='exps-per-page-select' value={experiencesPerPage} onChange={(e) => setExperiencesPerPage(e.target.value)}>
-                                    <option className='exps-per-page-option' value={4}>4</option>
                                     <option className='exps-per-page-option' value={10}>10</option>
                                     <option className='exps-per-page-option' value={25}>25</option>
                                     <option className='exps-per-page-option' value={50}>50</option>

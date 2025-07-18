@@ -75,4 +75,7 @@
     .login-form {
         width: 100%;
     }
+    .login-input-username, .login-input-password {
+        width: 90%;
+    }
 }

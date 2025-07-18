@@ -100,3 +100,11 @@ h1 {
         width: 100%;
     }
 }
+@media (max-width: 800px) {
+    .search-input {
+        width: 90%;
+    }
+    .genre-filter-select, .subgenre-filter-select, .max-players-filter-select, .year-filter-select, .exps-per-page-select, .sort-filter-select {
+        width: 90%;
+    }
+}
