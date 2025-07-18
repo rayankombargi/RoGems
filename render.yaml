@@ -10,7 +10,7 @@ services:
       cd frontend && npm install && npm run build && cd ..
       python manage.py collectstatic --no-input
       python manage.py migrate
-    startCommand: gunicorn RobloxExperienceFinder.wsgi:application
+    startCommand: gunicorn --config gunicorn.conf.py RobloxExperienceFinder.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -24,6 +24,8 @@ services:
         value: "False"
       - key: ALLOWED_HOSTS
         value: "*"
+      - key: RENDER_EXTERNAL_URL
+        sync: false # This will be auto-populated by Render
 
   # Cron Jobs
   - type: cron
