@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qsl
 from pathlib import Path
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,19 +85,22 @@ WSGI_APPLICATION = 'RobloxExperienceFinder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+tmpPosgres = urlparse(os.getenv('DATABASE_URL'))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rblxexperiencefinder_db',
-        'USER': 'root',
-        'PASSWORD': '522005',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': tmpPosgres.path.replace('/', ''),
+        'USER': tmpPosgres.username,
+        'PASSWORD': tmpPosgres.password,
+        'HOST': tmpPosgres.hostname,
+        'PORT': '5432',
         'OPTIONS': {
-            'charset': 'utf8mb4',
-            'use_unicode': True,
-            'init_command': "SET NAMES 'utf8mb4'",
-        }
+            # 'charset': 'utf8mb4',
+            # 'use_unicode': True,
+            # 'init_command': "SET NAMES 'utf8mb4'",
+            **dict(parse_qsl(tmpPosgres.query)),
+        },
     }
 }
 
