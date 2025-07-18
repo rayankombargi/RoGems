@@ -13,13 +13,11 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: roblox-db
-          property: connectionString
+        sync: false # This will use the environment variable you set manually
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
-        value: False
+        value: "False"
       - key: ALLOWED_HOSTS
         value: "*"
 
@@ -49,9 +47,7 @@ services:
     startCommand: python manage.py daily_exps
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: roblox-db
-          property: connectionString
+        sync: false # This will use the environment variable you set manually
 
   - type: cron
     name: weekly-cleanup
@@ -62,9 +58,7 @@ services:
     startCommand: python manage.py weekly_refresh_requests
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: roblox-db
-          property: connectionString
+        sync: false # This will use the environment variable you set manually
 
   - type: cron
     name: weekly-experiences
@@ -75,13 +69,6 @@ services:
     startCommand: python manage.py weekly_exps
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: roblox-db
-          property: connectionString
+        sync: false # This will use the environment variable you set manually
 
-# Database
-databases:
-  - name: roblox-db
-    databaseName: roblox_experience_finder
-    user: roblox_user
-    region: oregon
+# No database section needed - using external Neon PostgreSQL
