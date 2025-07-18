@@ -14,6 +14,7 @@ import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 from pathlib import Path
+import dj_database_url
 
 load_dotenv()
 
@@ -25,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$+6sbe^0sx^)xy8tg+kyl=y$a8ku_fj577%ho+0*3j84wkwlh2'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$+6sbe^0sx^)xy8tg+kyl=y$a8ku_fj577%ho+0*3j84wkwlh2')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -49,14 +50,15 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Move CORS higher
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.middleware.AdminSessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'RobloxExperienceFinder.urls'
@@ -85,17 +87,29 @@ WSGI_APPLICATION = 'RobloxExperienceFinder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-tmpPosgres = urlparse(os.getenv('DATABASE_URL'))
+# Use dj-database-url for easier database configuration
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPosgres.path.replace('/', ''),
-        'USER': tmpPosgres.username,
-        'PASSWORD': tmpPosgres.password,
-        'HOST': tmpPosgres.hostname,
-        'PORT': '5432',
-        'OPTIONS': {
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    # Fallback for local development
+    tmpPosgres = urlparse(os.getenv('DATABASE_URL', ''))
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': tmpPosgres.path.replace('/', '') if tmpPosgres.path else 'roblox_db',
+            'USER': tmpPosgres.username or 'postgres',
+            'PASSWORD': tmpPosgres.password or '',
+            'HOST': tmpPosgres.hostname or 'localhost',
+            'PORT': '5432',
+            'OPTIONS': {
             # 'charset': 'utf8mb4',
             # 'use_unicode': True,
             # 'init_command': "SET NAMES 'utf8mb4'",
@@ -139,9 +153,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR / 'frontend/build/static'),]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/build/static'),
+]
+
+# Add WhiteNoise for serving static files in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
