@@ -11,12 +11,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 from pathlib import Path
 import dj_database_url
 
-load_dotenv()
+# load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,33 +90,12 @@ WSGI_APPLICATION = 'RobloxExperienceFinder.wsgi.application'
 # Use dj-database-url for easier database configuration
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
-if DATABASE_URL:
-    # Production: Use dj-database-url
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
-else:
-    # Local development: Use urlparse method
-    tmpPosgres = urlparse(os.getenv('DATABASE_URL', ''))
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': tmpPosgres.path.replace('/', '') if tmpPosgres.path else 'roblox_db',
-            'USER': tmpPosgres.username or 'postgres',
-            'PASSWORD': tmpPosgres.password or '',
-            'HOST': tmpPosgres.hostname or 'localhost',
-            'PORT': '5432',
-            'OPTIONS': {
-            # 'charset': 'utf8mb4',
-            # 'use_unicode': True,
-            # 'init_command': "SET NAMES 'utf8mb4'",
-            **dict(parse_qsl(tmpPosgres.query)),
-        },
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
@@ -176,23 +155,19 @@ SESSION_COOKIE_AGE = 3600                # Session expires after 1 hour
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True   # Session expires when browser closes
 CSRF_COOKIE_SECURE = not DEBUG           # HTTPS only in production
 
-# CORS settings
+# CORS settings - only need localhost for development
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Local development
+    "http://localhost:3000",  # Local development React dev server
 ]
 
-# Add production URLs when deploying
-if not DEBUG:
-    CORS_ALLOWED_ORIGINS.extend([
-        "https://roblox-experience-finder-frontend.onrender.com",  # Replace with your actual frontend URL
-    ])
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Local development
 ]
 
-# Add production URLs when deploying
+# Add production domain when deploying
 if not DEBUG:
-    CSRF_TRUSTED_ORIGINS.extend([
-        "https://roblox-experience-finder-frontend.onrender.com",  # Replace with your actual frontend URL
-    ])
+    # Get the render domain from environment or use default
+    RENDER_DOMAIN = os.environ.get('RENDER_EXTERNAL_URL', 'https://rogems.onrender.com')
+    CORS_ALLOWED_ORIGINS.append(RENDER_DOMAIN)
+    CSRF_TRUSTED_ORIGINS.append(RENDER_DOMAIN)

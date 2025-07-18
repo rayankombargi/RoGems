@@ -1,17 +1,20 @@
 services:
-  # Django Backend
+  # Full-stack Django + React App
   - type: web
-    name: roblox-experience-finder-backend
+    name: roblox-experience-finder
     env: python
     region: oregon
     buildCommand: |
       pip install -r requirements.txt
+      cd frontend && npm install && npm run build && cd ..
       python manage.py collectstatic --no-input
       python manage.py migrate
     startCommand: gunicorn RobloxExperienceFinder.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: NODE_VERSION
+        value: 18
       - key: DATABASE_URL
         sync: false # This will use the environment variable you set manually
       - key: SECRET_KEY
@@ -20,22 +23,6 @@ services:
         value: "False"
       - key: ALLOWED_HOSTS
         value: "*"
-
-  # React Frontend
-  - type: web
-    name: roblox-experience-finder-frontend
-    env: node
-    region: oregon
-    buildCommand: |
-      cd frontend
-      npm install
-      npm run build
-    startCommand: |
-      cd frontend
-      npx serve -s build -l $PORT
-    envVars:
-      - key: NODE_VERSION
-        value: 18
 
   # Cron Jobs
   - type: cron
