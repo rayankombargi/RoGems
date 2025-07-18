@@ -90,6 +90,9 @@ WSGI_APPLICATION = 'RobloxExperienceFinder.wsgi.application'
 # Use dj-database-url for easier database configuration
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is required")
+
 DATABASES = {
     'default': dj_database_url.config(
         default=DATABASE_URL,
