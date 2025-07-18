@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+# /build  <- Commented out so build files are committed
 
 # misc
 .DS_Store
