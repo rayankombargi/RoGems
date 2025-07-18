@@ -5,6 +5,7 @@ services:
     env: python
     region: oregon
     buildCommand: |
+      pip install --upgrade pip
       pip install -r requirements.txt
       cd frontend && npm install && npm run build && cd ..
       python manage.py collectstatic --no-input
@@ -30,7 +31,9 @@ services:
     env: python
     region: oregon
     schedule: "0 0 * * *" # Daily at midnight UTC
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: python manage.py daily_exps
     envVars:
       - key: DATABASE_URL
@@ -41,7 +44,9 @@ services:
     env: python
     region: oregon
     schedule: "0 0 * * 0" # Weekly on Sunday at midnight UTC
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: python manage.py weekly_refresh_requests
     envVars:
       - key: DATABASE_URL
@@ -52,7 +57,9 @@ services:
     env: python
     region: oregon
     schedule: "0 0 * * 0" # Weekly on Sunday at midnight UTC
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: python manage.py weekly_exps
     envVars:
       - key: DATABASE_URL
