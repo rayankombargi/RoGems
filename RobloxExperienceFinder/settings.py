@@ -31,7 +31,28 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$+6sbe^0sx^)xy8tg+kyl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+# Configure ALLOWED_HOSTS for both development and production
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Always allow the specific Render domain
+ALLOWED_HOSTS.extend([
+    'rogems.onrender.com',
+    '.onrender.com',  # Django wildcard syntax for subdomains
+])
+
+# If ALLOWED_HOSTS env var is set to *, allow all hosts
+if os.environ.get('ALLOWED_HOSTS') == '*':
+    ALLOWED_HOSTS = ['*']
+
+# Add Render domain if RENDER_EXTERNAL_URL is available
+render_url = os.environ.get('RENDER_EXTERNAL_URL')
+if render_url:
+    # Extract domain from URL
+    from urllib.parse import urlparse
+    parsed_url = urlparse(render_url)
+    render_domain = parsed_url.netloc
+    if render_domain and render_domain not in ALLOWED_HOSTS and '*' not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(render_domain)
 
 
 # Application definition
