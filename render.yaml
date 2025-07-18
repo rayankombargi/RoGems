@@ -7,10 +7,11 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
+      python health_check.py
       cd frontend && npm install && npm run build && cd ..
       python manage.py collectstatic --no-input
       python manage.py migrate
-    startCommand: gunicorn --config gunicorn.conf.py RobloxExperienceFinder.wsgi:application
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --max-requests 500 --max-requests-jitter 50 RobloxExperienceFinder.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -26,6 +27,10 @@ services:
         value: "*"
       - key: RENDER_EXTERNAL_URL
         sync: false # This will be auto-populated by Render
+      - key: WEB_CONCURRENCY
+        value: "1"
+      - key: PYTHONUNBUFFERED
+        value: "1"
 
   # Cron Jobs
   - type: cron

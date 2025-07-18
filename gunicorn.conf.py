@@ -4,15 +4,15 @@ import os
 bind = f"0.0.0.0:{os.environ.get('PORT', 8000)}"
 backlog = 2048
 
-# Worker processes
-workers = 4
+# Worker processes - reduced for free tier
+workers = 1  # Reduced from 4 to 1 for free tier memory limits
 worker_class = "sync"
 worker_connections = 1000
-timeout = 30
+timeout = 120  # Increased timeout for slower free tier
 keepalive = 2
 
 # Restart workers after this many requests, to help prevent memory leaks
-max_requests = 1000
+max_requests = 500  # Reduced from 1000
 max_requests_jitter = 50
 
 # Logging
