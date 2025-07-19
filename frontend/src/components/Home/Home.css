@@ -1,6 +1,6 @@
 :root {
-    --blue: #335fff;
-    --grey: rgb(18 18 21 / 92%);
+    --blue: rgb(51, 95, 255);
+    --grey: rgba(18, 18, 21, 0.92);
 }
 
 .home-content {
