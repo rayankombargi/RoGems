@@ -48,7 +48,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
             const timeout = setTimeout(() => {
                 setSessionTime(sessionTime - 1);
             }, 1000);
-            console.log(`Session time remaining: ${sessionTime} seconds`);
+            // console.log(`Session time remaining: ${sessionTime} seconds`);
             
             return () => clearTimeout(timeout);
         }

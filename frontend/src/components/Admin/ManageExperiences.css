@@ -158,6 +158,9 @@
 
 @media (max-width: 768px) {
 
+    .experiences-filters {
+        scale: 0.8;
+    }
     .experience-instance {
         width: 85%;
     }

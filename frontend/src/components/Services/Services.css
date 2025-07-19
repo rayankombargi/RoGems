@@ -76,6 +76,9 @@ p {
 }
 
 @media (max-width: 800px) {
+    .request-experience {
+        width: 100%;
+    }
     .experience-input, .username-input {
         width: 90%;
     }

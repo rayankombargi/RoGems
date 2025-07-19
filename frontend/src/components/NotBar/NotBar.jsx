@@ -17,15 +17,16 @@ function NotBar({message, status, setNotification, setNotDetails}) {
         }, 1000);
     }, [secondsElapsed])
     return (
-            status === 'error' ?  (
-                <div className='notbar-error'>
-                    <div className='notbar-message'>{message}</div>
-                </div>
-            ) :  (
-                <div className='notbar-success'>
-                    <div className='notbar-message'>{message}</div>
-                </div>
-            )
+        status === 'error' ?  (
+            <div className='notbar-error'>
+                <div className='notbar-message'>{message}</div>
+            </div>
+        ) :  (
+            <div className='notbar-success'>
+                <div className='notbar-message'>{message}</div>
+                <audio src={require('../Sounds/Notification.mp3')} autoPlay />
+            </div>
+        )
     );
 }
 

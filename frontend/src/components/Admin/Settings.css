@@ -132,3 +132,18 @@
     transform: scale(1.1);
     transition: transform 0.3s ease;
 }
+
+@media (max-width: 768px) {
+    .settings-content {
+        width: 100%;
+    }
+
+    .settings-username-input, .settings-password-input, .confirm-password-input {
+        width: 90%;
+    }
+
+    .settings-modal-content {
+        width: 90%;
+        height: auto;
+    }
+}
