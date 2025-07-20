@@ -26,7 +26,7 @@ ENV/
 
 # React (frontend)
 frontend/node_modules/
-frontend/build/
+# frontend/build/
 frontend/.env
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
