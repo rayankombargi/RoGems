@@ -29,11 +29,11 @@ function Services() {
                     username: Username,
                 })
                 if (response.status === 404) {
-                    console.error("Error inserting experience request:", response.statusText);
-                    setNotDetails({ message: "Error inserting experience request", status: "error" });
+                    console.error("Error submitting experience request:", response.statusText);
+                    setNotDetails({ message: "Error submitting experience request", status: "error" });
                     setNotification(true);
                 } else {
-                    setNotDetails({ message: "Experience request inserted successfully", status: "success" });
+                    setNotDetails({ message: "Experience request successfully submitted", status: "success" });
                     setNotification(true);
                     await getExperienceRequests();
                 }
@@ -100,7 +100,7 @@ function Services() {
                             <div className='request-ui'>
                                 <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
                                 <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
-                                <button onClick={handleInsertExperienceRequest} className='insert-button'>Insert</button>                     
+                                <button onClick={handleInsertExperienceRequest} className='insert-button'>Submit</button>                     
                             </div>
                         </div>
                     </div>
