@@ -11,7 +11,7 @@ function WeeklyCategory({experiences, onSelectExperience }) {
     return (
         <div className='Category'>
             <h1> Featured This Week </h1>
-            <div className='category-list'>
+            <div className='category-content'>
                 {experiences.length > 0 ? (
                     <div className='experience-list'>
                         {experiences

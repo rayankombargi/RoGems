@@ -11,7 +11,7 @@ function DailyCategory({ experiences, onSelectExperience }) {
     return (
         <div className='Category'>
             <h1> Experiences Of The Day </h1>
-            <div className='category-list'>
+            <div className='category-content'>
                 {experiences.length > 0 ? (
                     <div className='experience-list'>
                         {experiences

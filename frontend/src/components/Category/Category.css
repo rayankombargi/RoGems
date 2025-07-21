@@ -15,9 +15,12 @@
     color: white;
 }
 
-.category-list {
+.category-content {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
 }
 
@@ -42,6 +45,8 @@
 
     padding-top: 5px;
     padding-bottom: 5px;
+
+    scrollbar-width: none;
 }
 
 

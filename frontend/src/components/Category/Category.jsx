@@ -21,7 +21,7 @@ function Category({experiences, genre, onSelectExperience}) {
     return (
         <div className='Category'>
             <h1> {genre} </h1>
-            <div className='category-list'>
+            <div className='category-content'>
                 {filteredExperiences.length > 0 ? (
                     <div className='experience-list'>
                         {filteredExperiences
