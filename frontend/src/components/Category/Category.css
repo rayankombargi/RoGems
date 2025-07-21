@@ -21,20 +21,6 @@
     width: 100%;
 }
 
-.previous-button {
-    justify-self: left;
-    background-color: black;
-    border-color: transparent;
-    box-shadow: black 0px 0px 10px;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
-    color: #f7f7f8;
-
-    margin-left: 10px;
-    margin-right: 5px;
-    transition: 0.2s;
-}
 
 .empty-list {
     display: flex;
@@ -49,29 +35,10 @@
 .experience-list {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: left;
     width: 100%;
-}
-
-.next-button {
-    justify-self: right;
-    background-color: black;
-    border-color: transparent;
-    box-shadow: black 0px 0px 10px;
-    border-radius: 8px;
-    font-size: 15px;
-    cursor: pointer;
-    color: #f7f7f8;
-
-    margin-right: 10px;
-    margin-left: 5px;
-    transition: 0.2s;
-}
-
-.previous-button:hover, .next-button:hover {
-    background-color: var(--blue);
-    transition: 0.2s;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 
