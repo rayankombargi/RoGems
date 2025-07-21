@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.67f5ffd6.css",
+    "main.css": "/static/css/main.04905e5f.css",
     "main.js": "/static/js/main.bf7c5b2a.js",
     "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
     "static/media/robloxMenu.png": "/static/media/robloxMenu.0d191bbfdc0815b4a956.png",
     "static/media/Notification.mp3": "/static/media/Notification.01aefb8d426d3ca64ebf.mp3",
     "index.html": "/index.html",
-    "main.67f5ffd6.css.map": "/static/css/main.67f5ffd6.css.map",
+    "main.04905e5f.css.map": "/static/css/main.04905e5f.css.map",
     "main.bf7c5b2a.js.map": "/static/js/main.bf7c5b2a.js.map",
     "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.67f5ffd6.css",
+    "static/css/main.04905e5f.css",
     "static/js/main.bf7c5b2a.js"
   ]
 }

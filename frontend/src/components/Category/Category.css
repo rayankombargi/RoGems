@@ -36,9 +36,12 @@
     display: flex;
     flex-direction: row;
     justify-content: left;
-    width: 100%;
-    max-width: 100%;
+    width: 93%;
+    max-width: 93%;
     overflow-x: auto;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 
