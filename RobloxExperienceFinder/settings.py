@@ -175,6 +175,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/build/static'),
+    os.path.join(BASE_DIR / 'frontend/build'),
 ]
 
 # Use WhiteNoise for serving static files in production
@@ -188,7 +189,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Security settings - adjust based on environment
 SESSION_COOKIE_SECURE = not DEBUG        # HTTPS only in production
 SESSION_COOKIE_HTTPONLY = True           # Can't access via JS
-SESSION_COOKIE_AGE = 3600                # Session expires after 1 hour
+SESSION_COOKIE_AGE = 1200                # Session expires after 20 minutes
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True   # Session expires when browser closes
 CSRF_COOKIE_SECURE = not DEBUG           # HTTPS only in production
 

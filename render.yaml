@@ -11,7 +11,7 @@ services:
       cd frontend && npm install && npm run build && cd ..
       python manage.py collectstatic --no-input
       python manage.py migrate
-    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --max-requests 500 --max-requests-jitter 50 RobloxExperienceFinder.wsgi:application
+    startCommand: gunicorn --config gunicorn.conf.py RobloxExperienceFinder.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0

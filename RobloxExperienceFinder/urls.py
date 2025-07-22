@@ -17,9 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.http import FileResponse
+import os
+
+def favicon_view(request):
+    """favicon from React build directory"""
+    favicon_path = os.path.join(settings.BASE_DIR, 'frontend/build/favicon.ico')
+    if os.path.exists(favicon_path):
+        return FileResponse(open(favicon_path, 'rb'), content_type='image/x-icon')
+    png_path = os.path.join(settings.BASE_DIR, 'frontend/build/RoGems.png')
+    return FileResponse(open(png_path), 'rb', content_type='image/png')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+    path('favicon.ico', favicon_view, name='favicon'),
+    re_path(r'^(?!static/).*$', TemplateView.as_view(template_name='index.html')),
 ]
