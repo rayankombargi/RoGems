@@ -57,8 +57,8 @@ function Search() {
         let exps = [...experiences];
         if (searchQuery) {
             exps = exps.filter((experience) => 
-                experience.name.toLowerCase().includes(searchQuery.toLowerCase())
-                || experience.description.toLowerCase().includes(searchQuery.toLowerCase())
+                (experience.name && experience.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                || (experience.description && experience.description.toLowerCase().includes(searchQuery.toLowerCase()))
             );
         }
         if (genre && genre !== 'All') {
