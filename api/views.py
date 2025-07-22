@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Experience, Category, SubCategory, DailyExperience, WeeklyExperience, ExperienceRequest, Admin
-from .serializers import ExperienceSerializer, CategorySerializer, SubCategorySerializer, DailyExperienceSerializer, WeeklyExperienceSerializer, ExperienceRequestSerializer, AdminSerializer
+from .models import Experience, Category, SubCategory, DailyExperience, ExperienceRequest, Admin
+from .serializers import ExperienceSerializer, CategorySerializer, SubCategorySerializer, DailyExperienceSerializer, ExperienceRequestSerializer, AdminSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import re
@@ -108,22 +108,6 @@ def get_daily_experiences(request):
 @api_view(['POST'])
 def add_daily_experience(request):
     serializer = DailyExperienceSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
-
-# Weekly Experience Table
-
-@api_view(['GET'])
-def get_weekly_experiences(request):
-    weekly_experiences = WeeklyExperience.objects.all()
-    serializer = WeeklyExperienceSerializer(weekly_experiences, many=True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def add_weekly_experience(request):
-    serializer = WeeklyExperienceSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)

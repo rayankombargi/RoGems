@@ -8,9 +8,7 @@ from .views import  (
     get_categories,
     get_subcategories,
     get_daily_experiences,
-    get_weekly_experiences,
     add_daily_experience,
-    add_weekly_experience,
     get_experience_requests,
     add_experience_request,
     delete_experience_request,
@@ -39,9 +37,6 @@ urlpatterns = [
     # Daily Experience Views
     path('experiences/fetch_daily_experiences/', get_daily_experiences, name='get_daily_experiences'),
     path('experiences/insert_daily_experience/', add_daily_experience, name='add_daily_experience'),
-    # Weekly Experience Views
-    path('experiences/fetch_weekly_experiences/', get_weekly_experiences, name='get_weekly_experiences'),
-    path('experiences/insert_weekly_experience/', add_weekly_experience, name='add_weekly_experience'),
     # Experience Request Views
     path('requests/fetch_experience_requests/', get_experience_requests, name='get_experience_requests'),
     path('requests/insert_experience_request/', add_experience_request, name='add_experience_request'),

@@ -41,12 +41,6 @@ class DailyExperience(models.Model):
     def _str_(self):
         return self.experience.name
     
-class WeeklyExperience(models.Model):
-    experience = models.ForeignKey(Experience, on_delete=models.CASCADE)
-
-    def _str_(self):
-        return self.experience.name
-    
 class ExperienceRequest(models.Model):
     experience_url = models.URLField(unique=True, null=False, blank=False, default="")
     username = models.CharField(max_length=255, blank=True, default="Anonymous")

@@ -8,13 +8,11 @@ import NavBar from '../NavBar/NavBar';
 import ExperiencePage from '../ExperiencePage/ExperiencePage';
 import Category from '../Category/Category';
 import DailyCategory from '../Category/DailyCategory';
-import WeeklyCategory from '../Category/WeeklyCategory';
 
 function Discover() {
 
     const [experiences, setExperiences] = useState([]);
     const [dailyExperiences, setDailyExperiences] = useState([]);
-    const [weeklyExperiences, setWeeklyExperiences] = useState([]);
 
     const fetchExperiences = async () => {
         try {
@@ -34,19 +32,9 @@ function Discover() {
         }
     }
 
-    const fetchWeeklyExperiences = async () => {
-        try {
-            const response = await axios.get('/api/experiences/fetch_weekly_experiences/');
-            setWeeklyExperiences(response.data);
-        } catch(error) {
-            console.error('Error fetching weekly experiences:', error);
-        }
-    }
-
     useEffect(() => {
         fetchExperiences();
         fetchDailyExperiences();
-        fetchWeeklyExperiences();
     }, [])
 
     const [categories, setCategories] = useState([]);
@@ -121,21 +109,9 @@ function Discover() {
                                 }
                                 return null;
                             })()}
-                            {(() => {
-                                const category = categories.find(category => category.name === "Featured This Week");
-                                if (category && weeklyExperiences.length > 0) {
-                                    return (
-                                        <WeeklyCategory 
-                                            experiences={experiences.filter(exp => weeklyExperiences.some(weeklyExp => weeklyExp.experience === exp.id))}
-                                            onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
-                                        />
-                                    )
-                                }
-                                return null;
-                            })()}
                             {
                                 categories
-                                    .filter((category) => category.name !== "Experiences Of The Day" && category.name !== "Featured This Week")
+                                    .filter((category) => category.name !== "Experiences Of The Day")
                                     .map((category) => {
                                         const filteredExperiences = experiences.filter((experience) => 
                                             experience.genre === category.name
