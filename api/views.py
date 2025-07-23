@@ -142,7 +142,11 @@ def add_experience_request(request):
 def delete_experience_request(request, pk):
     try:
         request_instance = ExperienceRequest.objects.get(pk=pk)
-        request_instance.delete()
+        exp_URL = request_instance.experience_url
+        if not exp_URL:
+            return Response({"error": "Experience URL is required"}, status=400)
+        requests_with_URL = ExperienceRequest.objects.filter(experience_url=exp_URL)
+        requests_with_URL.delete()
         return Response({"message": "Experience request deleted successfully"}, status=204)
     except ExperienceRequest.DoesNotExist:
         return Response({"error": "Experience request not found"}, status=404)
