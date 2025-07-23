@@ -79,7 +79,7 @@ function Services() {
                     setNotDetails({ message: "Experience already exists in the database", status: "error" });
                     setNotification(true);
                 } else {
-                    await handleInsertExperienceRequest();
+                    handleInsertExperienceRequest();
                 }
             }
         } catch (error) {
