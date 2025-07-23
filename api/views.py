@@ -88,7 +88,7 @@ def check_experience_exists(request, rootPlaceId):
         serializer = ExperienceSerializer(experience)
         return Response(serializer.data)
     except Experience.DoesNotExist:
-        return Response({"message": "Experience not found"}, status=404)
+        return Response({"error": "Experience not found"}, status=404)
 
 # Category Table
 
