@@ -74,7 +74,7 @@ function Services() {
             const response = await axios.get('/api/experiences/fetch_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
                 const {game_data, icon} = response.data;
-                const requestExists = await axios.get(`/api/requests/check_request_exists/${game_data.experience_url}/`, {
+                const requestExists = await axios.get(`/api/requests/check_request_exists/${game_data.url}/`, {
                     validateStatus: () => true
                 })
                 if (requestExists.status === 404) {
