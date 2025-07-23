@@ -89,9 +89,13 @@ function Services() {
                         setNotification(true);
                     }
                 }
-                else if (requestExists.status === 200) {
+                else {
                     setNotDetails({ message: "Experience request already pending", status: "success" });
                     setNotification(true);
+                    const updateRequestResponse = await axios.put(`/api/requests/update_experience_request/${game_data.rootPlaceId}/`, {
+                        experience_url: game_data.url,
+                        username: Username,
+                    });
                 }
             }
         } catch (error) {

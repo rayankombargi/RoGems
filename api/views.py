@@ -141,6 +141,18 @@ def add_experience_request(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+@api_view(['PUT'])
+def update_experience_request(request, url):
+    try:
+        request_instance = ExperienceRequest.objects.get(experience_url=url)
+        serializer = ExperienceRequestSerializer(request_instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+    except ExperienceRequest.DoesNotExist:
+        return Response({"error": "Experience request not found"}, status=404)
+
 @api_view(['DELETE'])
 def delete_experience_request(request, pk):
     try:
