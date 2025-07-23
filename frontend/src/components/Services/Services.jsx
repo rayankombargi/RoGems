@@ -73,8 +73,8 @@ function Services() {
         try {
             const response = await axios.get('/api/experiences/fetch_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
-                const {data, icon} = response.data;
-                const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${data.rootPlaceId}/`);
+                const {game_data, icon} = response.data;
+                const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${game_data.rootPlaceId}/`);
                 if (experienceExists.status === 200) {
                     setNotDetails({ message: "Experience already exists in the database", status: "error" });
                     setNotification(true);
