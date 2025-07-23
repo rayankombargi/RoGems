@@ -80,6 +80,15 @@ def delete_experience(request, pk):
         return Response({"message": "Experience deleted successfully"}, status=204)
     except Experience.DoesNotExist:
         return Response({"error": "Experience not found"}, status=404)
+    
+@api_view(['GET'])
+def check_experience_exists(request, rootPlaceId):
+    try:
+        experience = Experience.objects.get(rootPlaceId=rootPlaceId)
+        serializer = ExperienceSerializer(experience)
+        return Response(serializer.data)
+    except Experience.DoesNotExist:
+        return Response({"message": "Experience not found"}, status=404)
 
 # Category Table
 

@@ -5,6 +5,7 @@ from .views import  (
     add_experience, 
     update_experience,
     delete_experience,
+    check_experience_exists,
     get_categories,
     get_subcategories,
     get_daily_experiences,
@@ -30,6 +31,7 @@ urlpatterns = [
     path('experiences/insert/', add_experience, name='add_experience'),
     path('experiences/update/<int:pk>/', update_experience, name='update_experience'),
     path('experiences/delete/<int:pk>/', delete_experience, name='delete_experience'),
+    path('experiences/check_experience_exists/<int:rootPlaceId>/', check_experience_exists, name='check_experience_exists'),
     # Category Views
     path('categories/fetch_categories/', get_categories, name='get_categories'),
     # Subcategory Views

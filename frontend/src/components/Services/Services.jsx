@@ -20,6 +20,27 @@ function Services() {
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     }
+
+    const [requests, setRequests] = useState([]);
+    const [maxRequests, setMaxRequests] = useState(50); // Set the maximum number of requests allowed
+    const getExperienceRequests = async () => {
+        try {
+            const response = await axios.get('/api/requests/fetch_experience_requests/');
+            if (response.status === 200) {
+                console.log("Requests fetched successfully")
+                setRequests(response.data);
+            } else {
+                console.error("Failed to fetch experiences:", response.statusText);
+            }
+        } catch(error) {
+            console.error("Error fetching experiences:", error);
+        }
+    }
+
+    useEffect(() => {
+        getExperienceRequests();
+    }, []);
+
     const handleInsertExperienceRequest = async () => {
         try {
             const totalRequests = requests.length;
@@ -48,25 +69,27 @@ function Services() {
         setExperienceURLRequest('');
     }
 
-    const [requests, setRequests] = useState([]);
-    const [maxRequests, setMaxRequests] = useState(50); // Set the maximum number of requests allowed
-    const getExperienceRequests = async () => {
+    const CheckIfAlreadyExists = async () => {
         try {
-            const response = await axios.get('/api/requests/fetch_experience_requests/');
+            const response = await axios.get('/api/experiences/fetch_experience_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
-                console.log("Requests fetched successfully")
-                setRequests(response.data);
-            } else {
-                console.error("Failed to fetch experiences:", response.statusText);
+                const {data, icon} = response.data;
+                const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${data.rootPlaceId}/`);
+                if (experienceExists.status === 200) {
+                    setNotDetails({ message: "Experience already exists in the database", status: "error" });
+                    setNotification(true);
+                } else {
+                    await handleInsertExperienceRequest();
+                }
             }
-        } catch(error) {
-            console.error("Error fetching experiences:", error);
+        } catch (error) {
+            console.error("Error fetching experience data: ", error)
+            setNotDetails({message: "Incorrect Experience URL", status: "error"});
+            setNotification(true);
         }
-    }
+        setExperienceURLRequest('');
+    }   
 
-    useEffect(() => {
-        getExperienceRequests();
-    }, []);
 
     return (
         <div className="services">
@@ -100,7 +123,7 @@ function Services() {
                             <div className='request-ui'>
                                 <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
                                 <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
-                                <button onClick={handleInsertExperienceRequest} className='insert-button'>Submit</button>                     
+                                <button onClick={CheckIfAlreadyExists} className='insert-button'>Submit</button>                     
                             </div>
                         </div>
                     </div>
