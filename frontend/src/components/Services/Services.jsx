@@ -71,7 +71,7 @@ function Services() {
 
     const CheckIfAlreadyExists = async () => {
         try {
-            const response = await axios.get('/api/experiences/fetch_experience_data/', {params: {url: experienceURLRequest}});
+            const response = await axios.get('/api/experiences/fetch_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
                 const {data, icon} = response.data;
                 const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${data.rootPlaceId}/`);
