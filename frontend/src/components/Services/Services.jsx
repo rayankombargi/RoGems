@@ -89,10 +89,9 @@ function Services() {
                         setNotification(true);
                     }
                 }
-                else {
-                    setNotDetails({ message: "Experience request already pending", status: "error" });
+                else if (requestExists.status === 200) {
+                    setNotDetails({ message: "Experience request already pending", status: "success" });
                     setNotification(true);
-                    return;
                 }
             }
         } catch (error) {
