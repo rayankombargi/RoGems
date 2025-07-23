@@ -42,7 +42,7 @@ class DailyExperience(models.Model):
         return self.experience.name
     
 class ExperienceRequest(models.Model):
-    experience_url = models.URLField(null=False, blank=False, default="")
+    experience_url = models.URLField(unique=True, null=False, blank=False, default="")
     username = models.CharField(max_length=255, blank=True, default="Anonymous")
     created_at = models.DateTimeField(null=True, default=timezone.now)
 

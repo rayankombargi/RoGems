@@ -142,12 +142,20 @@ def add_experience_request(request):
 def delete_experience_request(request, pk):
     try:
         request_instance = ExperienceRequest.objects.get(pk=pk)
-        exp_URL = request_instance.experience_url
-        if not exp_URL:
-            return Response({"error": "Experience URL is required"}, status=400)
-        requests_with_URL = ExperienceRequest.objects.filter(experience_url=exp_URL)
-        requests_with_URL.delete()
+        request_instance.delete()
         return Response({"message": "Experience request deleted successfully"}, status=204)
+    except ExperienceRequest.DoesNotExist:
+        return Response({"error": "Experience request not found"}, status=404)
+    
+@api_view(['GET'])
+def check_request_exists(request, url):
+    try:
+        request_intance = ExperienceRequest.objects.get(experience_url=url)
+        serializer = ExperienceRequestSerializer(request_intance)
+        if (serializer.data):
+            return Response(serializer.data, status=200)
+        return Response({"error": "Experience request not found"}, status=404)
+
     except ExperienceRequest.DoesNotExist:
         return Response({"error": "Experience request not found"}, status=404)
     

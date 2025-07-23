@@ -13,6 +13,7 @@ from .views import  (
     get_experience_requests,
     add_experience_request,
     delete_experience_request,
+    check_request_exists,
     get_current_admin,
     get_admins,
     add_admin,
@@ -43,6 +44,7 @@ urlpatterns = [
     path('requests/fetch_experience_requests/', get_experience_requests, name='get_experience_requests'),
     path('requests/insert_experience_request/', add_experience_request, name='add_experience_request'),
     path('requests/delete_experience_request/<int:pk>/', delete_experience_request, name='delete_experience_request'),
+    path('requests/check_request_exists/<str:url>/', check_request_exists, name='check_request_exists'),
     # Admin Views
     path('admins/get_current_admin/', get_current_admin, name='get_current_admin'),
     path('admins/fetch_admins/', get_admins, name='get_admins'),

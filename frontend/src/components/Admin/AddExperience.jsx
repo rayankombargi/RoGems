@@ -13,30 +13,38 @@ function AddExperience({experiences, fetchExperiences}) {
             if (selectedURL) {
                 const fetchResponse = await axios.get('/api/experiences/fetch_data/', {params: {url: selectedURL}});
                 const {game_data, icon} = fetchResponse.data;
-                
-                const response = await axios.post('/api/experiences/insert/', {
-                    rootPlaceId: game_data.rootPlaceId,
-                    name: game_data.name,
-                    url: selectedURL,
-                    creator: game_data.creator.name,
-                    description: game_data.description,
-                    genre: game_data.genre,
-                    genre_l1: game_data.genre_l1,
-                    genre_l2: game_data.genre_l2,
-                    maxPlayers: game_data.maxPlayers,
-                    created: game_data.created,
-                    icon : icon,
+
+                const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${game_data.rootPlaceId}/`, {
+                    validateStatus: () => true
                 });
 
-                if (response.status === 201) {
-                    setNotDetails({ message: "Successfully added new experience", status: "success" });
+                if (experienceExists.status === 200) {
+                    setNotDetails({ message: "Experience already exists in the database", status: "error" });
                     setNotification(true);
-                    fetchExperiences();
                 } else {
-                    console.error("Error inserting experience:", response.statusText);
-                    setNotDetails({ message: "Error inserting experience", status: "error" });
-                    setNotification(true);
-                }
+                    const response = await axios.post('/api/experiences/insert/', {
+                        rootPlaceId: game_data.rootPlaceId,
+                        name: game_data.name,
+                        url: selectedURL,
+                        creator: game_data.creator.name,
+                        description: game_data.description,
+                        genre: game_data.genre,
+                        genre_l1: game_data.genre_l1,
+                        genre_l2: game_data.genre_l2,
+                        maxPlayers: game_data.maxPlayers,
+                        created: game_data.created,
+                        icon : icon,
+                    });
+                    if (response.status === 201) {
+                        setNotDetails({ message: "Successfully added new experience", status: "success" });
+                        setNotification(true);
+                        fetchExperiences();
+                    } else {
+                        console.error("Error inserting experience:", response.statusText);
+                        setNotDetails({ message: "Error inserting experience", status: "error" });
+                        setNotification(true);
+                    }
+                }                
             } else {
                 console.error("Experience URL is empty");
                 setNotDetails({ message: "Experience URL is empty", status: "error" });
