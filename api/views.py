@@ -58,11 +58,9 @@ def add_experience(request):
     serializer = ExperienceSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        requests = ExperienceRequest.objects.filter(experience_url=serializer.data['url'])
-        if requests.exists():
-            for req in requests:
-                req.experience_url = serializer.data['url']
-                req.save()
+        expRequest = ExperienceRequest.objects.get(experience_url=serializer.data['url'])
+        if expRequest:
+            expRequest.delete()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
