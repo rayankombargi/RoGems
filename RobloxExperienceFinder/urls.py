@@ -27,11 +27,31 @@ def favicon_view(request):
     if os.path.exists(favicon_path):
         return FileResponse(open(favicon_path, 'rb'), content_type='image/x-icon')
     png_path = os.path.join(settings.BASE_DIR, 'frontend/build/RoGems.png')
-    return FileResponse(open(png_path), 'rb', content_type='image/png')
+    return FileResponse(open(png_path, 'rb'), content_type='image/png')
+
+def serve_image(request, image_name):
+    """Serve images from build/images directory"""
+    image_path = os.path.join(settings.BASE_DIR, 'frontend/build/images', image_name)
+    if os.path.exists(image_path):
+        # Determine content type based on file extension
+        if image_name.endswith('.webp'):
+            content_type = 'image/webp'
+        elif image_name.endswith('.png'):
+            content_type = 'image/png'
+        elif image_name.endswith('.jpg') or image_name.endswith('.jpeg'):
+            content_type = 'image/jpeg'
+        else:
+            content_type = 'application/octet-stream'
+        
+        return FileResponse(open(image_path, 'rb'), content_type=content_type)
+    else:
+        from django.http import Http404
+        raise Http404("Image not found")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('favicon.ico', favicon_view, name='favicon'),
+    path('images/<str:image_name>', serve_image, name='serve_image'),
     re_path(r'^(?!static/).*$', TemplateView.as_view(template_name='index.html')),
 ]
