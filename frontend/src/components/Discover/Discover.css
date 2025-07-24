@@ -30,14 +30,21 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 90%;
 }
-
 
 @media (max-width: 1080px) {
     .experience-content {
         scale: 0.5;
     }
 
+}
+
+@media (max-width: 900px) {
+    .discover-content {
+        align-items: stretch;
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {

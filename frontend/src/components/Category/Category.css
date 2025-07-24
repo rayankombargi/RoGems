@@ -51,7 +51,8 @@
 
 
 @media (max-width: 900px) {
-    .Category {
-        width: 100%;
+    .discover-content .Category {
+        width: 100% !important;
+        max-width: 100%;
     }
 }
