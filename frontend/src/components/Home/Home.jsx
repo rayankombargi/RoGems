@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
-import robloxImage from '../Images/robloxImage.webp';
-import RoGems from '../Images/RoGems.png';
+import robloxImage from '/images/robloxImage.webp';
+import RoGems from '/images/RoGems.png';
 
 function Home() {
     const navigate = useNavigate();
