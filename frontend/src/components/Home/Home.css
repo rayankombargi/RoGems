@@ -17,7 +17,7 @@
     left: 0;
     height: calc(100% - 60px);
     width: 100%;
-    margin-top: 66px;
+    margin-top: 63px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
@@ -57,11 +57,11 @@
 }
 
 .home-info-2 {
-    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
+    background: var(--grey);
 }
 
 .home-info-3 {
-    background: var(--grey);
+    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 50%, var(--grey) 100%);
 }
 
 .home-info-4 {
