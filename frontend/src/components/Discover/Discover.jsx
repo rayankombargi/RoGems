@@ -65,75 +65,90 @@ function Discover() {
         setShowExperiencePage(false);
     };
 
+    const background = '/images/RobloxSky.webp'
+
     return (
         <div className='Discover'>
             <NavBar />
-            <div className='discover-container'>
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 1, scale: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className='discover-header'
-                >
-                    <h1> Discover Experiences </h1>
-                </motion.div>
-                {categories.length === 0 ? (
+            <div
+                style={{
+                    backgroundImage: `url(${background})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                    minHeight: '92.5vh',
+                    imageRendering: 'high-quality',
+                }}
+                className='discover-background'
+            >
+                <div className='discover-container'>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.7 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
-                        className='empty-category-set'
+                        className='discover-header'
                     >
-                        <h2> No categories found </h2>
+                        <h1> Discover Experiences </h1>
                     </motion.div>
-                ) : (
-                    <>
+                    {categories.length === 0 ? (
                         <motion.div
                             initial={{ opacity: 0, scale: 0.7 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 1, scale: 0 }}
                             transition={{ duration: 0.8 }}
-                            className='discover-content'
+                            className='empty-category-set'
                         >
-                            {(() => {
-                                const category = categories.find(category => category.name === "Experiences Of The Day");
-                                if (category && dailyExperiences.length > 0) {
-                                    return (
-                                        <DailyCategory 
-                                            experiences={experiences.filter(exp => dailyExperiences.some(dailyExp => dailyExp.experience === exp.id))}
-                                            onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
-                                        />
-                                    );
-                                }
-                                return null;
-                            })()}
-                            {
-                                categories
-                                    .filter((category) => category.name !== "Experiences Of The Day")
-                                    .map((category) => {
-                                        const filteredExperiences = experiences.filter((experience) => 
-                                            experience.genre === category.name
-                                            || experience.genre_l1 === category.name
-                                            || experience.genre_l2 === category.name
-                                        );
-                                        if (filteredExperiences.length === 0) {
-                                            return null;
-                                        }
+                            <h2> No categories found </h2>
+                        </motion.div>
+                    ) : (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.7 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 1, scale: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className='discover-content'
+                            >
+                                {(() => {
+                                    const category = categories.find(category => category.name === "Experiences Of The Day");
+                                    if (category && dailyExperiences.length > 0) {
                                         return (
-                                            <Category 
-                                                key={category.name}
-                                                experiences={experiences} 
-                                                genre={category.name}
+                                            <DailyCategory 
+                                                experiences={experiences.filter(exp => dailyExperiences.some(dailyExp => dailyExp.experience === exp.id))}
                                                 onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                             />
-                                        )
+                                        );
                                     }
-                            )}
-                        </motion.div> 
-                    </>
-                )}
+                                    return null;
+                                })()}
+                                {
+                                    categories
+                                        .filter((category) => category.name !== "Experiences Of The Day")
+                                        .map((category) => {
+                                            const filteredExperiences = experiences.filter((experience) => 
+                                                experience.genre === category.name
+                                                || experience.genre_l1 === category.name
+                                                || experience.genre_l2 === category.name
+                                            );
+                                            if (filteredExperiences.length === 0) {
+                                                return null;
+                                            }
+                                            return (
+                                                <Category 
+                                                    key={category.name}
+                                                    experiences={experiences} 
+                                                    genre={category.name}
+                                                    onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
+                                                />
+                                            )
+                                        }
+                                )}
+                            </motion.div> 
+                        </>
+                    )}
+                </div>
             </div>
             <AnimatePresence>
                 {showExperiencePage && selectedExperience && <ExperiencePage experience={selectedExperience} onClose={handleCloseExperience} />}

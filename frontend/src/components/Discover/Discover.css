@@ -1,12 +1,30 @@
-
+.discover-background {
+    max-height: calc(100vh - 60px);
+}
 .discover-container {
     overflow-y: auto;
     max-height: calc(100vh - 60px);
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin-top: 63px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     padding-bottom: 10px;
+    text-shadow: 0px 0px 10px black;
     font-weight: bold;
+    color: white;
+}
+h2 {
+    text-shadow: 0px 0px 10px black;
+    color: white;
 }
 
 .discover-content {
@@ -21,4 +39,10 @@ h1 {
         scale: 0.5;
     }
 
+}
+
+@media (max-width: 768px) {
+    .discover-container {
+        margin-top: 56;
+    }
 }
