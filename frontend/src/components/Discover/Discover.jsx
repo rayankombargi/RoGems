@@ -70,7 +70,7 @@ function Discover() {
     return (
         <div className='Discover'>
             <NavBar />
-            <div
+            {/* <div
                 style={{
                     backgroundImage: `url(${background})`,
                     backgroundSize: 'cover',
@@ -81,7 +81,7 @@ function Discover() {
                     imageRendering: 'high-quality',
                 }}
                 className='discover-background'
-            >
+            > */}
                 <div className='discover-container'>
                     <motion.div
                         initial={{ opacity: 0, scale: 0.7 }}
@@ -149,7 +149,7 @@ function Discover() {
                         </>
                     )}
                 </div>
-            </div>
+            {/* </div> */}
             <AnimatePresence>
                 {showExperiencePage && selectedExperience && <ExperiencePage experience={selectedExperience} onClose={handleCloseExperience} />}
             </AnimatePresence>
