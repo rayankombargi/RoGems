@@ -57,12 +57,11 @@
 }
 
 .home-info-2 {
-    background: var(--grey);
+    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
 }
 
 .home-info-3 {
-    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 70%, var(--grey) 100%);
-    /* background: linear-gradient(90deg, var(--blue) 0%, var(--grey) 100%); */
+    background: var(--grey);
 }
 
 .home-info-4 {
@@ -209,16 +208,10 @@
     }
 
     .navigation-card {
-        width: 90%;
-        height: 40%;
+        scale: 0.8;
     }
 
     .stats-card {
-        width: 90%;
-        height: 40%;
-    }
-
-    .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
-        width: 95%;
+        scale: 0.8;
     }
 }

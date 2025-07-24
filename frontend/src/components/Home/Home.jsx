@@ -143,7 +143,13 @@ function Home() {
                             <h2>Independently developed by Rayan Kombargi.</h2>
                         </div>
                     </motion.div>
-                    <motion.div className='home-info-4'>
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 1, scale: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className='home-info-4'
+                    >
                         <h1>Copyright Disclaimer</h1>
                         <div className='home-info-4-paragraph'>
                             <h2> This website operates under the provisions of Section 107 of the U.S. Copyright Act, 
