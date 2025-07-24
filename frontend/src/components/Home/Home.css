@@ -80,7 +80,8 @@
 }
 
 .navigation-card {
-    background: linear-gradient(180deg, white 0%, var(--grey) 300%);
+    /* background: linear-gradient(180deg, white 0%, var(--grey) 300%); */
+    background: white;
     border-radius: 15px;
     box-shadow: black 0px 0px 25px;
     cursor: pointer;
@@ -139,7 +140,8 @@
 }
 
 .stats-card {
-    background: linear-gradient(180deg, white 0%, var(--grey) 300%);
+    /* background: linear-gradient(180deg, white 0%, var(--grey) 300%); */
+    background: white;
     border-radius: 15px;
     box-shadow: black 0px 0px 25px;
     width: 40%;
@@ -198,5 +200,25 @@
 
     .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-header h1 {
+        font-size: 50px;
+    }
+
+    .navigation-card {
+        width: 90%;
+        height: 40%;
+    }
+
+    .stats-card {
+        width: 90%;
+        height: 40%;
+    }
+
+    .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
+        width: 95%;
     }
 }
