@@ -17,7 +17,7 @@
     left: 0;
     height: calc(100% - 60px);
     width: 100%;
-    margin-top: 72px;
+    margin-top: 66px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
@@ -194,7 +194,7 @@
 @media (max-width: 800px) {
 
     .home-content {
-        margin-top: 60px;
+        margin-top: 56px;
     }
 
     .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
