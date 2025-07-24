@@ -1,13 +1,10 @@
 
-.discover-container .Category {
-    width: 90%;
-    margin-bottom: 20px;
-}
-
 .Category {
     background: var(--grey);
     border-radius: 15px;
     padding-bottom: 20px;
+    width: 90%;
+    margin-bottom: 20px;
 }
 
 .Category h1 {
@@ -54,7 +51,7 @@
 
 
 @media (max-width: 900px) {
-    .discover-container .Category {
+    .Category {
         width: 100% !important;
     }
 }
