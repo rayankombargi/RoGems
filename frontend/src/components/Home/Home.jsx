@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
 
 function Home() {
-    const robloxImage = '/images/robloxImage.jpeg';
+    const robloxImage = '/images/RobloxImage.jpeg';
     const RoGems = '/images/RoGems.png';
     const navigate = useNavigate();
     const toDiscover = () => {
