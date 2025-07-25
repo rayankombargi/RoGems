@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-h1 {
+.discover-header h1 {
     padding-bottom: 10px;
     text-shadow: 0px 0px 10px black;
     font-weight: bold;

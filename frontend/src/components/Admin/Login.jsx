@@ -64,6 +64,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 1, scale: 0 }}
                     transition={{ duration: 0.8 }}
+                    className='login-header'
                 >
                     <h1>Admin Login</h1>
                 </motion.div>

@@ -117,6 +117,7 @@ function Services() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 1, scale: 0 }}
                     transition={{ duration: 0.8 }}
+                    className="services-header"
                 >
                     <h1> Services </h1>
                 </motion.div>

@@ -152,6 +152,7 @@ function Search() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
+                        className='search-header'
                     >
                         <h1> Search Experiences </h1>
                     </motion.div>
