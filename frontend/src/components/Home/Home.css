@@ -129,13 +129,6 @@
     font-size: 17px;
 }
 
-.stats-card h1 {
-    color: black;
-    font-weight: normal;
-    font-size: 30px;
-    margin-bottom: 1px;
-}
-
 .stats-cards {
     display: flex;
     flex-direction: row;
@@ -166,6 +159,15 @@
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
+.stats-card h1 {
+    color: black;
+    font-weight: normal;
+    text-shadow: none;
+    font-size: 30px;
+    margin-bottom: 1px;
+}
+
 
 .home-rogems-image {
     width: 256px;
@@ -221,4 +223,14 @@
     .stats-card {
         scale: 0.9;
     }
+
+    .home-rogems-image {
+        width: 200px;
+        height: 200px;
+    }
+
+    .home-info-3-paragraph, .home-info-4-paragraph {
+        scale : 0.85;
+    }
+
 }
