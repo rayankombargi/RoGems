@@ -37,13 +37,6 @@
     font-size: 100px;
 }
 
-.home-infos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
     padding-top: 10px;
     padding-bottom: 40px;
