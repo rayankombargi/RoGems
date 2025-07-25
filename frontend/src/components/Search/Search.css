@@ -4,15 +4,30 @@ h1 {
     font-weight: bold;
 }
 
+.search-background {
+    max-height: calc(100vh - 60px);
+}
+
 .search-container {
     overflow-y: auto;
-    max-height: calc(100vh-60px);
+    max-height: calc(100vh - 60px);
+    margin-top: 63px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .search-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 .search-parameters {
     display: flex;
@@ -101,6 +116,9 @@ h1 {
     }
 }
 @media (max-width: 800px) {
+    .search-container {
+        margin-top: 56px;
+    }
     .search-input {
         width: 90%;
     }
