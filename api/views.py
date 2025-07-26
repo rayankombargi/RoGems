@@ -286,12 +286,13 @@ def get_csrf_token(request):
 
 @api_view(['GET'])
 
-def get_accepted_request_count(request):
+def get_accepted_request_count():
     try:
         count = Stats.objects.get(pk=1).total_accepted_requests
-        return JsonResponse({'requestCount': count}, status=200)
+        serializer = StatsSerializer(count)
+        return Response(serializer.data)
     except Stats.DoesNotExist:
-        return JsonResponse({'error': 'Requests count not found'}, status=404)
+        return Response({"error": "Stats not found"}, status=404)
     
 def update_accepted_request_count():
     try:
