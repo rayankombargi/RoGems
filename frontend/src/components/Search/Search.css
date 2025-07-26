@@ -13,8 +13,8 @@
 
 .search-container {
     overflow-y: auto;
-    max-height: calc(100vh - 60px);
-    margin-top: 63px;
+    max-height: calc(100vh - 75px);
+    margin-top: 75px;
 
     position: fixed;
     left: 0;
