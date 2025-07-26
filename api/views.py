@@ -165,12 +165,6 @@ def delete_experience_request(request, pk):
     try:
         request_instance = ExperienceRequest.objects.get(pk=pk)
         request_instance.delete()
-        try:
-            stats = Stats.objects.get(id=1)
-            stats.total_accepted_requests -= 1
-        except Stats.DoesNotExist:
-            stats = Stats(total_accepted_requests=0)
-            stats.save()
         return Response({"message": "Experience request deleted successfully"}, status=204)
     except ExperienceRequest.DoesNotExist:
         return Response({"error": "Experience request not found"}, status=404)
