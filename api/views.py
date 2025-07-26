@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Experience, Category, SubCategory, DailyExperience, ExperienceRequest, Admin
-from .serializers import ExperienceSerializer, CategorySerializer, SubCategorySerializer, DailyExperienceSerializer, ExperienceRequestSerializer, AdminSerializer
+from .models import Experience, Category, SubCategory, DailyExperience, ExperienceRequest, Admin, Stats
+from .serializers import ExperienceSerializer, CategorySerializer, SubCategorySerializer, DailyExperienceSerializer, ExperienceRequestSerializer, AdminSerializer, StatsSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import re
@@ -138,6 +138,13 @@ def add_experience_request(request):
     serializer = ExperienceRequestSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
+        try:
+            stats = Stats.objects.get(id=1)
+            stats.total_accepted_requests += 1
+            stats.save()
+        except Stats.DoesNotExist:
+            stats = Stats(total_accepted_requests=1)
+            stats.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
@@ -158,6 +165,12 @@ def delete_experience_request(request, pk):
     try:
         request_instance = ExperienceRequest.objects.get(pk=pk)
         request_instance.delete()
+        try:
+            stats = Stats.objects.get(id=1)
+            stats.total_accepted_requests -= 1
+        except Stats.DoesNotExist:
+            stats = Stats(total_accepted_requests=0)
+            stats.save()
         return Response({"message": "Experience request deleted successfully"}, status=204)
     except ExperienceRequest.DoesNotExist:
         return Response({"error": "Experience request not found"}, status=404)
@@ -247,7 +260,7 @@ def login_admin(request):
         admin = Admin.objects.get(username=username)
         if check_password(password, admin.password):
             request.session['admin_id'] = admin.id
-            request.session.set_expiry(3600)  # Set session to expire in 1 hour
+            request.session.set_expiry(1200)  # Set session to expire in 20 minutes
             return JsonResponse({"message": "Login successful", 'username': admin.username}, status=200)
         else:
             return JsonResponse({"message": "Invalid credentials"}, status=401)
@@ -281,3 +294,17 @@ def home_view(request):
 def get_csrf_token(request):
     token = get_token(request)
     return JsonResponse({'csrfToken': token})
+
+#  Stats
+
+@api_view(['GET'])
+
+def get_accepted_request_count(request):
+    try:
+        count = Stats.objects.get(id=1).total_accepted_requests
+        return JsonResponse({'requestCount': count}, status=200)
+    except Stats.DoesNotExist:
+        return JsonResponse({'error': 'Requests count not found'}, status=404)
+
+    
+    

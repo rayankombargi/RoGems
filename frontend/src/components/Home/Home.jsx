@@ -37,9 +37,20 @@ function Home() {
         }
     }
 
+    const [acceptedRequests, setAcceptedRequests] = useState(0);
+    const fetchAcceptedRequests = async () => {
+        try {
+            const response = await axios.get('/api/stats/get_accepted_request_count/');
+            setAcceptedRequests(response.data);
+        } catch (error) {
+            console.error('Error fetching accepted requests:', error);
+        }
+    }
+
     useEffect(() => {
         fetchExperiences();
         fetchRequests();
+        fetchAcceptedRequests();
     }, []);
 
     // background images
@@ -90,7 +101,7 @@ function Home() {
                                 <h1> 📝 {requests.length} Current Requests</h1>
                             </div>
                             <div className='stats-card'>
-                                <h1> ✅ 0 Approved Requests</h1>
+                                <h1> ✅ {acceptedRequests} Approved Requests</h1>
                             </div>
                         </div>
                     </motion.div>
@@ -132,7 +143,7 @@ function Home() {
                             <h2>It is also made to bring attention to forgotten Roblox games from the 2010s era.</h2>
                             <h2>Users will be able to discover these new or hidden experiences.</h2>
                             <h2>Developers and Users can freely request to add them into this website's front page.</h2>
-                            <h2>Independently developed by Rayan Kombargi.</h2>
+                            <h2>Developed by Rayan Kombargi.</h2>
                         </div>
                     </motion.div>
                     <motion.div

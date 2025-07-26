@@ -24,6 +24,7 @@ from .views import  (
     logout_admin,
     verify_admin_password,
     get_csrf_token,
+    get_accepted_request_count,
 )
 
 urlpatterns = [
@@ -58,4 +59,6 @@ urlpatterns = [
     path('auth/logout/', logout_admin, name='logout_admin'),
     path('auth/verify_admin_password/<int:pk>/', verify_admin_password, name='verify_admin_password'),
     path('auth/get_csrf_token/', get_csrf_token, name='get_csrf_token'),
+    # Stats Views
+    path('stats/get_accepted_request_count/', get_accepted_request_count, name='get_accepted_request_count'),
 ]

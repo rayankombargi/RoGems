@@ -52,3 +52,6 @@ class Admin(models.Model):
 
     def __str__(self):
         return self.username
+    
+class Stats(models.Model):
+    total_accepted_requests = models.IntegerField(default=0)
