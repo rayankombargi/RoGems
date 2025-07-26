@@ -57,7 +57,7 @@ function Home() {
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    minHeight: '91vh',
+                    minHeight: '92.5vh',
                     imageRendering: 'high-quality',
                 }}
             >
