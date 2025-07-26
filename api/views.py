@@ -296,9 +296,13 @@ def get_accepted_request_count():
     
 def update_accepted_request_count():
     try:
-        stats = Stats.objects.get(pk=1)
-        stats.total_accepted_requests += 1
-        stats.save()
+        count = Stats.objects.get(pk=1).total_accepted_requests
+        count += 1
+        serializer = StatsSerializer(count)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response({"error": "Failed to update stats"}, status=400)
     except Stats.DoesNotExist:
         return Response({"error": "Stats not found"}, status=404)
 
