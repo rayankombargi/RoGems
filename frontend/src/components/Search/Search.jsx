@@ -141,7 +141,7 @@ function Search() {
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    minHeight: '90svh',
+                    minHeight: '90vh',
                     imageRendering: 'high-quality',
                 }}
                 className='search-background'
