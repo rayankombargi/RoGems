@@ -106,45 +106,60 @@ function Services() {
         setExperienceURLRequest('');
     }   
 
+    // background image
+
+    const background = '/images/RobloxSky3.png';
 
     return (
         <div className="services">
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <NavBar />
-            <div className="services-container">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 1, scale: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="services-header"
-                >
-                    <h1> Services </h1>
-                </motion.div>
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 1, scale: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="services-content"
-                >
-                    <div className="services-list">
-                        <div className='request-experience'>
-                            <h2>Request Experience</h2>
-                            <p>You can request to showcase experiences by sending their url links down below.</p>
-                            <p>They will be individually reviewed and added to the platform.</p>
-                            <p>It is optional to write your Roblox username in the first input.</p>
-                            <p>Experiences containing innapropriate themes are prohibited, they will be rejected.</p>
-                            <p>Also, make sure to not input links of those that are already on this website.</p>
-                            <p>Thank you for your support!</p>
-                            <div className='request-ui'>
-                                <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
-                                <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
-                                <button onClick={CheckIfAlreadyExists} className='insert-button'>Submit</button>                     
+            <div className="services-background" 
+                style={{ 
+                    backgroundImage: `url(${background})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                    minHeight: '90vh',
+                    imageRendering: 'high-quality',
+                }}
+            >
+                <div className="services-container">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 1, scale: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="services-header"
+                    >
+                        <h1> Services </h1>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 1, scale: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="services-content"
+                    >
+                        <div className="services-list">
+                            <div className='request-experience'>
+                                <h2>Request Experience</h2>
+                                <p>You can request to showcase experiences by sending their url links down below.</p>
+                                <p>They will be individually reviewed and added to the platform.</p>
+                                <p>It is optional to write your Roblox username in the first input.</p>
+                                <p>Experiences containing innapropriate themes are prohibited, they will be rejected.</p>
+                                <p>Also, make sure to not input links of those that are already on this website.</p>
+                                <p>Thank you for your support!</p>
+                                <div className='request-ui'>
+                                    <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
+                                    <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
+                                    <button onClick={CheckIfAlreadyExists} className='insert-button'>Submit</button>                     
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
             </div>
         </div>
     );

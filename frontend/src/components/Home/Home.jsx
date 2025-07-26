@@ -1,31 +1,27 @@
 import './Home.css';
 import { useState, useEffect } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
 
 function Home() {
     const navigate = useNavigate();
     const toDiscover = () => {
-        navigate('/Discover');
+        navigate('/discover');
     }
     const toSearch = () => {
-        navigate('/Search');
+        navigate('/search');
     }
     const toServices = () => {
-        navigate('/Services');
+        navigate('/services');
     }
 
     const [experiences, setExperiences] = useState([]);
     const fetchExperiences = async () => {
         try {
-            const response = await fetch('/api/experiences/fetch_experiences/');
-            if (response.status === 200) {
-                const data = await response.json();
-                setExperiences(data);
-            } else {
-                console.error('Failed to fetch experiences:', response.statusText);
-            }
+            const response = await axios.get('/api/experiences/fetch_experiences/');
+            setExperiences(response.data);
         } catch (error) {
             console.error('Error fetching experiences:', error);
         }
@@ -34,13 +30,8 @@ function Home() {
     const [requests, setRequests] = useState([]);
     const fetchRequests = async () => {
         try {
-            const response = await fetch('/api/requests/fetch_requests/');
-            if (response.status === 200) {
-                const data = await response.json();
-                setRequests(data);
-            } else {
-                console.error('Failed to fetch requests:', response.statusText);
-            }
+            const response = await axios.get('/api/requests/fetch_requests/');
+            setRequests(response.data);
         } catch (error) {
             console.error('Error fetching requests:', error);
         }
@@ -75,7 +66,7 @@ function Home() {
                 >
                     
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -84,7 +75,7 @@ function Home() {
                         <h1> Welcome to RoGems! </h1>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -104,7 +95,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -129,7 +120,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -145,7 +136,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}

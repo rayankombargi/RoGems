@@ -1,9 +1,20 @@
+
 .services-container {
     overflow-y: auto;
     max-height: calc(100vh - 60px);
+    margin-top: 63px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .services-header h1 {
+    padding-top: 10%;
     padding-bottom: 10px;
     text-shadow: 0px 0px 10px black;
     font-weight: bold;
@@ -13,6 +24,10 @@
 p {
     color: white;
     padding-bottom: 5px;
+}
+
+.services-content {
+    width: 90%;
 }
 
 .services-list {
@@ -25,7 +40,8 @@ p {
 
 .request-experience {
     margin-bottom: 10px;
-    background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%);
+    /* background: linear-gradient(0deg, var(--grey) 0%, var(--blue) 100%); */
+    background: var(--grey);
     width: 90%;
     border-radius: 15px;
     border-color: transparent;
@@ -67,6 +83,10 @@ p {
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
     transform: scale(1);
     transform: transform 0.3s ease;
@@ -78,6 +98,13 @@ p {
 }
 
 @media (max-width: 800px) {
+    .services-container {
+        margin-top: 56px;
+    }
+
+    .services-content {
+        width: 100%;
+    }
     .request-experience {
         width: 100%;
     }
