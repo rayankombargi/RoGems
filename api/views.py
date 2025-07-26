@@ -288,14 +288,14 @@ def get_csrf_token(request):
 
 def get_accepted_request_count(request):
     try:
-        count = Stats.objects.get(id=1).total_accepted_requests
+        count = Stats.objects.get(pk=1).total_accepted_requests
         return JsonResponse({'requestCount': count}, status=200)
     except Stats.DoesNotExist:
         return JsonResponse({'error': 'Requests count not found'}, status=404)
     
 def update_accepted_request_count():
     try:
-        stats = Stats.objects.get(id=1)
+        stats = Stats.objects.get(pk=1)
         stats.total_accepted_requests += 1
         stats.save()
     except Stats.DoesNotExist:
