@@ -3,11 +3,11 @@
 }
 .discover-container {
     overflow-y: auto;
-    max-height: calc(100vh - 60px);
+    max-height: calc(100vh - 75px);
     position: fixed;
     left: 0;
     top: 0;
-    margin-top: 63px;
+    margin-top: 68px;
     width: 100%;
 
     display: flex;
