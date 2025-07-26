@@ -66,7 +66,7 @@ function Home() {
                 >
                     
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -75,7 +75,7 @@ function Home() {
                         <h1> Welcome to RoGems! </h1>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -95,7 +95,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -120,7 +120,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
@@ -136,7 +136,7 @@ function Home() {
                         </div>
                     </motion.div>
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.7 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
                         transition={{ duration: 0.8 }}
