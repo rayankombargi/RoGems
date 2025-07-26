@@ -89,9 +89,7 @@ def check_experience_exists(request, rootPlaceId):
     try:
         experience = Experience.objects.get(rootPlaceId=rootPlaceId)
         serializer = ExperienceSerializer(experience)
-        if serializer.is_valid():
-            return Response(serializer.data, status=200)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.data)
     except Experience.DoesNotExist:
         return Response({"error": "Experience not found"}, status=404)
 
@@ -169,9 +167,7 @@ def check_request_exists(request, url):
     try:
         request_instance = ExperienceRequest.objects.get(experience_url=url)
         serializer = ExperienceRequestSerializer(request_instance)
-        if serializer.is_valid():
-            return Response(serializer.data, status=200)
-        return Response(serializer.errors, status=400)
+        return Response(serializer.data)
     except ExperienceRequest.DoesNotExist:
         return Response({"error": "Experience request not found"}, status=404)
     
@@ -290,7 +286,7 @@ def get_csrf_token(request):
 
 @api_view(['GET'])
 
-def get_accepted_request_count(_request):
+def get_accepted_request_count(request):
     try:
         count = Stats.objects.get(pk=1).total_accepted_requests
         return JsonResponse({'requestCount': count}, status=200)
