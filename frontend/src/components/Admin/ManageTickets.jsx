@@ -48,7 +48,7 @@ function ManageTickets({experiences, fetchExperiences}) {
                     setNotDetails({message: "Experience inserted successfully", status: "success"})
                     setNotification(true);
                     await updateAcceptedRequestCount();
-                    deleteTicket(id);
+                    await deleteTicket(id);
                     fetchtickets();
                     fetchExperiences();
                 } else {

@@ -84,18 +84,25 @@ function Services() {
                     if (experienceExists.status === 404) {
                         await handleInsertExperienceRequest();
                     }
-                    else {
+                    else  if (experienceExists.status === 200) {
                         setNotDetails({ message: "Experience already exists in the database", status: "error" });
                         setNotification(true);
                     }
                 }
-                else {
+                else if (requestExists.status === 200) {
                     setNotDetails({ message: "Experience request already pending", status: "success" });
                     setNotification(true);
-                    const updateRequestResponse = await axios.put(`/api/requests/update_experience_request/${game_data.rootPlaceId}/`, {
-                        experience_url: game_data.url,
-                        username: Username,
-                    });
+                    try {
+                        const updateRequestResponse = await axios.put(`/api/requests/update_experience_request/${game_data.rootPlaceId}/`, {
+                            experience_url: game_data.url,
+                            username: Username,
+                        });
+                    } catch (error) {
+                        console.error("Error updating experience request:", error);
+                        setNotDetails({ message: "Error updating experience request", status: "error" });
+                        setNotification(true);
+                    }
+
                 }
             }
         } catch (error) {
