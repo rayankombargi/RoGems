@@ -25,6 +25,7 @@ from .views import  (
     verify_admin_password,
     get_csrf_token,
     get_accepted_request_count,
+    update_accepted_request_count,
 )
 
 urlpatterns = [
@@ -61,4 +62,5 @@ urlpatterns = [
     path('auth/get_csrf_token/', get_csrf_token, name='get_csrf_token'),
     # Stats Views
     path('stats/get_accepted_request_count/', get_accepted_request_count, name='get_accepted_request_count'),
+    path('stats/update_accepted_request_count/', update_accepted_request_count, name='update_accepted_request_count'),
 ]

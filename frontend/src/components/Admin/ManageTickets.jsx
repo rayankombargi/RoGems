@@ -47,6 +47,7 @@ function ManageTickets({experiences, fetchExperiences}) {
                 if (response.status === 201) {
                     setNotDetails({message: "Experience inserted successfully", status: "success"})
                     setNotification(true);
+                    await updateAcceptedRequestCount();
                     deleteTicket(id);
                     fetchtickets();
                     fetchExperiences();
@@ -76,6 +77,22 @@ function ManageTickets({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error deleting ticket:", error);
+        }
+    }
+
+    const updateAcceptedRequestCount = async () => {
+        try {
+            const response = await axios.get('/api/stats/get_accepted_request_count/');
+            if (response.status === 200) {
+                const count = response.data;
+                if (count > 0) {
+                    await axios.post('/api/stats/update_accepted_request_count/');
+                }
+            } else {
+                console.error("Failed to fetch accepted request count:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error updating accepted request count:", error);
         }
     }
 

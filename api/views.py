@@ -138,13 +138,6 @@ def add_experience_request(request):
     serializer = ExperienceRequestSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
-        try:
-            stats = Stats.objects.get(id=1)
-            stats.total_accepted_requests += 1
-            stats.save()
-        except Stats.DoesNotExist:
-            stats = Stats(total_accepted_requests=1)
-            stats.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
@@ -299,6 +292,14 @@ def get_accepted_request_count(request):
         return JsonResponse({'requestCount': count}, status=200)
     except Stats.DoesNotExist:
         return JsonResponse({'error': 'Requests count not found'}, status=404)
+    
+def update_accepted_request_count():
+    try:
+        stats = Stats.objects.get(id=1)
+        stats.total_accepted_requests += 1
+        stats.save()
+    except Stats.DoesNotExist:
+        return Response({"error": "Stats not found"}, status=404)
 
     
     
