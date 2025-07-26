@@ -82,11 +82,11 @@ function ManageTickets({experiences, fetchExperiences}) {
 
     const updateAcceptedRequestCount = async () => {
         try {
-            const response = await axios.get('/api/stats/get_accepted_request_count/');
+            const response = await axios.get('/api/stats/get_stats/');
             if (response.status === 200) {
-                const count = response.data;
+                const count = response.data.total_accepted_requests;
                 if (count > 0) {
-                    await axios.post('/api/stats/update_accepted_request_count/');
+                    await axios.post('/api/stats/update_stats/');
                 }
             } else {
                 console.error("Failed to fetch accepted request count:", response.statusText);

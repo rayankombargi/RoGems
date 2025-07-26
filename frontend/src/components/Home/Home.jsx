@@ -40,8 +40,8 @@ function Home() {
     const [acceptedRequests, setAcceptedRequests] = useState(0);
     const fetchAcceptedRequests = async () => {
         try {
-            const response = await axios.get('/api/stats/get_accepted_request_count/');
-            setAcceptedRequests(response.data);
+            const response = await axios.get('/api/stats/get_stats/');
+            setAcceptedRequests(response.data.total_accepted_requests);
         } catch (error) {
             console.error('Error fetching accepted requests:', error);
         }
