@@ -77,19 +77,7 @@ function Services() {
                 const requestExists = await axios.get(`/api/requests/check_request_exists/${game_data.url}/`, {
                     validateStatus: () => true
                 })
-                if (requestExists.status === 404) {
-                    const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${game_data.rootPlaceId}/`, {
-                        validateStatus: () => true
-                    });
-                    if (experienceExists.status === 404) {
-                        await handleInsertExperienceRequest();
-                    }
-                    else  if (experienceExists.status === 200) {
-                        setNotDetails({ message: "Experience already exists in the database", status: "error" });
-                        setNotification(true);
-                    }
-                }
-                else if (requestExists.status === 200) {
+                if (requestExists.status === 200) {
                     setNotDetails({ message: "Experience request already pending", status: "success" });
                     setNotification(true);
                     try {
@@ -104,6 +92,19 @@ function Services() {
                     }
 
                 }
+                else if (requestExists.status === 404) {
+                    const experienceExists = await axios.get(`/api/experiences/check_experience_exists/${game_data.rootPlaceId}/`, {
+                        validateStatus: () => true
+                    });
+                    if (experienceExists.status === 200) {
+                        setNotDetails({ message: "Experience already exists in the database", status: "error" });
+                        setNotification(true);
+                    }
+                    else if (experienceExists.status === 404) {
+                        await handleInsertExperienceRequest();
+                    }
+                }
+
             }
         } catch (error) {
             console.error("Error fetching experience data: ", error)

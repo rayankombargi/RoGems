@@ -52,7 +52,7 @@ function AddExperience({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error inserting experience:", error);
-            setNotDetails({ message: "Error inserting experience", status: "error" });
+            setNotDetails({message: "Incorrect Experience URL", status: "error"});
             setNotification(true);
         }
         setSelectedURL('');
