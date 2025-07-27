@@ -285,25 +285,22 @@ def get_csrf_token(request):
 #  Stats
 
 @api_view(['GET'])
-
-def get_stats():
+def get_stats(request):
     try:
-        count = Stats.objects.get(pk=1)
-        serializer = StatsSerializer(count)
+        stats = Stats.objects.get(pk=1)
+        serializer = StatsSerializer(stats)
         return Response(serializer.data)
     except Stats.DoesNotExist:
         return Response({"error": "Stats not found"}, status=404)
-    
-def update_stats():
+
+@api_view(['POST'])
+def update_stats(request):
     try:
-        count = Stats.objects.get(pk=1)
-        count.total_accepted_requests += 1
-        count.save()
-        serializer = StatsSerializer(count)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=200)
-        return Response({"error": "Failed to update stats"}, status=400)
+        stats = Stats.objects.get(pk=1)
+        stats.total_accepted_requests += 1
+        stats.save()
+        serializer = StatsSerializer(stats)
+        return Response(serializer.data, status=200)
     except Stats.DoesNotExist:
         return Response({"error": "Stats not found"}, status=404)
 
