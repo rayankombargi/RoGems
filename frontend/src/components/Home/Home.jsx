@@ -126,7 +126,7 @@ function Home() {
                             </div>
                             <div className='navigation-card' onClick={toServices}>
                                 <h3>📝 Services 📝</h3>
-                                <p>Request experiences to be added to the platform or contact us for support.</p>
+                                <p>Request experiences to be added to the platform.</p>
                                 <span className='card-action'>Request Now →</span>
                             </div>
                         </div>

@@ -22,7 +22,7 @@ function Services() {
     }
 
     const [requests, setRequests] = useState([]);
-    const [maxRequests, setMaxRequests] = useState(50); // Set the maximum number of requests allowed
+    const [maxRequests, setMaxRequests] = useState(50);
     const getExperienceRequests = async () => {
         try {
             const response = await axios.get('/api/requests/fetch_experience_requests/');
@@ -158,6 +158,8 @@ function Services() {
                                 <p>It is optional to write your Roblox username in the first input.</p>
                                 <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing innapropriate themes are prohibited and they will be rejected.</p>
                                 <p>Thank you for your support!</p>
+
+                                <h3 style={{color: 'white', marginTop: '30px',}}>Pending Requests: {requests.length}/{maxRequests}</h3>
                                 <div className='request-ui'>
                                     <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
                                     <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
