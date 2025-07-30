@@ -153,11 +153,10 @@ function Services() {
                         <div className="services-list">
                             <div className='request-experience'>
                                 <h2>Request Experience</h2>
-                                <p>You can request to showcase experiences by sending their url links down below.</p>
-                                <p>They will be individually reviewed and added to the platform.</p>
+                                <p>Input and submit experience URLs and they will be individually reviewed and added to the platform.</p>
+                                <p>Example of URL: <b><u style={{color: 'yellow',}}>https://www.roblox.com/games/192800/</u></b></p>
                                 <p>It is optional to write your Roblox username in the first input.</p>
-                                <p>Experiences containing innapropriate themes are prohibited, they will be rejected.</p>
-                                <p>Also, make sure to not input links of those that are already on this website.</p>
+                                <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing innapropriate themes are prohibited and they will be rejected.</p>
                                 <p>Thank you for your support!</p>
                                 <div className='request-ui'>
                                     <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
