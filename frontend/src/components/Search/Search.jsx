@@ -183,7 +183,11 @@ function Search() {
                                     <label className='subgenre-filter-label'>Sub-Genre</label>
                                     <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
                                         <option className='subgenre-filter-option' value='All'>All</option>
-                                        {subcategories.filter((subcategory) => categories.some(category => category.name === genre && category.id === subcategory.category_id))
+                                        {subcategories.filter((subcategory) => 
+                                            categories.some(category => 
+                                                category.name === genre && String(category.id) === String(subcategory.category)
+                                            )
+                                        )
                                             .map((subcategory) => {
                                                 return (
                                                     <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
