@@ -186,17 +186,29 @@ function Search() {
                                     <label className='subgenre-filter-label'>Sub-Genre</label>
                                     <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
                                         <option className='subgenre-filter-option' value='All'>All</option>
-                                        {subcategories.filter((subcategory) => 
-                                            genre && genre !== 'All' && subcategory.category && categories.some(category => 
-                                                category.name === genre && String(category.id) === String(subcategory.category)
-                                            )
-                                        )
-                                            .map((subcategory) => {
-                                                return (
-                                                    <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
+                                        {
+                                            genre === 'All' ? (
+                                                subcategories.map((sub) => {
+                                                    return (
+                                                        <option className='subgenre-filter-option' value={sub.name}>{sub.name}</option>
+                                                    )
+                                                })
+                                            ) : (
+                                                subcategories.filter((subcategory) => 
+                                                    subcategory.category && categories.some(category => 
+                                                        category.name === genre && String(category.id) === String(subcategory.category)
+                                                    )
                                                 )
-                                            })
+                                                    .map((subcategory) => {
+                                                        return (
+                                                            <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
+                                                        )
+                                                    }
+                                                )
+                                    
+                                            )
                                         }
+
                                     </select>
                                 </div>
                                 <div className='max-players-filter'>
