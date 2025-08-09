@@ -88,7 +88,7 @@ function Search() {
         setFilteredExperiences(exps);
 
     }, [experiences, categories, subcategories, searchQuery, genre, subGenre, maxPlayers, year, sortBy]);
-    
+
     // Select Experience
 
     const [ selectedExperience, setSelectedExperience ] = useState(null);
@@ -183,7 +183,7 @@ function Search() {
                                     <label className='subgenre-filter-label'>Sub-Genre</label>
                                     <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
                                         <option className='subgenre-filter-option' value='All'>All</option>
-                                        {subcategories.filter((subcategory) => categories.some(category => category.id === subcategory.category))
+                                        {subcategories.filter((subcategory) => categories.some(category => category.name === genre && category.id === subcategory.category_id))
                                             .map((subcategory) => {
                                                 return (
                                                     <option className='subgenre-filter-option' value={subcategory.name}>{subcategory.name}</option>
