@@ -157,7 +157,6 @@ function Services() {
                                 <p>Example of URL: <b><u style={{color: 'yellow',}}>https://www.roblox.com/games/192800/</u></b></p>
                                 <p>It is optional to write your Roblox username in the first input.</p>
                                 <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing innapropriate themes are prohibited and they will be rejected.</p>
-                                <p>Thank you for your support!</p>
 
                                 <h3 style={{color: 'white', marginTop: '30px',}}>Pending Requests: {requests.length}/{maxRequests}</h3>
                                 <div className='request-ui'>
