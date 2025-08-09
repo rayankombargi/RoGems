@@ -167,7 +167,10 @@ function Search() {
                             <div className='search-filters'>
                                 <div className='genre-filter'>
                                     <label className='genre-filter-label'>Genre</label>
-                                    <select className='genre-filter-select' value={genre} onChange={(e) => setGenre(e.target.value)}>
+                                    <select className='genre-filter-select' value={genre} onChange={(e) => {
+                                        setGenre(e.target.value);
+                                        setSubGenre('All');
+                                    }}>
                                         <option className='genre-filter-option' value='All'>All</option>
                                         {categories.filter((category) => category.name !== 'Experiences Of The Day' && category.name !== 'Featured This Week')
                                             .map((category) => {
@@ -184,7 +187,7 @@ function Search() {
                                     <select className='subgenre-filter-select' value={subGenre} onChange={(e) => setSubGenre(e.target.value)}>
                                         <option className='subgenre-filter-option' value='All'>All</option>
                                         {subcategories.filter((subcategory) => 
-                                            categories.some(category => 
+                                            genre && genre !== 'All' && subcategory.category && categories.some(category => 
                                                 category.name === genre && String(category.id) === String(subcategory.category)
                                             )
                                         )
