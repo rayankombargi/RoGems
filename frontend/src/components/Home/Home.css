@@ -15,9 +15,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: calc(100% - 75px);
+    /* height: calc(100% - 75px); */
     width: 100%;
-    margin-top: 60px;
+    margin-top: 75px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
