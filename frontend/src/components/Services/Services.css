@@ -97,6 +97,12 @@ p {
     transform: transform 0.3s ease;
 }
 
+@media (width: 1920px) {
+    .services.background {
+        min-height: 93px;
+    }
+}
+
 @media (max-width: 800px) {
     .services-container {
         margin-top: 56px;
