@@ -99,7 +99,7 @@ p {
 
 @media (max-width: 1920px) {
     .services.background {
-        background-size: contain;
+        background-size: fill;
         background-repeat: no-repeat;
         width: 100vw;
         height: 100vh;
