@@ -3,15 +3,12 @@
     --grey: rgba(18, 18, 21, 0.92);
 }
 
-body {
+.home-background {
+    max-height: calc(100vh - 60px);
     overflow: hidden;
 }
 
-.home-background {
-    top: 75px;
-    left: 0;
-    width: 100vw;
-    max-height: calc(100vh - 70px);
+body {
     overflow: hidden;
 }
 
@@ -23,9 +20,9 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
+    height: calc(100% - 60px);
     width: 100%;
-    margin-top: 0px;
+    margin-top: 75px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
@@ -203,12 +200,8 @@ body {
 
 @media (max-width: 800px) {
 
-    .home-background {
-        margin-top: 56px;
-        height: calc(100% - 56px);
-    }
     .home-content {
-        margin-top: 0;
+        margin-top: 56px;
     }
 
     .home-info-1, .home-info-2, .home-info-3, .home-info-4 {
