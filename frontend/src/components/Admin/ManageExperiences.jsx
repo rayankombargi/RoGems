@@ -136,7 +136,7 @@ function ManageExperiences({experiences, fetchExperiences}) {
                     <div className='experiences-list'>
                         {sortedExperiences.map((experience) => (
                             <div className='experience-instance'>
-                                <div className='exp-name'>{experience.name}</div>
+                                <div className='exp-name'><a href={experience.url} target="_blank" rel="noopener noreferrer">{experience.name}</a></div>
                                 <div className='exp-added'>{experience.added}</div>
                                 <button className='exp-update-button' onClick={() => handleUpdateExperience(experience.id, experience.url)}>Update</button>
                                 <button className='exp-delete-button' onClick={() => handleDeleteExperience(experience.id)}>Delete</button>
