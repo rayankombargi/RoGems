@@ -125,12 +125,11 @@ function Services() {
             <div className="services-background" 
                 style={{ 
                     backgroundImage: `url(${background})`,
-                    backgroundSize: 'fill',
+                    backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    width: '100vw',
-                    height: '100vh',
+                    minHeight: '92vh',
                     imageRendering: 'high-quality',
                 }}
             >
