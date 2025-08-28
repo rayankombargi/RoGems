@@ -3,8 +3,16 @@
     --grey: rgba(18, 18, 21, 0.92);
 }
 
+body {
+    overflow: hidden;
+}
+
 .home-background {
-    max-height: calc(100vh - 60px);
+    top: 75px;
+    left: 0;
+    width: 100vw;
+    max-height: calc(100vh - 70px);
+    overflow: hidden;
 }
 
 .home-content {
@@ -15,9 +23,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    /* height: calc(100% - 75px); */
+    height: 100%;
     width: 100%;
-    margin-top: 75px;
+    margin-top: 0px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
 }
@@ -195,8 +203,12 @@
 
 @media (max-width: 800px) {
 
-    .home-content {
+    .home-background {
         margin-top: 56px;
+        height: calc(100% - 56px);
+    }
+    .home-content {
+        margin-top: 0;
     }
 
     .home-info-1, .home-info-2, .home-info-3, .home-info-4 {

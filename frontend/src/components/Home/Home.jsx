@@ -68,7 +68,7 @@ function Home() {
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
-                    position: 'relative',
+                    position: 'fixed',
                     minHeight: '92vh',
                     imageRendering: 'high-quality',
                 }}
