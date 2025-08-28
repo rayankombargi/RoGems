@@ -122,6 +122,11 @@
     text-align: left;
 }
 
+.exp-name {
+    color: white;
+    text-decoration: none;
+}
+
 .exp-added {
     flex: 1;
     text-align: center;
