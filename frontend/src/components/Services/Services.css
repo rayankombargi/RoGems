@@ -99,7 +99,7 @@ p {
 
 @media (max-width: 1920px) {
     .services.background {
-        min-height: 95vh;
+        min-height: 100vh;
     }
 }
 
