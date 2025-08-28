@@ -18,7 +18,6 @@
     background: var(--grey);
     backdrop-filter: blur(5px);
     opacity: 1;
-    border-radius: 8px;
     padding: 50px;
     width: 100%;
     height: 100%;
