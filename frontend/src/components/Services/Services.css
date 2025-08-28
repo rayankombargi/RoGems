@@ -97,9 +97,9 @@ p {
     transform: transform 0.3s ease;
 }
 
-@media (width: 1920px) {
+@media (min-width: 1920px) {
     .services.background {
-        min-height: 93px;
+        min-height: 93vh;
     }
 }
 
