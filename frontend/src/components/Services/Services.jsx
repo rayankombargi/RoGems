@@ -130,7 +130,6 @@ function Services() {
                     backgroundPosition: 'center',
                     position: 'relative',
                     minHeight: '100vh',
-                    width: '100vw',
                     imageRendering: 'high-quality',
                 }}
             >
