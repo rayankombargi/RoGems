@@ -97,15 +97,6 @@ p {
     transform: transform 0.3s ease;
 }
 
-@media (max-width: 1920px) {
-    .services.background {
-        background-size: fill;
-        background-repeat: no-repeat;
-        width: 100vw;
-        height: 100vh;
-    }
-}
-
 @media (max-width: 800px) {
     .services-container {
         margin-top: 56px;
