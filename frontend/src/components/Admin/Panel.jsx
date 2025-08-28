@@ -56,7 +56,7 @@ function Panel({currentAdmin, getAdmin}) {
                     transition={{ duration: 0.8 }}
                     className='panel-page'
                 >
-                    <h1>Admin Panel</h1>
+                    <h1 className='panel-title'>Admin Panel</h1>
                     <div className='panel-container'>
                         <div className='panel-content'>
                             <div className='panel-content-header'>

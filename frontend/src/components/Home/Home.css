@@ -88,6 +88,8 @@ body {
     background: white;
     border-radius: 15px;
     box-shadow: black 0px 0px 25px;
+    border-color: black;
+    border-width: 1px;
     cursor: pointer;
     width: 40%;
     height: 50%;
@@ -141,6 +143,8 @@ body {
     background: white;
     border-radius: 15px;
     box-shadow: black 0px 0px 25px;
+    border-color: black;
+    border-width: 1px;
     width: 40%;
     height: 50%;
 
