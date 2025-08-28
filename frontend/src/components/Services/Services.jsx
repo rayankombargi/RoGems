@@ -129,7 +129,7 @@ function Services() {
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     position: 'relative',
-                    minHeight: '100vh',
+                    minHeight: '90vh',
                     imageRendering: 'high-quality',
                 }}
             >
