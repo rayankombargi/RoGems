@@ -156,7 +156,7 @@ function Services() {
                                 <p>Input and submit experience URLs and they will be individually reviewed and added to the platform.</p>
                                 <p>Example of URL: <b><u style={{color: 'yellow',}}>https://www.roblox.com/games/192800/</u></b></p>
                                 <p>It is optional to write your Roblox username in the first input.</p>
-                                <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing innapropriate themes are prohibited and they will be rejected.</p>
+                                <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing inappropriate themes are prohibited and will be rejected.</p>
 
                                 <h3 style={{color: 'white', marginTop: '30px',}}>Pending Requests: {requests.length}/{maxRequests}</h3>
                                 <div className='request-ui'>
