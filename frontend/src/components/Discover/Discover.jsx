@@ -2,12 +2,12 @@ import './Discover.css';
 import { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
 
 import NavBar from '../NavBar/NavBar';
 import ExperiencePage from '../ExperiencePage/ExperiencePage';
 import Category from '../Category/Category';
 import DailyCategory from '../Category/DailyCategory';
+import { getCached } from '../../utils/apiCache';
 
 function Discover() {
 
@@ -16,7 +16,7 @@ function Discover() {
 
     const fetchExperiences = async () => {
         try {
-            const response = await axios.get('/api/experiences/fetch_experiences/');
+            const response = await getCached('/api/experiences/fetch_experiences/');
             setExperiences(response.data);
         } catch(error) {
             console.error('Error fetching experiences:', error);
@@ -25,7 +25,7 @@ function Discover() {
 
     const fetchDailyExperiences = async () => {
         try {
-            const response = await axios.get('/api/experiences/fetch_daily_experiences/');
+            const response = await getCached('/api/experiences/fetch_daily_experiences/');
             setDailyExperiences(response.data);
         } catch(error) {
             console.error('Error fetching daily experiences:', error);
@@ -40,7 +40,7 @@ function Discover() {
     const [categories, setCategories] = useState([]);
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('/api/categories/fetch_categories/');
+            const response = await getCached('/api/categories/fetch_categories/');
             setCategories(response.data);
         } catch(error) {
             console.error('Error fetching categories:', error);

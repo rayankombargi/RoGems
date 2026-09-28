@@ -13,6 +13,13 @@ function Settings({admin, getAdmin}) {
     const [notification, setNotification] = useState(false);
     const [notDetails, setNotDetails] = useState({});
 
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.currentTarget.querySelector('button[type="submit"]')?.click();
+        }
+    }
+
     const updateAdmin = async () => {
         try {
             const response = await axios.put(`/api/admins/update_admin/${admin.id}/`, {
@@ -82,7 +89,10 @@ function Settings({admin, getAdmin}) {
         >
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <h1>Settings</h1>
-            <div className='settings-content'>
+                <form className='settings-content' onSubmit={(event) => {
+                    event.preventDefault();
+                    setIsConfirming(true);
+                }} onKeyDown={handleEnterKey}>
                 <input type='text' className='settings-username-input' 
                     onChange={(e) => setNewName(e.target.value)} value={newName} 
                     placeholder='new username'
@@ -98,12 +108,15 @@ function Settings({admin, getAdmin}) {
                     }}/>
                     <label className='show-password-label'>Show Password</label>
                 </div>
-                <button className='settings-update-button' onClick={() => setIsConfirming(true)}>Save</button>
-            </div>
+                <button type='submit' className='settings-update-button'>Save</button>
+            </form>
             <AnimatePresence>
                 {isConfirming && (
                     <div className='settings-modal-overlay'>
-                        <div className='settings-modal-content'>
+                        <form className='settings-modal-content' onSubmit={(event) => {
+                            event.preventDefault();
+                            checkPassword();
+                        }} onKeyDown={handleEnterKey}>
                             <h2>Confirmation</h2>
                             <p>Enter your current password to confirm changes.</p>
                             <input type='password' className='confirm-password-input' 
@@ -118,16 +131,16 @@ function Settings({admin, getAdmin}) {
                                 <label className='show-password-label'>Show Password</label>
                             </div>
                             <div className='settings-modal-buttons'>
-                                <button className='settings-modal-confirm-button' onClick={() => checkPassword()}
+                                <button type='submit' className='settings-modal-confirm-button'
                                 > Confirm </button>
-                                <button className='settings-modal-cancel-button' onClick={() => {
+                                <button type='button' className='settings-modal-cancel-button' onClick={() => {
                                     setIsConfirming(false);
                                     setCurrPass('');
                                     setNewPass('');
                                     setNewName(currentAdmin.username);
                                 }}> Cancel </button>
                             </div>
-                        </div>
+                        </form>
                         
                     </div>
                 )}

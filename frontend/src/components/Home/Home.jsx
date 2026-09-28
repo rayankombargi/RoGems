@@ -1,9 +1,9 @@
 import './Home.css';
 import { useState, useEffect } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { motion } from 'framer-motion';
 import NavBar from '../NavBar/NavBar';
+import { getCached } from '../../utils/apiCache';
 
 function Home() {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Home() {
     const [experiences, setExperiences] = useState([]);
     const fetchExperiences = async () => {
         try {
-            const response = await axios.get('/api/experiences/fetch_experiences/');
+            const response = await getCached('/api/experiences/fetch_experiences/');
             setExperiences(response.data);
         } catch (error) {
             console.error('Error fetching experiences:', error);
@@ -30,7 +30,7 @@ function Home() {
     const [requests, setRequests] = useState([]);
     const fetchRequests = async () => {
         try {
-            const response = await axios.get('/api/requests/fetch_experience_requests/');
+            const response = await getCached('/api/requests/fetch_experience_requests/');
             setRequests(response.data);
         } catch (error) {
             console.error('Error fetching requests:', error);
@@ -40,7 +40,7 @@ function Home() {
     const [acceptedRequests, setAcceptedRequests] = useState(0);
     const fetchAcceptedRequests = async () => {
         try {
-            const response = await axios.get('/api/stats/get_stats/');
+            const response = await getCached('/api/stats/get_stats/');
             const stats = response.data;
             setAcceptedRequests(stats.total_accepted_requests);
         } catch (error) {

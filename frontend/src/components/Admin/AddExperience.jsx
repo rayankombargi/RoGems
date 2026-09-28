@@ -58,14 +58,24 @@ function AddExperience({experiences, fetchExperiences}) {
         setSelectedURL('');
     }
 
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.currentTarget.querySelector('button[type="submit"]')?.click();
+        }
+    }
+
     return (
         <div className='add-experience'>
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <div className='exp-count'>Experience Count: {experiences.length}</div>
-            <div className='add-exp-form'>
+            <form className='add-exp-form' onSubmit={(event) => {
+                event.preventDefault();
+                addExperience();
+            }} onKeyDown={handleEnterKey}>
                 <input type='url' className='add-exp-form-input' placeholder='insert experience url' onChange={(e) => setSelectedURL(e.target.value)} value={selectedURL}/>
-                <button className='add-exp-form-button' onClick={() => addExperience()}>Insert</button>
-            </div>
+                <button type='submit' className='add-exp-form-button'>Insert</button>
+            </form>
         </div>
         
     );

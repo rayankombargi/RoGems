@@ -20,14 +20,25 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
         setPassword(event.target.value);
     }
 
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.currentTarget.querySelector('button[type="submit"]')?.click();
+        }
+    }
+
     const login = async (e) => {
         e.preventDefault();
         try {
             if (sessionTime > 0) {
-                await axios.get('/api/auth/get_csrf_token/');
+                const csrfResponse = await axios.get('/api/auth/get_csrf_token/');
                 await axios.post('/api/auth/login/', {
                     username,
                     password
+                }, {
+                    headers: {
+                        'X-CSRFToken': csrfResponse.data.csrfToken,
+                    },
                 });
             } else {
                 setNotDetails({ message: "Session expired. Please refresh the page and log in again", status: "error" });
@@ -59,7 +70,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <NavBar/>
             <div className='login-container'>
-                <motion.div
+                        <motion.div
                     initial={{ opacity: 0, scale: 0.7 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 1, scale: 0 }}
@@ -67,9 +78,11 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
                     className='login-header'
                 >
                     <h1>Admin Login</h1>
-                </motion.div>
+                        </motion.div>
                 <div className='login-content'>
-                    <motion.div 
+                    <motion.form
+                        onSubmit={login}
+                        onKeyDown={handleEnterKey}
                         initial={{ opacity: 0, scale: 0.7 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 1, scale: 0 }}
@@ -87,8 +100,8 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
                             />
                             Show Password
                         </label>
-                        <button onClick={login} className='login-button'>Login</button>
-                    </motion.div>
+                        <button type='submit' className='login-button'>Login</button>
+                    </motion.form>
                 </div>
             </div>
         </div>

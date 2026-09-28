@@ -21,6 +21,13 @@ function Services() {
         setUsername(event.target.value);
     }
 
+    const handleEnterKey = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.currentTarget.querySelector('button[type="submit"]')?.click();
+        }
+    }
+
     const [requests, setRequests] = useState([]);
     const [maxRequests, setMaxRequests] = useState(50);
     const getExperienceRequests = async () => {
@@ -69,7 +76,8 @@ function Services() {
         setExperienceURLRequest('');
     }
 
-    const CheckIfAlreadyExists = async () => {
+    const CheckIfAlreadyExists = async (event) => {
+        event?.preventDefault();
         try {
             const response = await axios.get('/api/experiences/fetch_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
@@ -159,11 +167,11 @@ function Services() {
                                 <p style={{color: '#ff0000ff', fontWeight: 'bold',}}>Experiences containing inappropriate themes are prohibited and will be rejected.</p>
 
                                 <h3 style={{color: 'white', marginTop: '30px',}}>Pending Requests: {requests.length}/{maxRequests}</h3>
-                                <div className='request-ui'>
+                                <form className='request-ui' onSubmit={CheckIfAlreadyExists} onKeyDown={handleEnterKey}>
                                     <input type="text" placeholder="RBLX Username (Optional)" value={Username} onChange={handleUsernameChange} className="username-input"/>
                                     <input type="text" placeholder="Experience URL" value={experienceURLRequest} onChange={handleExperienceURLRequestChange} className="experience-input"/>
-                                    <button onClick={CheckIfAlreadyExists} className='insert-button'>Submit</button>                     
-                                </div>
+                                    <button type='submit' className='insert-button'>Submit</button>
+                                </form>
                             </div>
                         </div>
                     </motion.div>

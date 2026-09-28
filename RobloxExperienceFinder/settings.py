@@ -11,15 +11,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-# from dotenv import load_dotenv
-from urllib.parse import urlparse, parse_qsl
+from dotenv import load_dotenv
 from pathlib import Path
 import dj_database_url
 
-# load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +30,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-$+6sbe^0sx^)xy8tg+kyl
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 # Configure ALLOWED_HOSTS for both development and production
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+configured_hosts = os.environ.get('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in configured_hosts.split(',')
+    if host.strip()
+] if configured_hosts else ['localhost', '127.0.0.1']
 
 # Always allow the specific Render domain
 ALLOWED_HOSTS.extend([
@@ -41,7 +44,7 @@ ALLOWED_HOSTS.extend([
 ])
 
 # If ALLOWED_HOSTS env var is set to *, allow all hosts
-if os.environ.get('ALLOWED_HOSTS') == '*':
+if configured_hosts == '*':
     ALLOWED_HOSTS = ['*']
 
 # Add Render domain if RENDER_EXTERNAL_URL is available
@@ -122,20 +125,6 @@ DATABASES = {
     )
 }
 
-# tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': tmpPostgres.path.replace('/', ''),
-#         'USER': tmpPostgres.username,
-#         'PASSWORD': tmpPostgres.password,
-#         'HOST': tmpPostgres.hostname,
-#         'PORT': 5432,
-#         'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -210,3 +199,10 @@ if not DEBUG:
     RENDER_DOMAIN = os.environ.get('RENDER_EXTERNAL_URL', 'https://rogems.onrender.com')
     CORS_ALLOWED_ORIGINS.append(RENDER_DOMAIN)
     CSRF_TRUSTED_ORIGINS.append(RENDER_DOMAIN)
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
