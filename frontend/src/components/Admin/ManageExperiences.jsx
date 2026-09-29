@@ -78,6 +78,42 @@ function ManageExperiences({experiences, fetchExperiences}) {
         }
     }
 
+    const handleUpdateAllExperiences = async () => {
+        try {
+            for (const experience of experiences) {
+                if (experience.url) {
+                    const {id, url} = experience;
+                    const fetchResponse = await axios.get('/api/experiences/fetch_data/', {params: {url: url}});
+                    const {game_data, icon} = fetchResponse.data;
+
+                    const response = await axios.put(`/api/experiences/update/${id}/`, {
+                        rootPlaceId: game_data.rootPlaceId,
+                        name: game_data.name,
+                        url: url,
+                        creator: game_data.creator.name,
+                        description: game_data.description,
+                        genre: game_data.genre,
+                        genre_l1: game_data.genre_l1,
+                        genre_l2: game_data.genre_l2,
+                        maxPlayers: game_data.maxPlayers,
+                        created: game_data.created,
+                        icon : icon,
+                    })
+
+                    if (response.status === 200) {
+                        fetchExperiences();
+                    }                
+                }
+            }
+            setNotDetails({message: "Experiences updated successfully", status: "success"});
+            setNotification(true);
+        } catch(error) {
+            console.error("Error updating all experiences:", error);
+            setNotDetails({message: "Error updating all experiences", status: "error"});
+            setNotification(true);
+        }
+    }
+
     const handleDeleteExperience = async (id) => {
         try {
             const response = await axios.delete(`/api/experiences/delete/${id}/`);
@@ -107,6 +143,7 @@ function ManageExperiences({experiences, fetchExperiences}) {
                     <div className='see-experiences'>
                         <div className='exp-count'>Experience Count: {experiences.length}</div> 
                         <button className='refresh-button' onClick={() => {fetchExperiences();}}>Refresh</button>
+                        <button className='update-all-button' onClick={() => {handleUpdateAllExperiences();}}>Update All</button>
                     </div>
                     <div className='experiences-filters'>
                         <select className='experiences-per-page-select' 
