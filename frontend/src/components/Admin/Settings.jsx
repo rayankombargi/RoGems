@@ -8,6 +8,7 @@ function Settings({admin, getAdmin}) {
     const [currentAdmin, setCurrentAdmin] = useState(admin);
     const [newName, setNewName] = useState(currentAdmin.username);
     const [newPass, setNewPass] = useState('');
+    const [newPassConfirm, setNewPassConfirm] = useState('');
     const [currPass, setCurrPass] = useState('');
     const [isConfirming, setIsConfirming] = useState(false);
     const [notification, setNotification] = useState(false);
@@ -43,6 +44,7 @@ function Settings({admin, getAdmin}) {
             setCurrPass('');
         }
         setNewPass('');
+        setNewPassConfirm('');
         setNewName(newName || currentAdmin.username);
     }
 
@@ -54,6 +56,11 @@ function Settings({admin, getAdmin}) {
                 });
                 
                 if (response.status === 200) {
+                    if (newPass !== newPassConfirm) {
+                        setNotDetails({ message: "New password and confirmation do not match", status: "error" });
+                        setNotification(true);
+                        return;
+                    }
                     setNotDetails({ message: "Admin settings updated successfully", status: "success" });
                     setNotification(true);
                     updateAdmin();
@@ -97,14 +104,21 @@ function Settings({admin, getAdmin}) {
                     onChange={(e) => setNewName(e.target.value)} value={newName} 
                     placeholder='new username'
                 />
-                <input type='password' className='settings-password-input' 
+                <input type='password' className='new-password-input' 
                     onChange={(e) => setNewPass(e.target.value)} value={newPass}
                     placeholder='new password'
                 />
+                <input type='password' className='confirm-password-input' 
+                    onChange={(e) => setNewPassConfirm(e.target.value)} value={newPassConfirm}
+                    placeholder='Confirme new password'
+                />
                 <div className='show-password-container'>
                     <input type='checkbox' className='show-password-checkbox' onChange={() => {
-                        const passwordInput = document.querySelector('.settings-password-input');
-                        passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
+                        const newPassInput = document.querySelector('.new-password-input');
+                        newPassInput.type = (newPassInput.type === 'password') ? 'text' : 'password';
+
+                        const confirmPassInput = document.querySelector('.confirm-password-input');
+                        confirmPassInput.type = (confirmPassInput.type === 'password') ? 'text' : 'password';
                     }}/>
                     <label className='show-password-label'>Show Password</label>
                 </div>
@@ -119,13 +133,13 @@ function Settings({admin, getAdmin}) {
                         }} onKeyDown={handleEnterKey}>
                             <h2>Confirmation</h2>
                             <p>Enter your current password to confirm changes.</p>
-                            <input type='password' className='confirm-password-input' 
+                            <input type='password' className='verify-password-input' 
                                 onChange={(e) => setCurrPass(e.target.value)} value={currPass}
                                 placeholder='password'
                             />
                             <div className='show-password-container'>
                                 <input type='checkbox' className='show-password-checkbox' onChange={() => {
-                                    const passwordInput = document.querySelector('.confirm-password-input');
+                                    const passwordInput = document.querySelector('.verify-password-input');
                                     passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
                                 }}/>
                                 <label className='show-password-label'>Show Password</label>
@@ -137,6 +151,7 @@ function Settings({admin, getAdmin}) {
                                     setIsConfirming(false);
                                     setCurrPass('');
                                     setNewPass('');
+                                    setNewPassConfirm('');
                                     setNewName(currentAdmin.username);
                                 }}> Cancel </button>
                             </div>

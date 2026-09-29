@@ -35,7 +35,7 @@ function ExperiencePage({experience, onClose}) {
     }
 
     return (
-        <div className="modal-overlay" style={{ backdropFilter: "blur(8px)" }}>
+        <div className="modal-overlay" style={{ backdropFilter: "blur(8px)", zIndex: "10000" }}>
             <motion.div
                 initial={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
