@@ -142,7 +142,7 @@
         width: 100%;
     }
 
-    .settings-username-input, .settings-password-input, .confirm-password-input {
+    .settings-username-input, .settings-password-input, .confirm-password-input, .new-password-input, .verify-password-input {
         width: 90%;
     }
 
