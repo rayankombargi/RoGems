@@ -60,7 +60,7 @@
     box-shadow: black;
     border-radius: 8px;
     height: 40px;
-    width: 85px;      
+    width: auto;      
     font-size: 20px;
     cursor: pointer;
     text-decoration: none;

@@ -1,0 +1,41 @@
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 14px;
+}
+
+/* Old Roblox style: three square dots lighting up one after another */
+.loading-dot {
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    opacity: 0.2;
+    animation: loading-blink 1.2s infinite;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loading-blink {
+    0%, 60%, 100% {
+        opacity: 0.2;
+    }
+
+    30% {
+        opacity: 1;
+    }
+}

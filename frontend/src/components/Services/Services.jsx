@@ -1,6 +1,7 @@
 import './Services.css';
 import NavBar from '../NavBar/NavBar';
 import NotBar from '../NotBar/NotBar';
+import Loading from '../Loading/Loading';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from 'react-router-dom';
 import axios from 'axios';
@@ -10,6 +11,7 @@ function Services() {
 
     const [notification, setNotification] = useState(false);
     const [notDetails, setNotDetails] = useState({});
+    const [loading, setLoading] = useState(false);
     const [experienceURLRequest, setExperienceURLRequest] = useState('');
 
     const handleExperienceURLRequestChange = (event) => {
@@ -78,6 +80,7 @@ function Services() {
 
     const CheckIfAlreadyExists = async (event) => {
         event?.preventDefault();
+        setLoading(true);
         try {
             const response = await axios.get('/api/experiences/fetch_data/', {params: {url: experienceURLRequest}});
             if (response.status === 200) {
@@ -119,8 +122,9 @@ function Services() {
             setNotDetails({message: "Incorrect Experience URL", status: "error"});
             setNotification(true);
         }
+        setLoading(false);
         setExperienceURLRequest('');
-    }   
+    }
 
     // background image
 
@@ -128,6 +132,7 @@ function Services() {
 
     return (
         <div className="services">
+            {loading && <Loading />}
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <NavBar />
             <div className="services-background" 

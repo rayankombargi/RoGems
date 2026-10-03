@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import axios from 'axios';
 import NotBar from '../NotBar/NotBar';
+import Loading from '../Loading/Loading';
 
 function ManageExperiences({experiences, fetchExperiences}) {
     const [sortBy, setSortBy] = useState('latest');
@@ -13,6 +14,7 @@ function ManageExperiences({experiences, fetchExperiences}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [notification, setNotification] = useState(false);
     const [NotDetails, setNotDetails] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setTotalPages(Math.ceil(experiences.length / experiencesPerPage));   
@@ -44,6 +46,7 @@ function ManageExperiences({experiences, fetchExperiences}) {
     }, [experiences, sortBy, currentPage, experiencesPerPage, searchTerm]);
 
     const handleUpdateExperience = async (id, url) => {
+        setLoading(true);
         try {
             if (url) {
                 const fetchResponse = await axios.get('/api/experiences/fetch_data/', {params: {url: url}});
@@ -75,10 +78,13 @@ function ManageExperiences({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error updating experience:", error);
+        } finally {
+            setLoading(false);
         }
     }
 
     const handleUpdateAllExperiences = async () => {
+        setLoading(true);
         try {
             for (const experience of experiences) {
                 if (experience.url) {
@@ -111,10 +117,13 @@ function ManageExperiences({experiences, fetchExperiences}) {
             console.error("Error updating all experiences:", error);
             setNotDetails({message: "Error updating all experiences", status: "error"});
             setNotification(true);
+        } finally {
+            setLoading(false);
         }
     }
 
     const handleDeleteExperience = async (id) => {
+        setLoading(true);
         try {
             const response = await axios.delete(`/api/experiences/delete/${id}/`);
             if (response.status === 204) {
@@ -130,11 +139,14 @@ function ManageExperiences({experiences, fetchExperiences}) {
             console.error("Error deleting experience:", error);
             setNotDetails({message: "Error deleting experience", status: "error"});
             setNotification(true);
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
         <div className='manage-experience'>
+            {loading && <Loading />}
             {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             {experiences.length === 0 ? (
                 <div className='no-experiences'>No experiences found</div>

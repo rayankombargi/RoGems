@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import NotBar from '../NotBar/NotBar';
+import Loading from '../Loading/Loading';
 
 function Settings({admin, getAdmin}) {
     const [currentAdmin, setCurrentAdmin] = useState(admin);
@@ -13,6 +14,7 @@ function Settings({admin, getAdmin}) {
     const [isConfirming, setIsConfirming] = useState(false);
     const [notification, setNotification] = useState(false);
     const [notDetails, setNotDetails] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const handleEnterKey = (event) => {
         if (event.key === 'Enter') {
@@ -49,6 +51,7 @@ function Settings({admin, getAdmin}) {
     }
 
     const checkPassword = async () => {
+        setLoading(true);
         try {
             if (currPass) {
                 const response = await axios.post(`/api/auth/verify_admin_password/${currentAdmin.id}/`, {
@@ -63,7 +66,7 @@ function Settings({admin, getAdmin}) {
                     }
                     setNotDetails({ message: "Admin settings updated successfully", status: "success" });
                     setNotification(true);
-                    updateAdmin();
+                    await updateAdmin();
 
                     setCurrPass('');
                     setIsConfirming(false);
@@ -81,6 +84,8 @@ function Settings({admin, getAdmin}) {
             console.error("Error confirming admin update:", error);
             setNotDetails({ message: "Failed to confirm admin update", status: "error" });
             setNotification(true);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -94,6 +99,7 @@ function Settings({admin, getAdmin}) {
             transition={{ duration: 0.8 }}   
             className='panel-settings'
         >
+            {loading && <Loading />}
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <h1>Settings</h1>
                 <form className='settings-content' onSubmit={(event) => {

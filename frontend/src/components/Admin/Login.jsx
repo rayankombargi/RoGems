@@ -1,5 +1,6 @@
 import './Login.css';
 import NotBar from '../NotBar/NotBar';
+import Loading from '../Loading/Loading';
 import { useState, useEffect } from 'react';
 import {motion} from 'framer-motion';
 import axios from 'axios';
@@ -12,6 +13,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
     const [password, setPassword] = useState('');
     const [notification, setNotification] = useState(false);
     const [notDetails, setNotDetails] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const updateUsername = (event) => {
         setUsername(event.target.value);
@@ -29,6 +31,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
 
     const login = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             if (sessionTime > 0) {
                 const csrfResponse = await axios.get('/api/auth/get_csrf_token/');
@@ -50,6 +53,8 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
             console.error("Login failed:", error);
             setNotDetails({ message: "Login failed. Please check your credentials", status: "error" });
             setNotification(true);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -67,6 +72,7 @@ function Login({getAdmin, isAuthenticated, sessionTime, setSessionTime}) {
 
     return (
         <div className='Login'>
+            {loading && <Loading />}
             {notification && <NotBar message={notDetails.message} status={notDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             <NavBar/>
             <div className='login-container'>

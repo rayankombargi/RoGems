@@ -8,7 +8,7 @@ class Experience(models.Model):
     rootPlaceId = models.BigIntegerField(unique=True, default=0)
     name = models.CharField(max_length=255)
     url = models.URLField()
-    creator = models.CharField(max_length=20, default="Unknown")
+    creator = models.CharField(max_length=255, default="Unknown")
     description = models.TextField(null=True, blank=True)
     genre = models.CharField(max_length=255, default="All")
     genre_l1 = models.CharField(max_length=255, null=True, blank=True)
