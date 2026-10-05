@@ -2,6 +2,7 @@ import re
 
 import requests
 from django.core.management.base import BaseCommand, CommandError
+from django.db import DatabaseError
 
 from api.models import Experience
 
@@ -19,7 +20,7 @@ class Command(BaseCommand):
 				self.update_experience(experience)
 				updated_count += 1
 				self.stdout.write(f'Updated experience: {experience.name}')
-			except (KeyError, IndexError, ValueError, requests.RequestException) as error:
+			except (KeyError, IndexError, ValueError, requests.RequestException, DatabaseError) as error:
 				failed_experiences.append(f'{experience.id} ({experience.name}): {error}')
 				self.stderr.write(self.style.WARNING(
 					f'Failed to update {experience.name}: {error}'
@@ -73,12 +74,12 @@ class Command(BaseCommand):
 			rootPlaceId=game_data['rootPlaceId'],
 			name=game_data['name'],
 			url=experience.url,
-			creator=creator.get('name', experience.creator),
+			creator=creator.get('name') or experience.creator,
 			description=game_data.get('description'),
-			genre=game_data.get('genre', experience.genre),
+			genre=game_data.get('genre') or experience.genre,
 			genre_l1=game_data.get('genre_l1'),
 			genre_l2=game_data.get('genre_l2'),
-			maxPlayers=game_data.get('maxPlayers', experience.maxPlayers),
+			maxPlayers=game_data.get('maxPlayers') or experience.maxPlayers,
 			created=game_data.get('created', experience.created),
 			icon=icon,
 		)
