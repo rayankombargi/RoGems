@@ -17,12 +17,17 @@ function Panel({currentAdmin, getAdmin}) {
     const [notification, setNotification] = useState(false);
     const [notDetails, setNotDetails] = useState({});
 
+    const [experiencesFetching, setExperiencesFetching] = useState(true);
+
     const fetchExperiences = async () => {
+        setExperiencesFetching(true);
         try {
             const res = await axios.get('/api/experiences/fetch_experiences/');
             setExperiences(res.data);
         } catch (e) {
             console.error("Error fetching experiences:", e);
+        } finally {
+            setExperiencesFetching(false);
         }
     };
 
@@ -82,7 +87,7 @@ function Panel({currentAdmin, getAdmin}) {
                                     <div className='data-table'>
                                         {action === "Requests" && <ManageTickets experiences={experiences} fetchExperiences={fetchExperiences}/>}
                                         {action === "addExperience" && <AddExperience experiences={experiences} fetchExperiences={fetchExperiences}/>}
-                                        {action === "manageExperiences" && <ManageExperiences experiences={experiences} fetchExperiences={fetchExperiences}/>}
+                                        {action === "manageExperiences" && <ManageExperiences experiences={experiences} fetchExperiences={fetchExperiences} fetching={experiencesFetching}/>}
                                     </div>
                                 </>
                             )}

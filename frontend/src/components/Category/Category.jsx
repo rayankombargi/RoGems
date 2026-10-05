@@ -2,7 +2,7 @@ import './Category.css';
 import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useEffect, useState } from 'react';
 
-function Category({experiences, genre, onSelectExperience}) {
+function Category({experiences, genre, onSelectExperience, loading}) {
 
     const [filteredExperiences, setFilteredExperiences] = useState([]);
 
@@ -35,7 +35,7 @@ function Category({experiences, genre, onSelectExperience}) {
                     </div>
                 ) : (
                     <div className='empty-list'>
-                        <h2 > No experiences found </h2>
+                        <h2 > {loading ? 'Loading...' : 'No experiences found'} </h2>
                     </div>
                 )}
             </div>

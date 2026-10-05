@@ -2,7 +2,7 @@ import './Category.css';
 import ExperienceItem from '../ExperienceItem/ExperienceItem';
 import { useState, useEffect } from 'react';
 
-function DailyCategory({ experiences, onSelectExperience }) {
+function DailyCategory({ experiences, onSelectExperience, loading }) {
 
     const handleSelectExperience = (experience_id) => {
         onSelectExperience(experience_id);
@@ -25,7 +25,7 @@ function DailyCategory({ experiences, onSelectExperience }) {
                     </div>
                 ) : (
                     <div className='empty-list'>
-                        <h2 > No experiences found </h2>
+                        <h2 > {loading ? 'Loading...' : 'No experiences found'} </h2>
                     </div>
                 )}
             </div>

@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import axios from 'axios';
 import NotBar from '../NotBar/NotBar';
+import Loading from '../Loading/Loading';
 
 function ManageTickets({experiences, fetchExperiences}) {
 
@@ -11,7 +12,11 @@ function ManageTickets({experiences, fetchExperiences}) {
     const [notification, setNotification] = useState(false);
     const [NotDetails, setNotDetails] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(true);
+
     const fetchtickets = async () => {
+        setFetching(true);
         try {
             const response = await axios.get('/api/requests/fetch_experience_requests/')
             if (response.status === 200) {
@@ -21,10 +26,13 @@ function ManageTickets({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error fetching tickets:", error);
+        } finally {
+            setFetching(false);
         }
     }
 
     const addExperience = async (id, selectedURL) => {
+        setLoading(true);
         try {
             if (selectedURL) {
                 const fetchResponse = await axios.get('/api/experiences/fetch_data/', {params: {url: selectedURL}});
@@ -61,10 +69,13 @@ function ManageTickets({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error inserting experience:", error);
+        } finally {
+            setLoading(false);
         }
     }
 
     const deleteTicket = async (id) => {
+        setLoading(true);
         try {
             const response = await axios.delete(`/api/requests/delete_experience_request/${id}/`);
             if (response.status === 204) {
@@ -77,6 +88,8 @@ function ManageTickets({experiences, fetchExperiences}) {
             }
         } catch(error) {
             console.error("Error deleting ticket:", error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -134,8 +147,9 @@ function ManageTickets({experiences, fetchExperiences}) {
     return (
         <div className='manage-tickets'>
             {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
+            {loading && <Loading />}
             {tickets.length === 0 ? (
-                <h1 className='no-tickets'>No tickets available</h1>
+                <h1 className='no-tickets'>{fetching ? 'Loading...' : 'No tickets available'}</h1>
             ) : (
                 <div className='manage-tickets-panel'>
                     <div className='see-tickets'>

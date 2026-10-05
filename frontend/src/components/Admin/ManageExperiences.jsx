@@ -5,7 +5,7 @@ import axios from 'axios';
 import NotBar from '../NotBar/NotBar';
 import Loading from '../Loading/Loading';
 
-function ManageExperiences({experiences, fetchExperiences}) {
+function ManageExperiences({experiences, fetchExperiences, fetching}) {
     const [sortBy, setSortBy] = useState('latest');
     const [sortedExperiences, setSortedExperiences] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -149,7 +149,7 @@ function ManageExperiences({experiences, fetchExperiences}) {
             {loading && <Loading />}
             {notification && <NotBar message={NotDetails.message} status={NotDetails.status} setNotification={setNotification} setNotDetails={setNotDetails}/>}
             {experiences.length === 0 ? (
-                <div className='no-experiences'>No experiences found</div>
+                <div className='no-experiences'>{fetching ? 'Loading...' : 'No experiences found'}</div>
             ) : (
                 <div className='manage-experience-panel'>
                     <div className='see-experiences'>

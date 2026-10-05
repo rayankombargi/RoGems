@@ -22,12 +22,16 @@ function Search() {
     const [ year, setYear ] = useState('All');
     const [sortBy, setSortBy] = useState('Ascending Added');
 
+    const [ experiencesLoading, setExperiencesLoading ] = useState(true);
+
     const fetchExperiences = async () => {
         try {
             const response = await getCached('/api/experiences/fetch_experiences/');
             setExperiences(response.data)
         } catch(error) {
             console.error("Error fetching experiences:", error)
+        } finally {
+            setExperiencesLoading(false);
         }
     }
     const fetchCategories = async () => {
@@ -305,7 +309,7 @@ function Search() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <p>No experiences found</p>
+                                    <p>{experiencesLoading ? 'Loading...' : 'No experiences found'}</p>
                                 )
                             }
 

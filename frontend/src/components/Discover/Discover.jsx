@@ -14,12 +14,17 @@ function Discover() {
     const [experiences, setExperiences] = useState([]);
     const [dailyExperiences, setDailyExperiences] = useState([]);
 
+    const [experiencesLoading, setExperiencesLoading] = useState(true);
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
+
     const fetchExperiences = async () => {
         try {
             const response = await getCached('/api/experiences/fetch_experiences/');
             setExperiences(response.data);
         } catch(error) {
             console.error('Error fetching experiences:', error);
+        } finally {
+            setExperiencesLoading(false);
         }
     }
 
@@ -44,6 +49,8 @@ function Discover() {
             setCategories(response.data);
         } catch(error) {
             console.error('Error fetching categories:', error);
+        } finally {
+            setCategoriesLoading(false);
         }
     }
     useEffect(() => {
@@ -100,7 +107,7 @@ function Discover() {
                             transition={{ duration: 0.8 }}
                             className='empty-category-set'
                         >
-                            <h2> No categories found </h2>
+                            <h2> {categoriesLoading ? 'Loading...' : 'No categories found'} </h2>
                         </motion.div>
                     ) : (
                         <>
@@ -140,6 +147,7 @@ function Discover() {
                                                     key={category.name}
                                                     experiences={experiences} 
                                                     genre={category.name}
+                                                    loading={experiencesLoading}
                                                     onSelectExperience={(experience_id) => handleSelectExperience(experience_id)}
                                                 />
                                             )
